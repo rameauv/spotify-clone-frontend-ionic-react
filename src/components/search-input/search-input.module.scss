@@ -1,0 +1,32 @@
+@import "src/design-system/styles/variables";
+
+.container {
+  @include font-p1;
+  background-color: var(--app-color-gray-2);
+  padding: 16px;
+  display: flex;
+}
+
+.input {
+  color: var(--app-color-text-secondary);
+  caret-color: var(--app-color-green-1);
+  margin-right: auto;
+}
+
+.backButton {
+  margin-right: 16px;
+}
+
+.backButton:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+}
+
+.closeButton {
+
+}
+
+.closeButton:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+}

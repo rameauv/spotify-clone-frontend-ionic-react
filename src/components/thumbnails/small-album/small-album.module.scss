@@ -1,0 +1,19 @@
+@import "../../../design-system/styles/variables";
+
+.container:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+}
+
+.image {
+  max-width: 6rem;
+  max-height: 6rem;
+  min-width: 6rem;
+  min-height: 6rem;
+  margin-bottom: 4px;
+}
+
+.text {
+  @include font-p2;
+  @include font-bold;
+}

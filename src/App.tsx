@@ -1,19 +1,20 @@
-import { Redirect, Route } from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact
+    IonApp,
+    IonIcon,
+    IonLabel,
+    IonProgressBar,
+    IonRouterOutlet,
+    IonTabBar,
+    IonTabButton,
+    IonTabs,
+    setupIonicReact
 } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import {IonReactRouter} from '@ionic/react-router';
+import {heart, heartOutline, homeSharp, library, pause, play, searchSharp} from 'ionicons/icons';
+import Home from './pages/Home/home';
+import Search from './pages/search/search';
+import Library from './pages/library/library';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,44 +34,103 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './design-system/styles/style.scss'
+import SearchModal from "./components/search-modal/search-modal";
+import Song from "./pages/song/song";
+import React, {useState} from 'react';
+
+import styles from './App.module.scss';
+
 
 setupIonicReact();
+export const SongPathContext = React.createContext('');
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square} />
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+    const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
+    const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
+    const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
+    return (
+        <IonApp className={styles.container}>
+            <div className={styles.player}>
+                <div className={styles.playerContainer}>
+                    <img className={styles.thumbnail} src={defaultImage}/>
+                    <div className={styles.titlesContainer}>
+                        <p className={styles.playerTitle}>Je te donne</p>
+                        <p className={styles.playerArtist}>Jean-jaques goldman</p>
+                    </div>
+                    {
+                        isCurrentSongLiked ?
+                            <IonIcon className={styles.heartButtonActivated} icon={heart}
+                                     onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
+                            <IonIcon className={styles.heartButton} icon={heartOutline}
+                                     onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
+                    }
+                    {
+                        isCurrentSongPlaying ?
+                            <IonIcon className={styles.playButton} icon={pause}
+                                     onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
+                            <IonIcon className={styles.playButton} icon={play}
+                                     onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
+                    }
+                </div>
+                <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
+            </div>
+            <IonReactRouter>
+                <IonTabs>
+                    <IonRouterOutlet>
+                        <Route exact path="/tab1">
+                            <Home/>
+                        </Route>
+                        <Route path="/tab2" render={({match, history}) => {
+                            return (
+                                <SongPathContext.Provider value={`${match.url}/song`}>
+                                    <IonRouterOutlet>
+                                        <Route exact path={match.url} component={Search}/>
+                                        <Route path={`${match.url}/song`} component={Song}/>
+                                        <Route path={`${match.url}/test`}>
+                                            <SearchModal songPath="/tab2/song"/>
+                                        </Route>
+                                    </IonRouterOutlet>
+                                </SongPathContext.Provider>
+                            );
+                        }}>
+                        </Route>
+                        <Route path="/tab3" render={({match, history}) => {
+                            return (
+                                <SongPathContext.Provider value={`${match.url}/song`}>
+                                    <IonRouterOutlet>
+                                        <Route exact path={match.url} component={Library}/>
+                                        <Route path={`${match.url}/song`} component={Song}/>
+                                    </IonRouterOutlet>
+                                </SongPathContext.Provider>
+                            );
+                        }}>
+                        </Route>
+                        <Route exact path="/tab3/song">
+                            <Song/>
+                        </Route>
+                        <Route exact path="/">
+                            <Redirect to="/tab1"/>
+                        </Route>
+                    </IonRouterOutlet>
+                    <IonTabBar className={styles.ionTabBar} slot="bottom">
+                        <IonTabButton tab="tab1" href="/tab1">
+                            <IonIcon icon={homeSharp}/>
+                            <IonLabel>Home</IonLabel>
+                        </IonTabButton>
+                        <IonTabButton tab="tab2" href="/tab2">
+                            <IonIcon icon={searchSharp}/>
+                            <IonLabel>Search</IonLabel>
+                        </IonTabButton>
+                        <IonTabButton tab="tab3" href="/tab3">
+                            <IonIcon icon={library}/>
+                            <IonLabel>Your library</IonLabel>
+                        </IonTabButton>
+                    </IonTabBar>
+                </IonTabs>
+            </IonReactRouter>
+        </IonApp>
+    )
+};
 
 export default App;

@@ -1,0 +1,54 @@
+.header {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  display: flex;
+  padding-top: 32px;
+  padding-bottom: 24px;
+  align-items: center;
+  background: var(--ion-background-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.profileIcon {
+  margin-right: 16px;
+  background: brown;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}
+
+.tags {
+  display: flex;
+  position: sticky;
+  padding-bottom: 8px;
+  background: var(--ion-background-color);
+  top: 52px;
+  box-shadow: 0px 0px 5px black;
+}
+
+.tags > *:first-child {
+  margin-left: var(--page-padding);
+}
+
+.tags > *:last-child {
+  margin-right: var(--page-padding);
+}
+
+.tags > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.results {
+  margin-left: var(--page-padding);
+  margin-right: var(--page-padding);
+}
+
+.results > * {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}

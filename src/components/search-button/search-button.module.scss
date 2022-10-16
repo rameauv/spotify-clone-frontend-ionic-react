@@ -1,0 +1,14 @@
+@import "src/design-system/styles/variables";
+
+.container {
+  @include font-p1;
+  background-color: var(--app-color-text-1);
+  border-radius: 4px;
+  color: var(--app-color-gray-1);
+  padding: 8px;
+}
+
+.container:active {
+  transform: scale(0.99);
+  transition: transform 100ms;
+}

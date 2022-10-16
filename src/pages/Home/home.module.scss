@@ -1,0 +1,65 @@
+:root {
+  --page-padding: 1rem;
+}
+
+.header {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+  display: flex;
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.rightButtons {
+  height: 20px;
+  width: 20px;
+}
+
+.rightButtons:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+  opacity: 0.5;
+}
+
+.tags {
+  display: flex;
+  overflow-x: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+  position: sticky;
+  top: 0;
+  background: var(--background);
+  white-space: nowrap;
+}
+
+.tags > *:first-child {
+  margin-left: var(--page-padding);
+}
+
+.tags > *:last-child {
+  margin-right: var(--page-padding);
+}
+
+.tags > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.scroller {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 32px;
+}
+
+.scroller > *:first-child {
+  margin-left: var(--page-padding);
+}
+
+.scroller > *:last-child {
+  margin-right: var(--page-padding);
+}
+
+.scroller > *:not(:last-child) {
+  margin-right: 16px;
+}

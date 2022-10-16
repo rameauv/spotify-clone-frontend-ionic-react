@@ -1,0 +1,19 @@
+@import "../../../design-system/styles/variables";
+
+.container:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+}
+
+.image {
+  max-width: 8rem;
+  max-height: 8rem;
+  min-width: 8rem;
+  min-height: 8rem;
+  margin-bottom: 8px;
+}
+
+.text {
+  @include font-p2;
+  color: var(--app-color-text-secondary);
+}

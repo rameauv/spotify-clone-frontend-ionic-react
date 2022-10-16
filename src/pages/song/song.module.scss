@@ -1,0 +1,112 @@
+@import "../../design-system/styles/variables";
+
+:root {
+  --page-padding: 1rem;
+}
+
+.image {
+  max-width: 12rem;
+  max-height: 12rem;
+  min-width: 12rem;
+  min-height: 12rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imageContainer {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.container {
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.title {
+  @include font-h2;
+  @include font-bold;
+  margin-bottom: 16px;
+}
+
+.artist {
+  @include font-p2;
+  margin-bottom: 16px;
+}
+
+.type {
+  @include font-p2;
+  color: var(--app-color-gray-1);
+}
+
+.backButton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.heartButton {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+}
+
+.moreMenuButton {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+}
+
+.heartButtonActivated {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+  color: var(--app-color-green-1);
+}
+
+.menuButton {
+  height: 24px;
+  width: 24px;
+}
+
+.playbutton {
+  margin-left: auto;
+  height: 60px;
+  width: 60px;
+  color: var(--app-color-green-1);
+}
+
+.playbutton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+}
+
+.addToPlaylistButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.addToPlaylistButton {
+  border-color: var(--app-color-text-secondary);
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 15px;
+  border-width: 1px;
+  border-style: solid;
+
+  p {
+    @include font-p1;
+  }
+}
+
+.addToPlaylistButton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+}

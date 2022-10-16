@@ -1,0 +1,22 @@
+@import "src/design-system/styles/variables";
+
+.tags {
+  display: flex;
+  overflow-x: auto;
+  position: sticky;
+  top: 0;
+  background: var(--background);
+  white-space: nowrap;
+}
+
+.tags > *:first-child {
+  margin-left: var(--page-padding);
+}
+
+.tags > *:last-child {
+  margin-right: var(--page-padding);
+}
+
+.tags > *:not(:last-child) {
+  margin-right: 8px;
+}

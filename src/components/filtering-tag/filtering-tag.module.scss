@@ -1,0 +1,24 @@
+@import "src/design-system/styles/variables";
+
+.container {
+  background-color: var(--app-color-gray-2);
+  border-radius: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  @include font-p1;
+}
+
+.container:active {
+  background-color: var(--app-color-gray-3);
+}
+
+.container.activated {
+  background-color: var(--app-color-green-1);
+  color: var(--app-color-text-2);
+}
+
+.container.activated:active {
+  opacity: 0.8;
+}

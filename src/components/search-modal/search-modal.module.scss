@@ -1,0 +1,36 @@
+@import "src/design-system/styles/variables";
+
+.header {
+  position: sticky;
+  top: 0;
+}
+
+.tags {
+  display: flex;
+  overflow-x: auto;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: var(--background);
+  white-space: nowrap;
+}
+
+.tags > *:first-child {
+  margin-left: var(--page-padding);
+}
+
+.tags > *:last-child {
+  margin-right: var(--page-padding);
+}
+
+.tags > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.results {
+  margin-left: var(--page-padding);
+  margin-right: var(--page-padding);
+}
+
+.results > * {
+  margin-bottom: 16px;
+}
