@@ -12,7 +12,7 @@ import {
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import {heart, heartOutline, homeSharp, library, pause, play, searchSharp} from 'ionicons/icons';
-import Home from './pages/Home/home';
+import Home from './pages/home/home';
 import Search from './pages/search/search';
 import Library from './pages/library/library';
 
@@ -35,17 +35,20 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './design-system/styles/style.scss'
-import SearchModal from "./components/search-modal/search-modal";
+import AdvancedSearch from "./pages/advanced-search/advanced-search";
 import Song from "./pages/song/song";
 import React, {useState} from 'react';
 
 import styles from './App.module.scss';
-
+import {StatusBar, Style} from '@capacitor/status-bar';
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
 
 const App: React.FC = () => {
+    StatusBar.setStyle({
+        style: Style.Dark
+    }).catch(console.error);
     const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
     const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
     const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
@@ -75,11 +78,22 @@ const App: React.FC = () => {
                 </div>
                 <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
             </div>
+
+            <div className={styles.chin}></div>
+
             <IonReactRouter>
                 <IonTabs>
                     <IonRouterOutlet>
-                        <Route exact path="/tab1">
-                            <Home/>
+                        <Route path="/tab1" render={({match, history}) => {
+                            return (
+                                <SongPathContext.Provider value={`${match.url}/song`}>
+                                    <IonRouterOutlet>
+                                        <Route exact path={match.url} component={Home}/>
+                                        <Route path={`${match.url}/song`} component={Song}/>
+                                    </IonRouterOutlet>
+                                </SongPathContext.Provider>
+                            );
+                        }}>
                         </Route>
                         <Route path="/tab2" render={({match, history}) => {
                             return (
@@ -88,7 +102,7 @@ const App: React.FC = () => {
                                         <Route exact path={match.url} component={Search}/>
                                         <Route path={`${match.url}/song`} component={Song}/>
                                         <Route path={`${match.url}/test`}>
-                                            <SearchModal songPath="/tab2/song"/>
+                                            <AdvancedSearch songPath="/tab2/song"/>
                                         </Route>
                                     </IonRouterOutlet>
                                 </SongPathContext.Provider>
@@ -106,13 +120,11 @@ const App: React.FC = () => {
                             );
                         }}>
                         </Route>
-                        <Route exact path="/tab3/song">
-                            <Song/>
-                        </Route>
                         <Route exact path="/">
                             <Redirect to="/tab1"/>
                         </Route>
                     </IonRouterOutlet>
+
                     <IonTabBar className={styles.ionTabBar} slot="bottom">
                         <IonTabButton tab="tab1" href="/tab1">
                             <IonIcon icon={homeSharp}/>

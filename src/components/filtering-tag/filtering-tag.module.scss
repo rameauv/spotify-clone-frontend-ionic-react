@@ -3,11 +3,12 @@
 .container {
   background-color: var(--app-color-gray-2);
   border-radius: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  height: 28px;
+  display: flex;
+  align-items: center;
   padding-left: 16px;
   padding-right: 16px;
-  @include font-p1;
+  @include font-p2;
 }
 
 .container:active {

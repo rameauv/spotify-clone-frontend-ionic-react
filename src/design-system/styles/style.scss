@@ -4,6 +4,10 @@
   --ion-background-color: #121212;
 }
 
+body {
+  color: white;
+}
+
 // Spaces
 $spaces: (
         "auto": 'auto',
@@ -125,12 +129,37 @@ input {
   outline-width: initial;
 }
 
+ion-toolbar {
+  --background: #121212;
+  --border-style: none;
 
-.search-modal {
-  height: calc(100vh - 50px);
+  .header-md::after
+  ~ .no-height {
+    height: 0;
+  }
 }
 
-ion-modal.search-modal::part(content) {
-  //position: absolute;
-  //top: 0;
+.header-md::after {
+  height: 0px !important;
+}
+
+ion-toolbar.no-height {
+  height: 0;
+}
+
+
+ion-app > .ion-page {
+  .ion-page > ion-content {
+    --padding-bottom: calc(var(--ion-safe-area-bottom) + var(--page-bottom-padding));
+  }
+}
+
+ion-modal.auto-height-modal {
+  --height: auto;
+
+  .ion-page {
+    position: relative;
+    contain: content;
+    max-height: 90vh;
+  }
 }

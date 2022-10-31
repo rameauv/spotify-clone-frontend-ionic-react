@@ -10,13 +10,22 @@
 }
 
 .tags > *:first-child {
-  margin-left: var(--page-padding);
+  margin-left: var(--page-side-padding);
 }
 
 .tags > *:last-child {
-  margin-right: var(--page-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .tags > *:not(:last-child) {
   margin-right: 8px;
+}
+
+.closeButton {
+  height: 26px;
+  width: 26px;
+  border-radius: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--app-color-text-secondary);
 }

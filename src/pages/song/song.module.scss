@@ -1,9 +1,5 @@
 @import "../../design-system/styles/variables";
 
-:root {
-  --page-padding: 1rem;
-}
-
 .image {
   max-width: 12rem;
   max-height: 12rem;
@@ -20,8 +16,8 @@
 }
 
 .container {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
 }
 
 .title {
@@ -38,6 +34,10 @@
 .type {
   @include font-p2;
   color: var(--app-color-gray-1);
+}
+
+.backButton {
+  margin-left: 1rem;
 }
 
 .backButton:active {

@@ -1,8 +1,10 @@
-import {IonContent, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library.module.scss';
 import Filter, {Tag} from "../../components/filter/filter";
 import React, {useState} from "react";
 import SearchSong from "../../components/thumbnails/search-song/search-song";
+import LibrarySortButton from "../../components/library-sort-button/library-sort-button";
+import {addOutline, searchOutline} from 'ionicons/icons';
 
 const Library: React.FC = (props) => {
     const tags: Tag[] = [
@@ -15,18 +17,29 @@ const Library: React.FC = (props) => {
             id: 'Artists'
         }
     ];
-    console.log(props);
+    const [selectedSort, setSelectedSort] = useState<string | undefined>('most-recent');
     const [selectedTagId, setSelectedTagId] = useState<string | undefined>();
     return (
         <IonPage>
-            <IonContent fullscreen>
-                <div className={styles.header}>
-                    <div className={styles.profileIcon}><p>V</p></div>
-                    <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
-                </div>
+            <IonHeader>
+                <IonToolbar>
+                    <div className={styles.header}>
+                        <div className={styles.profileIcon}><p>V</p></div>
+                        <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
+                        <div className={styles.headerButtons}>
+                            <IonIcon className={styles.headerButton} icon={searchOutline}></IonIcon>
+                            <IonIcon className={styles.headerButton} icon={addOutline}></IonIcon>
+                        </div>
+                    </div>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent fullscreen forceOverscroll={true}>
                 <div className={styles.tags}>
                     <Filter tags={tags} onTagSelected={id => setSelectedTagId(id)}
                             selectedTagId={selectedTagId}></Filter>
+                </div>
+                <div className={styles.filterContainer}>
+                    <LibrarySortButton selectedId={selectedSort} onSelected={(id) => setSelectedSort(id)}/>
                 </div>
                 <div className={styles.results}>
                     <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>

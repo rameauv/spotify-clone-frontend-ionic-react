@@ -14,8 +14,6 @@ const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x50
 const SearchSong: React.FC<ContainerProps> = ({title, description, imageLink = defaultImage}) => {
     const songPath = useContext(SongPathContext);
     const history = useHistory();
-    console.log(songPath);
-    console.log(history);
 
     return (
         <div onClick={() => history?.push(songPath)} className={styles.container}>

@@ -1,20 +1,16 @@
 @import "../../design-system/styles/variables";
 
-:root {
-  --page-padding: 1rem;
-}
-
 .header {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
   display: flex;
   margin-top: 32px;
   margin-bottom: 24px;
 }
 
 .searchButton {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
   background: var(--background);
   padding-bottom: 8px;
   margin-bottom: 8px;
@@ -23,8 +19,8 @@
 }
 
 .browseAll {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
   @include font-bold;
   @include font-p1;
   margin-bottom: 16px;
@@ -33,8 +29,8 @@
 .categories {
   display: flex;
   flex-wrap: wrap;
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
   margin-left: -8px;
   margin-right: -8px;
 

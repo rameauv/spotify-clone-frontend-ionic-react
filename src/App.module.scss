@@ -9,7 +9,7 @@
 .player {
   position: absolute;
   z-index: 10000;
-  bottom: 50px;
+  bottom: calc(var(--ion-safe-area-bottom) + 50px);
   left: 0;
   right: 0;
   border-radius: 4px;
@@ -76,10 +76,20 @@
 
 .ionTabBar {
   position: absolute;
-  z-index: 10000000;
+  z-index: 2;
   left: 0;
   right: 0;
   bottom: 0;
   --background: linear-gradient(#00000082, black);
   border: none;
+}
+
+.chin {
+  position: absolute;
+  background: black;
+  height: var(--ion-safe-area-bottom);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }

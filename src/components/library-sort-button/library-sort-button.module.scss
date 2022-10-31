@@ -1,0 +1,57 @@
+@import "src/design-system/styles/variables";
+
+.filter {
+  margin-left: var(--page-side-padding);
+  margin-right: var(--page-side-padding);
+  display: flex;
+  align-items: center;
+
+  .filterIcon {
+    margin-right: 0.5rem;
+  }
+
+  .filterLabel {
+    @include font-p2;
+    @include font-bold;
+  }
+}
+
+.filter:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+  color: var(--app-color-text-secondary);
+}
+
+.modalIonContent {
+  --background: var(--app-color-gray-2);
+
+  .modal {
+    padding-bottom: 16px;
+
+    .modalTitle {
+      @include font-h2;
+      @include font-bold;
+      margin-bottom: 32px;
+      margin-left: var(--page-side-padding);
+      margin-right: var(--page-side-padding);
+    }
+
+    .modalItems {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .modalCancelButtonContainer {
+      display: flex;
+      justify-content: center;
+
+      .modalCancelButton {
+        @include font-p1;
+        @include font-bold;
+        color: var(--app-color-text-secondary);
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+      }
+    }
+  }
+}

@@ -1,10 +1,10 @@
-import {IonContent, IonIcon, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
 import styles from './home.module.scss';
 import SmallAlbum from "../../components/thumbnails/small-album/small-album";
 import Playlist from "../../components/thumbnails/playlist/playlist";
 import Album from "../../components/thumbnails/album/album";
 import {notificationsOutline, settingsOutline, timerOutline} from "ionicons/icons";
-import Filter, {Tag} from "../../components/filter/filter";
+import {Tag} from "../../components/filter/filter";
 import {useState} from "react";
 
 
@@ -22,6 +22,7 @@ const Home: React.FC = () => {
     const [selectedTagId, setSelectedTagId] = useState<string | undefined>();
     return (
         <IonPage>
+            <IonHeader><IonToolbar className="no-height"/></IonHeader>
             <IonContent fullscreen>
                 <div className={styles.header}>
                     <p className="app-mr-auto app-font-h2 app-font-bold">Good evening</p>
@@ -35,8 +36,6 @@ const Home: React.FC = () => {
                         <IonIcon className={styles.rightButtons} icon={settingsOutline}></IonIcon>
                     </div>
                 </div>
-                <Filter tags={tags} selectedTagId={selectedTagId}
-                        onTagSelected={tagId => setSelectedTagId(tagId)}></Filter>
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Recently played</p>
                 <div className={styles.scroller}>
                     <SmallAlbum title={'Granps'}></SmallAlbum>

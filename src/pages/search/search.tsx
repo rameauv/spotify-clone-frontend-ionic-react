@@ -1,9 +1,9 @@
-import {IonContent, IonPage, useIonModal, useIonViewWillLeave} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonToolbar, useIonModal, useIonViewWillLeave} from '@ionic/react';
 import './search.module.scss';
 import styles from "./search.module.scss";
 import SearchButton from "../../components/search-button/search-button";
 import SearchCategorie from "../../components/search-categorie/search-categorie";
-import SearchModal from "../../components/search-modal/search-modal";
+import AdvancedSearch from "../advanced-search/advanced-search";
 import {Link, useHistory} from "react-router-dom";
 import {useContext} from "react";
 import {SongPathContext} from "../../App";
@@ -11,7 +11,7 @@ import {SongPathContext} from "../../App";
 const Search: React.FC<any> = () => {
     const songPath = useContext(SongPathContext);
     const history = useHistory();
-    const [present, dismiss] = useIonModal(SearchModal, {
+    const [present, dismiss] = useIonModal(AdvancedSearch, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
         songPath: songPath,
         history: history
@@ -30,6 +30,7 @@ const Search: React.FC<any> = () => {
 
     return (
         <IonPage>
+            <IonHeader><IonToolbar className="no-height"/></IonHeader>
             <IonContent fullscreen>
                 <div className={styles.header}>
                     <p className="app-mr-auto app-font-h2 app-font-bold">Search</p>

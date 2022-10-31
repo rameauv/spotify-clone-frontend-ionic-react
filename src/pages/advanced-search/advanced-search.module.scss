@@ -1,4 +1,4 @@
-@import "src/design-system/styles/variables";
+@import "../../design-system/styles/variables";
 
 .header {
   position: sticky;
@@ -15,11 +15,11 @@
 }
 
 .tags > *:first-child {
-  margin-left: var(--page-padding);
+  margin-left: var(--page-side-padding);
 }
 
 .tags > *:last-child {
-  margin-right: var(--page-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .tags > *:not(:last-child) {
@@ -27,8 +27,8 @@
 }
 
 .results {
-  margin-left: var(--page-padding);
-  margin-right: var(--page-padding);
+  margin-left: var(--page-side-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .results > * {

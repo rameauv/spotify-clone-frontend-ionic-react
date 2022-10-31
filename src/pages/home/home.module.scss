@@ -1,10 +1,8 @@
-:root {
-  --page-padding: 1rem;
-}
+
 
 .header {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
   display: flex;
   margin-top: 32px;
   margin-bottom: 24px;
@@ -34,11 +32,11 @@
 }
 
 .tags > *:first-child {
-  margin-left: var(--page-padding);
+  margin-left: var(--page-side-padding);
 }
 
 .tags > *:last-child {
-  margin-right: var(--page-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .tags > *:not(:last-child) {
@@ -53,11 +51,11 @@
 }
 
 .scroller > *:first-child {
-  margin-left: var(--page-padding);
+  margin-left: var(--page-side-padding);
 }
 
 .scroller > *:last-child {
-  margin-right: var(--page-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .scroller > *:not(:last-child) {

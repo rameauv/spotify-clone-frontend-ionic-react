@@ -1,0 +1,35 @@
+@import "src/design-system/styles/variables";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 4px;
+}
+
+.container:active {
+  background-color: var(--app-color-gray-3);
+}
+
+.label {
+  @include font-p1;
+  @include font-bold;
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+  display: none;
+}
+
+.activated.container {
+  color: var(--app-color-green-1);
+
+  .icon {
+    display: flex;
+  }
+}

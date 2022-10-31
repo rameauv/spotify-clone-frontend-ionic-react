@@ -1,14 +1,28 @@
+@import "src/design-system/styles/variables";
+
 .header {
-  padding-left: var(--page-padding);
-  padding-right: var(--page-padding);
-  display: flex;
   padding-top: 32px;
   padding-bottom: 24px;
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  display: flex;
   align-items: center;
   background: var(--ion-background-color);
   position: sticky;
   top: 0;
   z-index: 10;
+
+  .headerButtons > * {
+    margin-left: 1rem;
+    height: 24px;
+    width: 24px;
+  }
+
+  .headerButtons > *:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
 }
 
 .profileIcon {
@@ -22,33 +36,33 @@
   border-radius: 100%;
 }
 
+.profileIcon:active {
+  transform: scale(0.95);
+  transition: transform 100ms;
+  opacity: 0.5;
+}
+
 .tags {
   display: flex;
   position: sticky;
+  padding-top: 8px;
   padding-bottom: 8px;
   background: var(--ion-background-color);
-  top: 52px;
-  box-shadow: 0px 0px 5px black;
-}
-
-.tags > *:first-child {
-  margin-left: var(--page-padding);
-}
-
-.tags > *:last-child {
-  margin-right: var(--page-padding);
-}
-
-.tags > *:not(:last-child) {
-  margin-right: 8px;
+  top: -36px;
+  box-shadow: 0px 5px 5px -5px black;
+  margin-bottom: 1rem;
 }
 
 .results {
-  margin-left: var(--page-padding);
-  margin-right: var(--page-padding);
+  margin-left: var(--page-side-padding);
+  margin-right: var(--page-side-padding);
 }
 
 .results > * {
   margin-top: 16px;
   margin-bottom: 16px;
+}
+
+.filterContainer {
+  display: flex;
 }
