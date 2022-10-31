@@ -14,12 +14,15 @@
 }
 
 .backButton {
-  margin-right: 16px;
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
 }
 
 .backButton:active {
   transform: scale(0.95);
   transition: transform 100ms;
+  color: var(--app-color-text-secondary);
 }
 
 .closeButton {

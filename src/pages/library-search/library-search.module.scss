@@ -1,0 +1,97 @@
+@import "src/design-system/styles/variables";
+
+.header {
+  padding-top: 32px;
+  padding-bottom: 24px;
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  display: flex;
+  align-items: center;
+  background: var(--ion-background-color);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0px 5px 5px -5px black;
+  margin-bottom: 5px;
+
+  .backButton {
+    height: 24px;
+    width: 24px;
+    margin-right: 1rem;
+  }
+
+  .backButton:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+
+  .searchInput {
+    --background: var(--app-color-gray-2);
+    @include font-p2;
+    @include font-bold;
+    border-radius: 4px;
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+}
+
+.results {
+  margin-left: var(--page-side-padding);
+  margin-right: var(--page-side-padding);
+}
+
+.results > * {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.filterContainer {
+  display: flex;
+}
+
+.noInputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  .noInputContainer__title {
+    @include font-h2;
+    @include font-bold;
+    margin-bottom: 1rem;
+  }
+
+  .noInputContainer__tip {
+    @include font-p2;
+    color: var(--app-color-text-secondary);
+  }
+}
+
+.noResultContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  .noResultContainer__title {
+    @include font-h2;
+    @include font-bold;
+    margin-bottom: 4px;
+  }
+
+  .noResultContainer__inputText {
+    @include font-h2;
+    @include font-bold;
+    margin-bottom: 1rem;
+  }
+
+  .noResultContainer__tip {
+    @include font-p2;
+    color: var(--app-color-text-secondary);
+  }
+}

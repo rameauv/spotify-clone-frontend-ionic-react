@@ -5,8 +5,13 @@ import React, {useState} from "react";
 import SearchSong from "../../components/thumbnails/search-song/search-song";
 import LibrarySortButton from "../../components/library-sort-button/library-sort-button";
 import {addOutline, searchOutline} from 'ionicons/icons';
+import {useHistory} from "react-router-dom";
+import {RouteComponentProps} from "react-router";
 
-const Library: React.FC = (props) => {
+interface LibraryProps extends RouteComponentProps {
+}
+
+const Library: React.FC<LibraryProps> = (props) => {
     const tags: Tag[] = [
         {
             value: 'Playlists',
@@ -19,6 +24,10 @@ const Library: React.FC = (props) => {
     ];
     const [selectedSort, setSelectedSort] = useState<string | undefined>('most-recent');
     const [selectedTagId, setSelectedTagId] = useState<string | undefined>();
+    const history = useHistory();
+    const _handleSearchButtonEvent = () => {
+        history.push(`${props.match.url}/search`);
+    }
     return (
         <IonPage>
             <IonHeader>
@@ -27,7 +36,11 @@ const Library: React.FC = (props) => {
                         <div className={styles.profileIcon}><p>V</p></div>
                         <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
                         <div className={styles.headerButtons}>
-                            <IonIcon className={styles.headerButton} icon={searchOutline}></IonIcon>
+                            <IonIcon
+                                className={styles.headerButton}
+                                icon={searchOutline}
+                                onClick={() => _handleSearchButtonEvent()}
+                            ></IonIcon>
                             <IonIcon className={styles.headerButton} icon={addOutline}></IonIcon>
                         </div>
                     </div>

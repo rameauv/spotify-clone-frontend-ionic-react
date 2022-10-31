@@ -1,5 +1,7 @@
 import styles from "./search-input.module.scss";
-import {MouseEventHandler, useState} from "react";
+import React, {MouseEventHandler, useState} from "react";
+import {IonIcon} from "@ionic/react";
+import {arrowBackOutline} from "ionicons/icons";
 
 interface ContainerProps {
     onBack?: MouseEventHandler<Element> | undefined;
@@ -16,15 +18,20 @@ const SearchInput: React.FC<ContainerProps> = ({onBack}) => {
 
     return (
         <div className={styles.container}>
-
-            <p onClick={onBack} className={styles.backButton}>back</p>
+            <IonIcon
+                className={styles.backButton}
+                icon={arrowBackOutline}
+                onClick={onBack}
+            />
             <input className={styles.input}
                    placeholder="Search query"
                    value={searchQuery}
                    onChange={(event) => handleChange(event)}
             />
-            {searchQuery !== '' ?
-                <p onClick={() => handleClearEvent()} className={styles.closeButton}>clear</p> : undefined}
+            {
+                searchQuery !== '' ?
+                    <p onClick={() => handleClearEvent()} className={styles.closeButton}>clear</p> : undefined
+            }
         </div>
     );
 };

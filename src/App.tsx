@@ -41,15 +41,18 @@ import React, {useState} from 'react';
 
 import styles from './App.module.scss';
 import {StatusBar, Style} from '@capacitor/status-bar';
+import LibrarySearch from "./pages/library-search/library-search";
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
 
+StatusBar.setStyle({
+    style: Style.Dark
+}).catch(console.error);
+
+const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
+
 const App: React.FC = () => {
-    StatusBar.setStyle({
-        style: Style.Dark
-    }).catch(console.error);
-    const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
     const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
     const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
     return (
@@ -114,6 +117,7 @@ const App: React.FC = () => {
                                 <SongPathContext.Provider value={`${match.url}/song`}>
                                     <IonRouterOutlet>
                                         <Route exact path={match.url} component={Library}/>
+                                        <Route exact path={`${match.url}/search`} component={LibrarySearch}/>
                                         <Route path={`${match.url}/song`} component={Song}/>
                                     </IonRouterOutlet>
                                 </SongPathContext.Provider>
