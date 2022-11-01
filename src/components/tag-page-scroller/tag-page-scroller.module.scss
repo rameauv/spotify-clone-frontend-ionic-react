@@ -1,0 +1,29 @@
+@import "src/design-system/styles/variables";
+
+.container {
+  .container__title {
+    @include font-p1;
+    @include font-bold;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .container__scroller {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 32px;
+  }
+
+  .container__scroller > *:first-child {
+    margin-left: var(--page-side-padding);
+  }
+
+  .container__scroller > *:last-child {
+    margin-right: var(--page-side-padding);
+  }
+
+  .container__scroller > *:not(:last-child) {
+    margin-right: 16px;
+  }
+}

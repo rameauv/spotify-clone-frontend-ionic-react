@@ -7,8 +7,12 @@ import AdvancedSearch from "../advanced-search/advanced-search";
 import {Link, useHistory} from "react-router-dom";
 import {useContext} from "react";
 import {SongPathContext} from "../../App";
+import {RouteComponentProps} from "react-router";
 
-const Search: React.FC<any> = () => {
+interface SearchProps extends RouteComponentProps {
+}
+
+const Search: React.FC<SearchProps> = ({match}) => {
     const songPath = useContext(SongPathContext);
     const history = useHistory();
     const [present, dismiss] = useIonModal(AdvancedSearch, {
@@ -36,83 +40,91 @@ const Search: React.FC<any> = () => {
                     <p className="app-mr-auto app-font-h2 app-font-bold">Search</p>
                 </div>
                 <div className={styles.searchButton}>
-                    <Link to="/tab2/test">
+                    <Link to={`${match.url}/test`}>
                         <SearchButton></SearchButton>
                     </Link>
                 </div>
                 <p className={styles.browseAll}>Browse all</p>
                 <div className={styles.categories}>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                     <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
-                    </div>
-                    <div className={styles.item}>
-                        <SearchCategorie></SearchCategorie>
+                        <Link to={`${match.url}/tag`}>
+                            <SearchCategorie/>
+                        </Link>
                     </div>
                 </div>
             </IonContent>

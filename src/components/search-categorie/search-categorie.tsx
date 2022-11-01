@@ -8,7 +8,7 @@ interface ContainerProps {
 const SearchCategorie: React.FC<ContainerProps> = ({onClick}) => {
     return (
         <div onClick={onClick} className={`${styles.container}`}>
-            <p className={styles.text}>Podcasts</p>
+            <p className={styles.text}>French Variety</p>
         </div>
     );
 };

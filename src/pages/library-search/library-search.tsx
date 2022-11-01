@@ -122,7 +122,7 @@ const LibrarySearch: React.FC = (props) => {
                 <IonToolbar>
                     <div className={styles.header}>
                         <IonIcon
-                            className={styles.backButton}
+                            className={styles.header__backButton}
                             icon={chevronBackOutline}
                             onClick={() => handleBackButtonEvent()}
                         />

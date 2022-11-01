@@ -36,11 +36,11 @@
   color: var(--app-color-gray-1);
 }
 
-.backButton {
+.header__backButton {
   margin-left: 1rem;
 }
 
-.backButton:active {
+.header__backButton:active {
   transform: scale(0.97);
   transition: transform 100ms;
 }

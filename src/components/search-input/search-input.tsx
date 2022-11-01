@@ -19,7 +19,7 @@ const SearchInput: React.FC<ContainerProps> = ({onBack}) => {
     return (
         <div className={styles.container}>
             <IonIcon
-                className={styles.backButton}
+                className={styles.header__backButton}
                 icon={arrowBackOutline}
                 onClick={onBack}
             />

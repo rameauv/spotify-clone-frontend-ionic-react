@@ -42,6 +42,7 @@ import React, {useState} from 'react';
 import styles from './App.module.scss';
 import {StatusBar, Style} from '@capacitor/status-bar';
 import LibrarySearch from "./pages/library-search/library-search";
+import Tag from "./pages/tag/tag";
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
@@ -104,6 +105,7 @@ const App: React.FC = () => {
                                     <IonRouterOutlet>
                                         <Route exact path={match.url} component={Search}/>
                                         <Route path={`${match.url}/song`} component={Song}/>
+                                        <Route path={`${match.url}/tag`} component={Tag}/>
                                         <Route path={`${match.url}/test`}>
                                             <AdvancedSearch songPath="/tab2/song"/>
                                         </Route>

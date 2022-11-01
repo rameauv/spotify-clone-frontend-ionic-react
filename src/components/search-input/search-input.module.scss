@@ -7,22 +7,23 @@
   display: flex;
 }
 
-.input {
-  color: var(--app-color-text-secondary);
-  caret-color: var(--app-color-green-1);
-  margin-right: auto;
-}
 
-.backButton {
+.header__backButton {
   height: 24px;
   width: 24px;
   margin-right: 1rem;
 }
 
-.backButton:active {
+.header__backButton:active {
   transform: scale(0.95);
   transition: transform 100ms;
   color: var(--app-color-text-secondary);
+}
+
+.input {
+  color: var(--app-color-text-secondary);
+  caret-color: var(--app-color-green-1);
+  margin-right: auto;
 }
 
 .closeButton {
