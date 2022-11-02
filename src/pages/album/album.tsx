@@ -1,5 +1,5 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
-import styles from './playlist.module.scss';
+import styles from './album.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
 import {useState} from "react";
 import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
@@ -8,7 +8,7 @@ import {useHistory} from "react-router-dom";
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
 
-const Playlist: React.FC = () => {
+const Album: React.FC = () => {
     const song: SongMoreMenuModalSong = {
         thumbnailUrl: defaultImage,
         title: 'Civilisation',
@@ -112,4 +112,4 @@ const Playlist: React.FC = () => {
     );
 };
 
-export default Playlist;
+export default Album;
