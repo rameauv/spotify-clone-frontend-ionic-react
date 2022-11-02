@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonIcon, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
 import styles from './tag.module.scss';
 import React from "react";
 import {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
@@ -19,14 +19,16 @@ const Tag: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <div className={styles.header}>
-                    <IonIcon
-                        className={styles.header__backButton}
-                        icon={arrowBackOutline}
-                        onClick={() => history.goBack()}
-                    />
-                    <p className={styles.header__title}>French Variety</p>
-                </div>
+                <IonToolbar>
+                    <div className={styles.header}>
+                        <IonIcon
+                            className={styles.header__backButton}
+                            icon={arrowBackOutline}
+                            onClick={() => history.goBack()}
+                        />
+                        <p className={styles.header__title}>French Variety</p>
+                    </div>
+                </IonToolbar>
             </IonHeader>
             <IonContent>
                 <div className={styles.content}>

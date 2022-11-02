@@ -43,9 +43,11 @@ import styles from './App.module.scss';
 import {StatusBar, Style} from '@capacitor/status-bar';
 import LibrarySearch from "./pages/library-search/library-search";
 import Tag from "./pages/tag/tag";
+import Playlist from "./pages/playlist/playlist";
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
+export const PlaylistPathContext = React.createContext('');
 
 StatusBar.setStyle({
     style: Style.Dark
@@ -91,10 +93,13 @@ const App: React.FC = () => {
                         <Route path="/tab1" render={({match, history}) => {
                             return (
                                 <SongPathContext.Provider value={`${match.url}/song`}>
-                                    <IonRouterOutlet>
-                                        <Route exact path={match.url} component={Home}/>
-                                        <Route path={`${match.url}/song`} component={Song}/>
-                                    </IonRouterOutlet>
+                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
+                                        <IonRouterOutlet>
+                                            <Route exact path={match.url} component={Home}/>
+                                            <Route path={`${match.url}/song`} component={Song}/>
+                                            <Route path={`${match.url}/playlist`} component={Playlist}/>
+                                        </IonRouterOutlet>
+                                    </PlaylistPathContext.Provider>
                                 </SongPathContext.Provider>
                             );
                         }}>
@@ -102,14 +107,17 @@ const App: React.FC = () => {
                         <Route path="/tab2" render={({match, history}) => {
                             return (
                                 <SongPathContext.Provider value={`${match.url}/song`}>
-                                    <IonRouterOutlet>
-                                        <Route exact path={match.url} component={Search}/>
-                                        <Route path={`${match.url}/song`} component={Song}/>
-                                        <Route path={`${match.url}/tag`} component={Tag}/>
-                                        <Route path={`${match.url}/test`}>
-                                            <AdvancedSearch songPath="/tab2/song"/>
-                                        </Route>
-                                    </IonRouterOutlet>
+                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
+                                        <IonRouterOutlet>
+                                            <Route exact path={match.url} component={Search}/>
+                                            <Route path={`${match.url}/song`} component={Song}/>
+                                            <Route path={`${match.url}/tag`} component={Tag}/>
+                                            <Route path={`${match.url}/playlist`} component={Playlist}/>
+                                            <Route path={`${match.url}/test`}>
+                                                <AdvancedSearch songPath="/tab2/song"/>
+                                            </Route>
+                                        </IonRouterOutlet>
+                                    </PlaylistPathContext.Provider>
                                 </SongPathContext.Provider>
                             );
                         }}>
@@ -117,11 +125,14 @@ const App: React.FC = () => {
                         <Route path="/tab3" render={({match, history}) => {
                             return (
                                 <SongPathContext.Provider value={`${match.url}/song`}>
-                                    <IonRouterOutlet>
-                                        <Route exact path={match.url} component={Library}/>
-                                        <Route exact path={`${match.url}/search`} component={LibrarySearch}/>
-                                        <Route path={`${match.url}/song`} component={Song}/>
-                                    </IonRouterOutlet>
+                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
+                                        <IonRouterOutlet>
+                                            <Route exact path={match.url} component={Library}/>
+                                            <Route exact path={`${match.url}/search`} component={LibrarySearch}/>
+                                            <Route path={`${match.url}/song`} component={Song}/>
+                                            <Route path={`${match.url}/playlist`} component={Playlist}/>
+                                        </IonRouterOutlet>
+                                    </PlaylistPathContext.Provider>
                                 </SongPathContext.Provider>
                             );
                         }}>

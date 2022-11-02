@@ -1,0 +1,172 @@
+@import "../../design-system/styles/variables";
+
+.image {
+  max-width: 12rem;
+  max-height: 12rem;
+  min-width: 12rem;
+  min-height: 12rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imageContainer {
+  margin-top: 16px;
+  margin-bottom: 24px;
+  display: flex;
+}
+
+.container {
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+}
+
+.title {
+  @include font-h2;
+  @include font-bold;
+  margin-bottom: 16px;
+}
+
+.artistContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  width: fit-content;
+
+  .artist {
+    @include font-p2;
+  }
+
+  .artistThumbnail {
+    max-width: 16px;
+    max-height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 100%;
+    margin-right: 8px;
+  }
+}
+
+.artistContainer:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+  color: var(--app-color-text-secondary);
+}
+
+.type {
+  @include font-p2;
+  color: var(--app-color-gray-1);
+}
+
+.header__backButton {
+  margin-left: 1rem;
+}
+
+.header__backButton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.heartButton {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+}
+
+.moreMenuButton {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+  color: var(--app-color-text-secondary);
+}
+
+.heartButtonActivated {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+  color: var(--app-color-green-1);
+}
+
+.menuButton {
+  height: 24px;
+  width: 24px;
+}
+
+.playbutton {
+  margin-left: auto;
+  height: 60px;
+  width: 60px;
+  color: var(--app-color-green-1);
+}
+
+.playbutton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+  opacity: 0.7;
+}
+
+.songListContainer > * {
+  padding-bottom: 12px;
+}
+
+.songListContainer {
+  @include font-p1;;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  .songListContainer__song__artist {
+    margin-right: 4px;
+    white-space: pre;
+  }
+
+  .songListContainer__song__songTitle {
+    color: var(--app-color-text-secondary);
+    white-space: pre;
+  }
+
+  .songListContainer__song__separator {
+    padding-left: 8px;
+    padding-right: 8px;
+    color: var(--app-color-text-secondary);
+  }
+
+  .songListContainer__song__more {
+  }
+}
+
+.releaseDate {
+  @include font-p1;
+  @include font-bold;
+  margin-bottom: 1.5rem;
+}
+
+.bigArtistContainer {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
+  .artist {
+    @include font-p1;
+  }
+
+  .artistThumbnail {
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 100%;
+    margin-right: 1rem;
+  }
+}
+
+.bigArtistContainer:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+  color: var(--app-color-text-secondary);
+}
