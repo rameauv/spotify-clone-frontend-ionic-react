@@ -1,9 +1,10 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {ArtistPathContext} from "../../App";
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
@@ -20,6 +21,7 @@ const Album: React.FC = () => {
         song: song
     });
     const history = useHistory();
+    const artistPath = useContext(ArtistPathContext);
 
     return (
         <IonPage>
@@ -41,10 +43,10 @@ const Album: React.FC = () => {
                 </div>
                 <div className={styles.container}>
                     <h1 className={styles.title}>Civilisation</h1>
-                    <div className={styles.artistContainer}>
+                    <Link className={styles.artistContainer} to={artistPath}>
                         <img className={styles.artistThumbnail} src={artistImage}/>
                         <p className={styles.artist}>Orelsan</p>
-                    </div>
+                    </Link>
                     <p className={styles.type}>Album . 2021</p>
                     <div className={styles.buttons}>
                         {
@@ -102,10 +104,10 @@ const Album: React.FC = () => {
                         <p className={styles.songListContainer__song__more}>and more</p>
                     </div>
                     <p className={styles.releaseDate}>August 30, 2022</p>
-                    <div className={styles.bigArtistContainer}>
+                    <Link className={styles.bigArtistContainer} to={artistPath}>
                         <img className={styles.artistThumbnail} src={artistImage}/>
                         <p className={styles.artist}>Orelsan</p>
-                    </div>
+                    </Link>
                 </div>
             </IonContent>
         </IonPage>

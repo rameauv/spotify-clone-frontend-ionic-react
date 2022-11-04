@@ -1,0 +1,247 @@
+@import "../../design-system/styles/variables";
+
+.accentColor {
+  --accentColor: var(--app-color-gray-1);
+}
+
+.ionContent {
+  --background: linear-gradient(180deg, var(--accentColor) 0%, var(--accentColor) 14px, var(--app-color-backgroud-1) 200px);
+  background: url("https://yeah.paleo.ch/sites/default/files/styles/artist_description/public/artist/image/2021/Logo%20Orelsan%5B75%5D_b749075368ff278e91261eb8d8881ca2.jpg?h=838c7dac&itok=HnXIVOsd&cropToken=E-FKPX8i") top/contain no-repeat;
+}
+
+.ionContent::part(background) {
+  opacity: var(--backgroundOpacity);
+}
+
+.header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  height: calc(44px + var(--ion-safe-area-top));
+  z-index: 1;
+  background: var(--headerOpacity);
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: calc(16px + var(--ion-safe-area-top));
+  align-items: center;
+
+  .header__backButton {
+    height: 24px;
+    width: 24px;
+    margin-right: 2rem;
+  }
+
+  .header__backButton:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+
+  .header__title {
+    @include font-p1;
+    @include font-bold;
+    opacity: var(--titleOpacity);
+  }
+}
+
+.image {
+  max-width: 12rem;
+  max-height: 12rem;
+  min-width: 12rem;
+  min-height: 12rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  margin-top: 200px;
+}
+
+.solidContainer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  background: linear-gradient(180deg, var(--accentColor) -90px, var(--app-color-backgroud-1) 110px);
+}
+
+.title {
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+  font-size: 48px;
+  line-height: 48px;
+  @include font-bold;
+  margin: 0;
+  padding-bottom: 16px;
+  background: var(--titleBg);
+}
+
+.artistContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  width: fit-content;
+
+  .artist {
+    @include font-p2;
+  }
+
+  .artistThumbnail {
+    max-width: 16px;
+    max-height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 100%;
+    margin-right: 8px;
+  }
+}
+
+.artistContainer:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+  color: var(--app-color-text-secondary);
+}
+
+.viewers {
+  @include font-p2;
+  color: var(--app-color-gray-1);
+}
+
+.buttons {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: calc(100% - 60px);
+}
+
+.moreMenuButton {
+  height: 24px;
+  width: 24px;
+  margin-right: 1rem;
+  color: var(--app-color-text-secondary);
+}
+
+.addToPlaylistButtonContainer {
+  display: flex;
+  justify-content: center;
+  margin-right: 1.5rem;
+
+  .addToPlaylistButton {
+    border-color: white;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+
+    p {
+      @include font-p1;
+    }
+  }
+
+  .addToPlaylistButtonActivated {
+    border-color: var(--app-color-text-secondary);
+  }
+
+
+  .addToPlaylistButton:active {
+    transform: scale(0.97);
+    transition: transform 100ms;
+  }
+
+  .addToPlaylistButtonActivated:active {
+    border-color: var(--app-color-gray-1);
+  }
+}
+
+.menuButton {
+  height: 24px;
+  width: 24px;
+}
+
+.playbutton {
+  position: sticky;
+  top: calc(14px + var(--ion-safe-area-top));
+  display: inline-block;
+  vertical-align: middle;
+  height: 60px;
+  width: 60px;
+  color: var(--app-color-green-1);
+  z-index: 2;
+}
+
+.playbutton:active {
+  transform: scale(0.97);
+  transition: transform 100ms;
+  opacity: 0.7;
+}
+
+.songListContainer > * {
+  padding-bottom: 12px;
+}
+
+.songListContainer {
+  @include font-p1;;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  .songListContainer__song__artist {
+    margin-right: 4px;
+    white-space: pre;
+  }
+
+  .songListContainer__song__songTitle {
+    color: var(--app-color-text-secondary);
+    white-space: pre;
+  }
+
+  .songListContainer__song__separator {
+    padding-left: 8px;
+    padding-right: 8px;
+    color: var(--app-color-text-secondary);
+  }
+}
+
+.seeButtonContainer {
+  display: flex;
+  justify-content: center;
+
+  .seeButton {
+    border-color: var(--app-color-text-secondary);
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-radius: 15px;
+    border-width: 1px;
+    border-style: solid;
+
+    p {
+      @include font-p1;
+    }
+  }
+
+  .seeButton:active {
+    transform: scale(0.97);
+    transition: transform 100ms;
+  }
+}
+
+
+.section {
+  margin-bottom: 1.5rem;
+
+  .section__title {
+    @include font-p1;
+    @include font-bold;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.popularRelease > * {
+  margin-bottom: 1rem;
+}

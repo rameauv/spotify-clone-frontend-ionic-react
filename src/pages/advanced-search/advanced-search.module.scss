@@ -1,8 +1,11 @@
 @import "../../design-system/styles/variables";
 
 .header {
+  padding-top: var(--ion-safe-area-top);
   position: sticky;
   top: 0;
+  background-color: var(--app-color-gray-2);
+  z-index: 1;
 }
 
 .tags {

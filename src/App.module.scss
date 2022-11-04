@@ -16,6 +16,8 @@
   background: var(--app-color-gray-1);
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  opacity: 1;
+  //transition:visibility 0.05s linear,opacity 0.05s linear;
 
   .playerContainer {
     display: flex;

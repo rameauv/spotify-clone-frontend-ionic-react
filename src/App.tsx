@@ -45,6 +45,7 @@ import LibrarySearch from "./pages/library-search/library-search";
 import Tag from "./pages/tag/tag";
 import Album from "./pages/album/album";
 import Artist from "./pages/artist/artist";
+import {Keyboard} from "@capacitor/keyboard";
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
@@ -58,12 +59,28 @@ StatusBar.setStyle({
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
+let ready = false;
 const App: React.FC = () => {
     const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
     const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
+    const [isPlayerHidden, setIsPlayerHidden] = useState(false);
+    if (!ready) {
+        try {
+            Keyboard.addListener('keyboardWillShow', () => {
+                setIsPlayerHidden(true);
+            });
+            Keyboard.addListener('keyboardWillHide', () => {
+                setIsPlayerHidden(false);
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    ready = true;
     return (
         <IonApp className={styles.container}>
-            <div className={styles.player}>
+            <div className={styles.player}
+                 style={{visibility: isPlayerHidden ? 'hidden' : 'visible', opacity: isPlayerHidden ? 0 : 1}}>
                 <div className={styles.playerContainer}>
                     <img className={styles.thumbnail} src={defaultImage}/>
                     <div className={styles.titlesContainer}>
