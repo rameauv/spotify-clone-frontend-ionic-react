@@ -73,7 +73,6 @@ const LibrarySortButton: React.FC<LibrarySortButtonProps> = ({onSelected, select
         selectedItem: selectedId,
         onDismiss: (data?: string, role?: string) => {
             dismiss();
-            console.log(data);
             if (data) {
                 onSelected(data);
             }

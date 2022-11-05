@@ -1,37 +1,15 @@
-import {IonContent, IonHeader, IonPage, IonToolbar, useIonModal, useIonViewWillLeave} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import './search.module.scss';
 import styles from "./search.module.scss";
 import SearchButton from "../../components/search-button/search-button";
 import SearchCategorie from "../../components/search-categorie/search-categorie";
-import AdvancedSearch from "../advanced-search/advanced-search";
-import {Link, useHistory} from "react-router-dom";
-import {useContext} from "react";
-import {SongPathContext} from "../../App";
+import {Link} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 
 interface SearchProps extends RouteComponentProps {
 }
 
 const Search: React.FC<SearchProps> = ({match}) => {
-    const songPath = useContext(SongPathContext);
-    const history = useHistory();
-    const [present, dismiss] = useIonModal(AdvancedSearch, {
-        onDismiss: (data: string, role: string) => dismiss(data, role),
-        songPath: songPath,
-        history: history
-    });
-
-    const presentModal = () => present({
-        showBackdrop: false,
-        cssClass: 'search-modal',
-        animated: false
-    });
-
-    useIonViewWillLeave(() => {
-        console.log('useIonViewWillLeave');
-        dismiss();
-    });
-
     return (
         <IonPage>
             <IonHeader><IonToolbar className="no-height"/></IonHeader>

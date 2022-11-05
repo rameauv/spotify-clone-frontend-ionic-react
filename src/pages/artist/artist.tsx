@@ -49,31 +49,19 @@ const Artist: React.FC = () => {
         const tempTitleOpacity = (scrollTop - 206) / (276 - 206);
         const tempTitleBg = scrollTop >= 213 ? 'linear-gradient(180deg, var(--accentColor) var(--titleGradientStart), var(--app-color-backgroud-1) var(--titleGradientEnd))' : 'transparent';
         const tempHeaderBg = scrollTop >= 206 ? 'linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos))' : 'transparent'
-        // console.log(scrollTop);
         setHeaderBg(tempHeaderBg);
         setHeaderTitleOpacity(tempTitleOpacity);
         setBgOpacity(tempBgOpacity);
         setTitleBg(tempTitleBg)
     }
-    console.log(titleBg);
     return (
         <IonPage className={styles.variables}>
-            {/*<div className={styles.backgroundContainer}></div>*/}
-            {/*<IonHeader>*/}
-            {/*    <IonToolbar>*/}
-            {/*        <IonIcon*/}
-            {/*            className={`${styles.backButton}`}*/}
-            {/*            icon={arrowBackOutline}*/}
-            {/*            onClick={() => history.goBack()}*/}
-            {/*        ></IonIcon>*/}
-            {/*    </IonToolbar>*/}
-            {/*</IonHeader>*/}
             <IonContent
                 className={styles.ionContent}
                 style={{
                     "--backgroundOpacity": bgOpacity,
-                    "--titleOpacity": headerTitleOpacity,
-                    "--headerOpacity": headerBg,
+                    "--headerTitleOpacity": headerTitleOpacity,
+                    "--headerBg": headerBg,
                     "--titleBg": titleBg
                 }}
                 scrollEvents
