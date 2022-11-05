@@ -1,11 +1,19 @@
 @import "../../design-system/styles/variables";
 
-.accentColor {
+.variables {
   --accentColor: var(--app-color-gray-1);
+  --gradientStartPos: 14px;
+  --gradientEndPos: 200px;
+  --contentGradientStartPos: calc(var(--gradientStartPos));
+  --contentGradientEndPos: calc(var(--gradientEndPos) + var(--ion-safe-area-top));
+  --solidContainerGradientStart: calc(var(--gradientStartPos) - 104px - var(--ion-safe-area-top));
+  --solidContainerGradientEnd: calc(var(--gradientEndPos) - 90px);
+  --titleGradientStart: calc(var(--gradientStartPos) - 40px - var(--ion-safe-area-top));
+  --titleGradientEnd: calc(var(--gradientEndPos) - 26px);
 }
 
 .ionContent {
-  --background: linear-gradient(180deg, var(--accentColor) 0%, var(--accentColor) 14px, var(--app-color-backgroud-1) 200px);
+  --background: linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos));
   background: url("https://yeah.paleo.ch/sites/default/files/styles/artist_description/public/artist/image/2021/Logo%20Orelsan%5B75%5D_b749075368ff278e91261eb8d8881ca2.jpg?h=838c7dac&itok=HnXIVOsd&cropToken=E-FKPX8i") top/contain no-repeat;
 }
 
@@ -63,7 +71,7 @@
   padding-bottom: 1rem;
   padding-left: var(--page-side-padding);
   padding-right: var(--page-side-padding);
-  background: linear-gradient(180deg, var(--accentColor) -90px, var(--app-color-backgroud-1) 110px);
+  background: linear-gradient(180deg, var(--accentColor) var(--solidContainerGradientStart), var(--app-color-backgroud-1) var(--solidContainerGradientEnd));
 }
 
 .title {
@@ -105,7 +113,7 @@
 
 .viewers {
   @include font-p2;
-  color: var(--app-color-gray-1);
+  color: var(--app-color-text-secondary);
 }
 
 .buttons {
@@ -162,18 +170,26 @@
   width: 24px;
 }
 
-.playbutton {
+.playbuttonContainer {
+  background-color: black;;
   position: sticky;
   top: calc(14px + var(--ion-safe-area-top));
   display: inline-block;
   vertical-align: middle;
   height: 60px;
   width: 60px;
-  color: var(--app-color-green-1);
   z-index: 2;
+  overflow: hidden;
+  border-radius: 100%;
+
+  .playbutton {
+    color: var(--app-color-green-1);
+    font-size: 75.25px;
+    margin: -7.625px;
+  }
 }
 
-.playbutton:active {
+.playbuttonContainer:active {
   transform: scale(0.97);
   transition: transform 100ms;
   opacity: 0.7;

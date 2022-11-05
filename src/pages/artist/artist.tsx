@@ -47,8 +47,8 @@ const Artist: React.FC = () => {
         const scrollTop = e.detail.scrollTop;
         const tempBgOpacity = ((scrollTop / 176) * 0.6) + 0.4;
         const tempTitleOpacity = (scrollTop - 206) / (276 - 206);
-        const tempTitleBg = scrollTop >= 213 ? 'linear-gradient(180deg, var(--accentColor) -26px, var(--app-color-backgroud-1) 174px)' : 'transparent';
-        const tempHeaderBg = scrollTop >= 206 ? 'linear-gradient(180deg, var(--app-color-gray-1) 0%, var(--app-color-gray-1) 14px, var(--app-color-backgroud-1) 200px)' : 'transparent'
+        const tempTitleBg = scrollTop >= 213 ? 'linear-gradient(180deg, var(--accentColor) var(--titleGradientStart), var(--app-color-backgroud-1) var(--titleGradientEnd))' : 'transparent';
+        const tempHeaderBg = scrollTop >= 206 ? 'linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos))' : 'transparent'
         // console.log(scrollTop);
         setHeaderBg(tempHeaderBg);
         setHeaderTitleOpacity(tempTitleOpacity);
@@ -57,7 +57,7 @@ const Artist: React.FC = () => {
     }
     console.log(titleBg);
     return (
-        <IonPage className={styles.accentColor}>
+        <IonPage className={styles.variables}>
             {/*<div className={styles.backgroundContainer}></div>*/}
             {/*<IonHeader>*/}
             {/*    <IonToolbar>*/}
@@ -114,7 +114,9 @@ const Artist: React.FC = () => {
                                 onClick={() => present()}
                             ></IonIcon>
                         </div>
-                        <IonIcon className={styles.playbutton} icon={playCircle}></IonIcon>
+                        <div className={styles.playbuttonContainer}>
+                            <IonIcon className={styles.playbutton} icon={playCircle}></IonIcon>
+                        </div>
                         <div className={styles.songListContainer}>
                             <p className={styles.songListContainer__song__artist}>Orelsan </p>
                             <p>
