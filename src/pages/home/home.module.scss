@@ -19,30 +19,6 @@
   opacity: 0.5;
 }
 
-.tags {
-  display: flex;
-  overflow-x: auto;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  margin-bottom: 24px;
-  position: sticky;
-  top: 0;
-  background: var(--background);
-  white-space: nowrap;
-}
-
-.tags > *:first-child {
-  margin-left: var(--page-side-padding);
-}
-
-.tags > *:last-child {
-  margin-right: var(--page-side-padding);
-}
-
-.tags > *:not(:last-child) {
-  margin-right: 8px;
-}
-
 .scroller {
   display: flex;
   overflow-x: auto;

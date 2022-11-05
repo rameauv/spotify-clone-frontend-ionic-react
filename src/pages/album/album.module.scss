@@ -57,13 +57,16 @@
   color: var(--app-color-gray-1);
 }
 
-.header__backButton {
+.backButton {
   margin-left: 1rem;
+  font-size: 24px;
+  margin-right: 2rem;
 }
 
-.header__backButton:active {
-  transform: scale(0.97);
+.backButton:active {
+  transform: scale(0.95);
   transition: transform 100ms;
+  color: var(--app-color-text-secondary);
 }
 
 .buttons {

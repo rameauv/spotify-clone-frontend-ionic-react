@@ -30,7 +30,7 @@ const SearchInput: React.FC<ContainerProps> = ({onBack}) => {
             />
             {
                 searchQuery !== '' ?
-                    <p onClick={() => handleClearEvent()} className={styles.closeButton}>clear</p> : undefined
+                    <p onClick={() => handleClearEvent()} className={styles.clearButton}>clear</p> : undefined
             }
         </div>
     );

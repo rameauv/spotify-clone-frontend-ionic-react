@@ -5,6 +5,7 @@
   background-color: var(--app-color-gray-2);
   padding: 16px;
   display: flex;
+  align-items: center;
 }
 
 
@@ -26,11 +27,11 @@
   margin-right: auto;
 }
 
-.closeButton {
-
+.clearButton {
+  @include font-bold;
 }
 
-.closeButton:active {
+.clearButton:active {
   transform: scale(0.95);
   transition: transform 100ms;
 }
