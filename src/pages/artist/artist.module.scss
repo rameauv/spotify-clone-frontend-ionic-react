@@ -10,11 +10,16 @@
   --solidContainerGradientEnd: calc(var(--gradientEndPos) - 90px);
   --titleGradientStart: calc(var(--gradientStartPos) - 40px - var(--ion-safe-area-top));
   --titleGradientEnd: calc(var(--gradientEndPos) - 26px);
+  --artistImage: url("https://yeah.paleo.ch/sites/default/files/styles/artist_description/public/artist/image/2021/Logo%20Orelsan%5B75%5D_b749075368ff278e91261eb8d8881ca2.jpg?h=838c7dac&itok=HnXIVOsd&cropToken=E-FKPX8i");
 }
 
 .ionContent {
   --background: linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos));
-  background: url("https://yeah.paleo.ch/sites/default/files/styles/artist_description/public/artist/image/2021/Logo%20Orelsan%5B75%5D_b749075368ff278e91261eb8d8881ca2.jpg?h=838c7dac&itok=HnXIVOsd&cropToken=E-FKPX8i") top/contain no-repeat;
+  background-image: var(--artistImage);
+  background-size: 470px auto;
+  background-position-y: top;
+  background-position-x: center;
+  background-repeat: no-repeat;
 }
 
 .ionContent::part(background) {
@@ -27,7 +32,7 @@
   top: 0;
   height: calc(44px + var(--ion-safe-area-top));
   z-index: 1;
-  background: var(--headerOpacity);
+  background: var(--headerBg);
   padding-bottom: 16px;
   padding-left: 16px;
   padding-right: 16px;
@@ -49,7 +54,7 @@
   .header__title {
     @include font-p1;
     @include font-bold;
-    opacity: var(--titleOpacity);
+    opacity: var(--headerTitleOpacity);
   }
 }
 
