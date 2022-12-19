@@ -1,7 +1,7 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
 import {Link, useHistory} from "react-router-dom";
 import {ArtistPathContext} from "../../App";
@@ -27,11 +27,13 @@ const Album: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonIcon
-                        className={`${styles.backButton}`}
-                        icon={arrowBackOutline}
-                        onClick={() => history.goBack()}
-                    ></IonIcon>
+                    <div className={styles.header}>
+                        <IonIcon
+                            className={styles.header__backButton}
+                            icon={arrowBackOutline}
+                            onClick={() => history.goBack()}
+                        />
+                    </div>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>

@@ -27,13 +27,19 @@ const Library: React.FC<LibraryProps> = (props) => {
     const history = useHistory();
     const _handleSearchButtonEvent = () => {
         history.push(`${props.match.url}/search`);
-    }
+    };
+    const _handleSettingsButtonEvent = () => {
+        history.push(`${props.match.url}/settings`);
+    };
+    console.log(props)
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
                     <div className={styles.header}>
-                        <div className={styles.profileIcon}><p>V</p></div>
+                        <div className={styles.profileIcon}
+                             onClick={() => _handleSettingsButtonEvent()}><p>V</p>
+                        </div>
                         <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
                         <div className={styles.headerButtons}>
                             <IonIcon

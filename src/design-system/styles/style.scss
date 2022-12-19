@@ -119,6 +119,10 @@ $spaces: (
   }
 }
 
+.app-min-w-0 {
+  min-width: 0;
+}
+
 @include generatePadding();
 @include generateMargin();
 
@@ -152,6 +156,12 @@ a {
   color: var(--color);
 }
 
+ul {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
 input {
   -webkit-appearance: none;
   border: none;
@@ -176,10 +186,9 @@ ion-toolbar {
   height: 0px !important;
 }
 
-ion-toolbar.no-height {
-  height: 0;
+ion-toolbar {
+  --min-height: 0;
 }
-
 
 ion-app > .ion-page {
   .ion-page > ion-content {

@@ -3,9 +3,9 @@
 .container {
   @include font-h1;
   @include font-bold;
-}
 
-.container:active {
-  transform: scale(0.95);
-  transition: transform 100ms;
+  &:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+  }
 }

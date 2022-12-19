@@ -1,0 +1,169 @@
+@import "src/design-system/styles/variables";
+
+.ionToolbar {
+  --padding-bottom: 1rem;
+  --padding-top: 1rem;
+  --padding-start: 0;
+  --padding-end: 0;
+
+  .ionToolbar__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .ionToolbar__header__backButton {
+      height: 1.5rem;
+      width: 1.5rem;
+      margin-right: 2rem;
+      position: absolute;
+      left: 1rem;
+
+      &:active {
+        transform: scale(0.95);
+        transition: transform 100ms;
+        color: var(--app-color-text-secondary);
+      }
+    }
+
+    .ionToolbar__header__title {
+      @include font-p1;
+      @include font-bold;
+    }
+
+    .ionToolbar__header__saveButton {
+      margin-left: 2rem;
+      position: absolute;
+      right: 1rem;
+      @include font-p1;
+
+      &:active {
+        transform: scale(0.95);
+        transition: transform 100ms;
+        color: var(--app-color-text-secondary);
+      }
+    }
+
+    .ionToolbar__header__saveButtonDisabled {
+      color: var(--app-color-text-secondary);
+    }
+  }
+}
+
+.ionContent {
+  --padding-top: 3rem;
+  --padding-start: var(--page-side-padding);
+  --padding-end: var(--page-side-padding);
+}
+
+.profileSettingsButton__profileIcon {
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  background: brown;
+  width: 10.5rem;
+  height: 10.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}
+
+.profileTitleInput {
+  width: 100%;
+  text-align: center;
+  caret-color: var(--app-color-green-1);
+  @include font-h1;
+  @include font-bold;
+
+  &::placeholder {
+    color: var(--app-color-text-secondary);
+    opacity: 1; /* Firefox */
+  }
+}
+
+.profileTitleInputUnderline {
+  margin-bottom: 2rem;
+  height: 1px;
+  background: var(--app-color-gray-1);
+}
+
+.tip {
+  text-align: center;
+  @include font-p2;
+  color: var(--app-color-text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.alert {
+  --background: transparent;
+  --backdrop-opacity: 0.5 !important;
+  --width: calc(100vw - 2rem);
+  --height: auto;
+  --max-width: 24rem;
+  --border-radius: 8px
+}
+
+.alertMainContent {
+  background: white;
+  height: 100%;
+  width: 100%;
+}
+
+.alertContent {
+  padding: 2rem;
+  padding-top: 2.5rem;
+  color: var(--app-color-text-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alertContent__title {
+  @include font-p1;
+  @include font-bold;
+  margin-bottom: 1.5rem;
+}
+
+.alertContent__subTitle {
+  @include font-p2;
+  color: var(--app-color-gray-1);
+  margin-bottom: 2.5rem;
+}
+
+.alertContent__keepEditingButton {
+  .alertContent__keepEditingButton__inner {
+    @include font-p1;
+    @include font-bold;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color: var(--app-color-green-1);
+  }
+
+  background-color: var(--app-color-backgroud-1);
+  margin-bottom: 2rem;
+  border-radius: 9999px;
+  overflow: hidden;
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+
+    .alertContent__keepEditingButton__inner {
+      opacity: 0.7;
+    }
+  }
+}
+
+.alertContent__discardButton {
+  @include font-p1;
+  @include font-bold;
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+}

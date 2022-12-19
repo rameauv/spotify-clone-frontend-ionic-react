@@ -46,6 +46,8 @@ import Tag from "./pages/tag/tag";
 import Album from "./pages/album/album";
 import Artist from "./pages/artist/artist";
 import {Keyboard} from "@capacitor/keyboard";
+import Settings from './pages/settings/settings';
+import ProfileSettings from "./pages/profile-settings/profile-settings";
 
 setupIonicReact();
 export const SongPathContext = React.createContext('');
@@ -121,6 +123,9 @@ const App: React.FC = () => {
                                                     <Route path={`${match.url}/song`} component={Song}/>
                                                     <Route path={`${match.url}/album`} component={Album}/>
                                                     <Route path={`${match.url}/artist`} component={Artist}/>
+                                                    <Route exact path={`${match.url}/settings`} component={Settings}/>
+                                                    <Route exact path={`${match.url}/settings/profile-settings`}
+                                                           component={ProfileSettings}/>
                                                 </IonRouterOutlet>
                                             </ArtistPathContext.Provider>
                                         </PlaylistPathContext.Provider>
@@ -161,19 +166,20 @@ const App: React.FC = () => {
                                             <ArtistPathContext.Provider value={`${match.url}/artist`}>
                                                 <IonRouterOutlet>
                                                     <Route exact path={match.url} component={Library}/>
-                                                    <Route exact path={`${match.url}/search`}
-                                                           component={LibrarySearch}/>
+                                                    <Route path={`${match.url}/search`} component={LibrarySearch}/>
                                                     <Route path={`${match.url}/song`} component={Song}/>
                                                     <Route path={`${match.url}/album`} component={Album}/>
                                                     <Route path={`${match.url}/artist`} component={Artist}/>
+                                                    <Route exact path={`${match.url}/settings`} component={Settings}/>
+                                                    <Route exact path={`${match.url}/settings/profile-settings`}
+                                                           component={ProfileSettings}/>
                                                 </IonRouterOutlet>
                                             </ArtistPathContext.Provider>
                                         </PlaylistPathContext.Provider>
                                     </AlbumPathContext.Provider>
                                 </SongPathContext.Provider>
                             );
-                        }}>
-                        </Route>
+                        }}/>
                         <Route exact path="/">
                             <Redirect to="/tab1"/>
                         </Route>

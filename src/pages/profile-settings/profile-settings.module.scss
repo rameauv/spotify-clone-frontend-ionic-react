@@ -1,0 +1,149 @@
+@import "src/design-system/styles/variables";
+
+.ionToolbar {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --background: transparent;
+}
+
+.headerBg {
+  background: var(--app-color-backgroud-1);
+  opacity: var(--backgroundOpacity) !important; // important to override ionic's annimation
+}
+
+.headerBgGradiant {
+  height: 3rem;
+  opacity: 0.8;
+  background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 90px);
+}
+
+.header {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(3rem + var(--ion-safe-area-top));
+  z-index: 1;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: calc(1rem + var(--ion-safe-area-top));
+  align-items: center;
+  min-width: 0;
+
+  .header__backButton {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    flex-shrink: 0;
+  }
+
+  .header__backButton:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+
+  .header__title {
+    @include font-p1;
+    @include font-bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: var(--titleOpacity);
+  }
+}
+
+.ionContent {
+  --padding-top: 0;
+}
+
+.content {
+  height: 2000px;
+  --accentColor: brown;
+  background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
+  padding-top: 3.75rem;
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+}
+
+.profileInfos {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  .profileSettingsButton__profileIcon {
+    flex-shrink: 0;
+    margin-right: 1rem;
+    background: brown;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+  }
+
+  .profileSettingsButton__centerSlot {
+    min-width: 0;
+    margin-right: 1rem;
+  }
+
+  .profileSettingsButton__profileTitle {
+    @include font-h1;
+    @include font-bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+  }
+
+  .profileSettingsButton__follow {
+    @include font-p2;
+    @include font-bold;
+  }
+
+  .profileSettingsButton__followLabel {
+    color: var(--app-color-text-secondary);
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .editButton {
+    border-color: var(--app-color-text-secondary);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 1.0625rem; // 17px
+    border-width: 1px;
+    border-style: solid;
+    margin-right: 1rem;
+
+    p {
+      @include font-p1;
+    }
+
+    &:active {
+      transform: scale(0.97);
+      transition: transform 100ms;
+    }
+  }
+}
+
+.playlistsLabel {
+  @include font-bold;
+  @include font-p1;
+  margin-bottom: 1rem;
+}
+
+.playlistsList > li {
+  margin-bottom: 1rem;
+}
