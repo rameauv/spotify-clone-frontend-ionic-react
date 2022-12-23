@@ -3,7 +3,7 @@ import {RouteComponentProps} from "react-router";
 import styles from "./login.module.scss";
 import React, {useState} from "react";
 import {arrowBackOutline} from "ionicons/icons";
-import {accountsApi} from "../../tools/client";
+import {publicAccountsApi} from "../../tools/client";
 
 interface LoginProps extends RouteComponentProps {
 }
@@ -28,7 +28,7 @@ const Login: React.FC<LoginProps> = (props) => {
             return;
         }
         const f = async () => {
-            const response = await accountsApi.accountsLoginPost({
+            const response = await publicAccountsApi.accountsLoginPost({
                 deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                 username: state.username,
                 password: state.password
@@ -38,7 +38,7 @@ const Login: React.FC<LoginProps> = (props) => {
             if (!token) {
                 return;
             }
-            localStorage.setItem('jwt', (token as any).accessToken);
+            localStorage.setItem('jwt', token);
             router.push(`/home/tab1`, 'root', "replace");
         }
         f();

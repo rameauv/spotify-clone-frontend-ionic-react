@@ -35,6 +35,140 @@ import {BASE_PATH, BaseAPI, COLLECTION_FORMATS, RequestArgs, RequiredError} from
 /**
  *
  * @export
+ * @interface AlbumDto
+ */
+export interface AlbumDto {
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'id'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'title'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'releaseDate'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'thumbnailUrl'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'artistId'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'artistName'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'artistThumbnailUrl'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof AlbumDto
+     */
+    'albumType'?: string | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof AlbumDto
+     */
+    'isLiked'?: boolean;
+}
+
+/**
+ *
+ * @export
+ * @interface AlbumDtoResultDto
+ */
+export interface AlbumDtoResultDto {
+    /**
+     *
+     * @type {AlbumDto}
+     * @memberof AlbumDtoResultDto
+     */
+    'result'?: AlbumDto;
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof AlbumDtoResultDto
+     */
+    'error'?: ErrorDto;
+}
+
+/**
+ *
+ * @export
+ * @interface AlbumTracksDto
+ */
+export interface AlbumTracksDto {
+    /**
+     *
+     * @type {Array<SimpleTrackDto>}
+     * @memberof AlbumTracksDto
+     */
+    'items'?: Array<SimpleTrackDto> | null;
+    /**
+     *
+     * @type {number}
+     * @memberof AlbumTracksDto
+     */
+    'limit'?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof AlbumTracksDto
+     */
+    'offset'?: number;
+    /**
+     *
+     * @type {number}
+     * @memberof AlbumTracksDto
+     */
+    'total'?: number;
+}
+
+/**
+ *
+ * @export
+ * @interface AlbumTracksDtoResultDto
+ */
+export interface AlbumTracksDtoResultDto {
+    /**
+     *
+     * @type {AlbumTracksDto}
+     * @memberof AlbumTracksDtoResultDto
+     */
+    'result'?: AlbumTracksDto;
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof AlbumTracksDtoResultDto
+     */
+    'error'?: ErrorDto;
+}
+
+/**
+ *
+ * @export
  * @interface ArtistResultDto
  */
 export interface ArtistResultDto {
@@ -57,7 +191,6 @@ export interface ArtistResultDto {
      */
     'name'?: string | null;
 }
-
 /**
  *
  * @export
@@ -83,7 +216,6 @@ export interface CreateUserDto {
      */
     'data'?: string | null;
 }
-
 /**
  *
  * @export
@@ -127,7 +259,6 @@ export interface DateOnly {
      */
     'dayNumber'?: number;
 }
-
 /**
  *
  * @export
@@ -166,7 +297,6 @@ export interface ErrorDto {
      */
     'message'?: string | null;
 }
-
 /**
  *
  * @export
@@ -265,7 +395,6 @@ export interface LoginCredentialsDto {
      */
     'deviceId'?: string;
 }
-
 /**
  *
  * @export
@@ -279,7 +408,6 @@ export interface NewAccessTokenDto {
      */
     'accessToken'?: string | null;
 }
-
 /**
  *
  * @export
@@ -319,7 +447,6 @@ export interface ProblemDetails {
      */
     'instance'?: string | null;
 }
-
 /**
  *
  * @export
@@ -351,7 +478,6 @@ export interface ReleaseResultDto {
      */
     'artistName'?: string | null;
 }
-
 /**
  *
  * @export
@@ -377,7 +503,6 @@ export interface SearchResultDto {
      */
     'artistResult'?: Array<ArtistResultDto> | null;
 }
-
 /**
  *
  * @export
@@ -396,6 +521,32 @@ export interface SearchResultDtoResultDto {
      * @memberof SearchResultDtoResultDto
      */
     'error'?: ErrorDto;
+}
+
+/**
+ *
+ * @export
+ * @interface SimpleTrackDto
+ */
+export interface SimpleTrackDto {
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrackDto
+     */
+    'id'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrackDto
+     */
+    'title'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrackDto
+     */
+    'artistName'?: string | null;
 }
 
 /**
@@ -428,6 +579,64 @@ export interface SongResultDto {
      * @memberof SongResultDto
      */
     'artistName'?: string | null;
+}
+
+/**
+ *
+ * @export
+ * @interface TrackDto
+ */
+export interface TrackDto {
+    /**
+     *
+     * @type {string}
+     * @memberof TrackDto
+     */
+    'id'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof TrackDto
+     */
+    'title'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof TrackDto
+     */
+    'artistName'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof TrackDto
+     */
+    'thumbnailUrl'?: string | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof TrackDto
+     */
+    'isLiked'?: boolean;
+}
+
+/**
+ *
+ * @export
+ * @interface TrackDtoResultDto
+ */
+export interface TrackDtoResultDto {
+    /**
+     *
+     * @type {TrackDto}
+     * @memberof TrackDtoResultDto
+     */
+    'result'?: TrackDto;
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof TrackDtoResultDto
+     */
+    'error'?: ErrorDto;
 }
 
 /**
@@ -488,6 +697,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarQueryParameter = {} as any;
 
 
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -519,6 +729,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarQueryParameter = {} as any;
 
 
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -546,6 +757,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -680,6 +892,284 @@ export class AccountsApi extends BaseAPI {
 
 
 /**
+ * AlbumApi - axios parameter creator
+ * @export
+ */
+export const AlbumApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('albumIdGet', 'id', id)
+            const localVarPath = `/Album/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @param {string} id
+         * @param {number} [limit]
+         * @param {number} [offset]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdTracksGet: async (id: string, limit?: number, offset?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('albumIdTracksGet', 'id', id)
+            const localVarPath = `/Album/{id}/Tracks`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * AlbumApi - functional programming interface
+ * @export
+ */
+export const AlbumApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = AlbumApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async albumIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumDtoResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {string} id
+         * @param {number} [limit]
+         * @param {number} [offset]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDtoResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdTracksGet(id, limit, offset, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * AlbumApi - factory interface
+ * @export
+ */
+export const AlbumApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AlbumApiFp(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdGet(id: string, options?: any): AxiosPromise<AlbumDtoResultDto> {
+            return localVarFp.albumIdGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {string} id
+         * @param {number} [limit]
+         * @param {number} [offset]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDtoResultDto> {
+            return localVarFp.albumIdTracksGet(id, limit, offset, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * AlbumApi - object-oriented interface
+ * @export
+ * @class AlbumApi
+ * @extends {BaseAPI}
+ */
+export class AlbumApi extends BaseAPI {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumApi
+     */
+    public albumIdGet(id: string, options?: AxiosRequestConfig) {
+        return AlbumApiFp(this.configuration).albumIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {string} id
+     * @param {number} [limit]
+     * @param {number} [offset]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumApi
+     */
+    public albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig) {
+        return AlbumApiFp(this.configuration).albumIdTracksGet(id, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ArtistApi - axios parameter creator
+ * @export
+ */
+export const ArtistApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        artistIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('artistIdGet', 'id', id)
+            const localVarPath = `/Artist/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ArtistApi - functional programming interface
+ * @export
+ */
+export const ArtistApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = ArtistApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.artistIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ArtistApi - factory interface
+ * @export
+ */
+export const ArtistApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ArtistApiFp(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        artistIdGet(id: string, options?: any): AxiosPromise<TrackDtoResultDto> {
+            return localVarFp.artistIdGet(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ArtistApi - object-oriented interface
+ * @export
+ * @class ArtistApi
+ * @extends {BaseAPI}
+ */
+export class ArtistApi extends BaseAPI {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtistApi
+     */
+    public artistIdGet(id: string, options?: AxiosRequestConfig) {
+        return ArtistApiFp(this.configuration).artistIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * SearchApi - axios parameter creator
  * @export
  */
@@ -693,7 +1183,7 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchPost: async (q?: string, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchSearchGet: async (q?: string, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/Search/Search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -702,7 +1192,7 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -717,6 +1207,7 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
+
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -746,8 +1237,8 @@ export const SearchApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchSearchPost(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoResultDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchPost(q, offset, limit, options);
+        async searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -768,8 +1259,8 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchPost(q?: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoResultDto> {
-            return localVarFp.searchSearchPost(q, offset, limit, options).then((request) => request(axios, basePath));
+        searchSearchGet(q?: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoResultDto> {
+            return localVarFp.searchSearchGet(q, offset, limit, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -790,8 +1281,108 @@ export class SearchApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public searchSearchPost(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig) {
-        return SearchApiFp(this.configuration).searchSearchPost(q, offset, limit, options).then((request) => request(this.axios, this.basePath));
+    public searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return SearchApiFp(this.configuration).searchSearchGet(q, offset, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * TrackApi - axios parameter creator
+ * @export
+ */
+export const TrackApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trackIdGet: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('trackIdGet', 'id', id)
+            const localVarPath = `/Track/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TrackApi - functional programming interface
+ * @export
+ */
+export const TrackApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = TrackApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trackIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * TrackApi - factory interface
+ * @export
+ */
+export const TrackApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TrackApiFp(configuration)
+    return {
+        /**
+         *
+         * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trackIdGet(id: string, options?: any): AxiosPromise<TrackDtoResultDto> {
+            return localVarFp.trackIdGet(id, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * TrackApi - object-oriented interface
+ * @export
+ * @class TrackApi
+ * @extends {BaseAPI}
+ */
+export class TrackApi extends BaseAPI {
+    /**
+     *
+     * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TrackApi
+     */
+    public trackIdGet(id: string, options?: AxiosRequestConfig) {
+        return TrackApiFp(this.configuration).trackIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

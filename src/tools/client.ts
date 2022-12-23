@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 import {AccountsApi, SearchApi, WeatherForecastApi} from '../api';
 
 const client = axios.create();
-const clientBase = axios.create();
+const publicClient = axios.create();
 
 client.interceptors.request.use(
     async (config) => {
@@ -25,6 +25,11 @@ const accountsApi = new AccountsApi(
     'http://localhost:5103',
     client
 );
+const publicAccountsApi = new AccountsApi(
+    undefined,
+    'http://localhost:5103',
+    publicClient
+);
 const weatherForecastApi = new WeatherForecastApi(
     undefined,
     'http://localhost:5103',
@@ -37,12 +42,12 @@ const searchApi = new SearchApi(
     client
 );
 
-export {accountsApi, weatherForecastApi, searchApi};
+export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi};
 
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');
 
-    return clientBase.post('http://localhost:5103/Accounts/RefreshAccessToken', {
+    return publicClient.post('http://localhost:5103/Accounts/RefreshAccessToken', {
         accessToken: jwt,
         refreshToken: 'fffdfd'
     }, {
