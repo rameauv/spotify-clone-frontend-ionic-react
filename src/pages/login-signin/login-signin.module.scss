@@ -1,0 +1,32 @@
+@import "src/design-system/styles/variables";
+
+.ionContent {
+  --background: linear-gradient(180deg, white -9999px, var(--app-color-backgroud-1) 100%);
+  --padding-bottom: 3rem;
+
+  &::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    overflow-y: hidden;
+    text-align: center;
+  }
+}
+
+.title {
+  @include font-h1;
+  @include font-bold;
+  margin-bottom: 300px;
+}
+
+.loginButton {
+  @include font-p1;
+  @include font-bold;
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+}

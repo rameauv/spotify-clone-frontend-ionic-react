@@ -205,3 +205,20 @@ ion-modal.auto-height-modal {
     max-height: 90vh;
   }
 }
+
+ion-tabs {
+  animation: show 200ms 0ms ease forwards;
+  opacity: 0;
+}
+
+@keyframes show {
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+ion-router-link {
+  --background: transparent;
+  --color: inerit;
+}

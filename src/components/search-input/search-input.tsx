@@ -5,15 +5,24 @@ import {arrowBackOutline} from "ionicons/icons";
 
 interface ContainerProps {
     onBack?: MouseEventHandler<Element> | undefined;
+    value?: string;
+    onChange?: (value: string) => void;
 }
 
-const SearchInput: React.FC<ContainerProps> = ({onBack}) => {
-    const [searchQuery, setSearchQuery] = useState<string>('');
+const SearchInput: React.FC<ContainerProps> = ({onBack, onChange, value}) => {
+    const [searchQuery, setSearchQuery] = useState<string>(value ?? "");
     const handleChange = (event: any) => {
-        setSearchQuery(event.target.value);
+        const {value: newValue} = event.target;
+        setSearchQuery(newValue);
+        if (onChange) {
+            onChange(newValue);
+        }
     }
     const handleClearEvent = () => {
         setSearchQuery('');
+        if (onChange) {
+            onChange('');
+        }
     }
 
     return (
@@ -30,7 +39,8 @@ const SearchInput: React.FC<ContainerProps> = ({onBack}) => {
             />
             {
                 searchQuery !== '' ?
-                    <p onClick={() => handleClearEvent()} className={styles.clearButton}>clear</p> : undefined
+                    <p onClick={() => handleClearEvent()} className={styles.clearButton}>clear</p>
+                    : undefined
             }
         </div>
     );

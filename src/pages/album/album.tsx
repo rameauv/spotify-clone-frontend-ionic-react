@@ -4,7 +4,7 @@ import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle
 import React, {useContext, useState} from "react";
 import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
 import {Link, useHistory} from "react-router-dom";
-import {ArtistPathContext} from "../../App";
+import {ArtistPathContext} from '../private/private-pages-router';
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';

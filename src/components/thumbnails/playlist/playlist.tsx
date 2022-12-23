@@ -1,7 +1,7 @@
 import styles from "./playlist.module.scss";
 import {useContext} from "react";
-import {PlaylistPathContext} from "../../../App";
 import {Link} from "react-router-dom";
+import {PlaylistPathContext} from "../../../pages/private/private-pages-router";
 
 interface ContainerProps {
     imageLink?: string;

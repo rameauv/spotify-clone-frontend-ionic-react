@@ -1,7 +1,7 @@
 import styles from "./album.module.scss";
 import {useContext} from "react";
-import {AlbumPathContext} from "../../../App";
 import {Link} from "react-router-dom";
+import {AlbumPathContext} from "../../../pages/private/private-pages-router";
 
 interface ContainerProps {
     imageLink?: string;

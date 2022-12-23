@@ -1,7 +1,7 @@
 import styles from "./search-song.module.scss";
 import {useHistory} from "react-router-dom";
 import {useContext} from "react";
-import {SongPathContext} from "../../../App";
+import {SongPathContext} from "../../../pages/private/private-pages-router";
 
 interface ContainerProps {
     imageLink?: string;

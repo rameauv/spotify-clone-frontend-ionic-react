@@ -21,7 +21,11 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "axios": "^1.2.1",
     "ionicons": "^6.0.3",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^5.2.0",
@@ -68,7 +72,10 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "4.1.0"
+    "@capacitor/cli": "4.1.0",
+    "@openapitools/openapi-generator-cli": "^2.5.2",
+    "@types/lodash": "^4.14.191",
+    "nswag": "^13.18.2"
   },
   "description": "An Ionic project"
 }

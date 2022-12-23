@@ -1,7 +1,7 @@
 import styles from "./small-playlist-with-follow.module.scss";
 import {useContext} from "react";
-import {SongPathContext} from "../../../App";
 import {useHistory} from "react-router-dom";
+import {SongPathContext} from "../../../pages/private/private-pages-router";
 
 interface SmallPlaylistWithfollowProps {
     imageLink?: string;
