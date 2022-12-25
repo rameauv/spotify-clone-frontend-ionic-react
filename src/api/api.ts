@@ -97,23 +97,22 @@ export interface AlbumDto {
 /**
  *
  * @export
- * @interface AlbumDtoResultDto
+ * @interface AlbumDtoBaseResultDto
  */
-export interface AlbumDtoResultDto {
+export interface AlbumDtoBaseResultDto {
     /**
      *
      * @type {AlbumDto}
-     * @memberof AlbumDtoResultDto
+     * @memberof AlbumDtoBaseResultDto
      */
     'result'?: AlbumDto;
     /**
      *
      * @type {ErrorDto}
-     * @memberof AlbumDtoResultDto
+     * @memberof AlbumDtoBaseResultDto
      */
     'error'?: ErrorDto;
 }
-
 /**
  *
  * @export
@@ -149,19 +148,77 @@ export interface AlbumTracksDto {
 /**
  *
  * @export
- * @interface AlbumTracksDtoResultDto
+ * @interface AlbumTracksDtoBaseResultDto
  */
-export interface AlbumTracksDtoResultDto {
+export interface AlbumTracksDtoBaseResultDto {
     /**
      *
      * @type {AlbumTracksDto}
-     * @memberof AlbumTracksDtoResultDto
+     * @memberof AlbumTracksDtoBaseResultDto
      */
     'result'?: AlbumTracksDto;
     /**
      *
      * @type {ErrorDto}
-     * @memberof AlbumTracksDtoResultDto
+     * @memberof AlbumTracksDtoBaseResultDto
+     */
+    'error'?: ErrorDto;
+}
+
+/**
+ *
+ * @export
+ * @interface ArtistDto
+ */
+export interface ArtistDto {
+    /**
+     *
+     * @type {string}
+     * @memberof ArtistDto
+     */
+    'id': string;
+    /**
+     *
+     * @type {string}
+     * @memberof ArtistDto
+     */
+    'name'?: string | null;
+    /**
+     *
+     * @type {string}
+     * @memberof ArtistDto
+     */
+    'thumbnailUrl'?: string | null;
+    /**
+     *
+     * @type {boolean}
+     * @memberof ArtistDto
+     */
+    'isFollowing'?: boolean;
+    /**
+     *
+     * @type {number}
+     * @memberof ArtistDto
+     */
+    'monthlyListeners'?: number;
+}
+
+/**
+ *
+ * @export
+ * @interface ArtistDtoBaseResultDto
+ */
+export interface ArtistDtoBaseResultDto {
+    /**
+     *
+     * @type {ArtistDto}
+     * @memberof ArtistDtoBaseResultDto
+     */
+    'result'?: ArtistDto;
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof ArtistDtoBaseResultDto
      */
     'error'?: ErrorDto;
 }
@@ -216,6 +273,61 @@ export interface CreateUserDto {
      */
     'data'?: string | null;
 }
+
+/**
+ *
+ * @export
+ * @interface CurrentUserDto
+ */
+export interface CurrentUserDto {
+    /**
+     *
+     * @type {string}
+     * @memberof CurrentUserDto
+     */
+    'id': string;
+    /**
+     *
+     * @type {string}
+     * @memberof CurrentUserDto
+     */
+    'username': string;
+    /**
+     *
+     * @type {string}
+     * @memberof CurrentUserDto
+     */
+    'name': string;
+}
+
+/**
+ *
+ * @export
+ * @interface CurrentUserDtoErrorBaseResultDto
+ */
+export interface CurrentUserDtoErrorBaseResultDto {
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof CurrentUserDtoErrorBaseResultDto
+     */
+    'error': ErrorDto;
+}
+
+/**
+ *
+ * @export
+ * @interface CurrentUserDtoSuccessBaseResultDto
+ */
+export interface CurrentUserDtoSuccessBaseResultDto {
+    /**
+     *
+     * @type {CurrentUserDto}
+     * @memberof CurrentUserDtoSuccessBaseResultDto
+     */
+    'result': CurrentUserDto;
+}
+
 /**
  *
  * @export
@@ -503,26 +615,26 @@ export interface SearchResultDto {
      */
     'artistResult'?: Array<ArtistResultDto> | null;
 }
+
 /**
  *
  * @export
- * @interface SearchResultDtoResultDto
+ * @interface SearchResultDtoBaseResultDto
  */
-export interface SearchResultDtoResultDto {
+export interface SearchResultDtoBaseResultDto {
     /**
      *
      * @type {SearchResultDto}
-     * @memberof SearchResultDtoResultDto
+     * @memberof SearchResultDtoBaseResultDto
      */
     'result'?: SearchResultDto;
     /**
      *
      * @type {ErrorDto}
-     * @memberof SearchResultDtoResultDto
+     * @memberof SearchResultDtoBaseResultDto
      */
     'error'?: ErrorDto;
 }
-
 /**
  *
  * @export
@@ -548,7 +660,6 @@ export interface SimpleTrackDto {
      */
     'artistName'?: string | null;
 }
-
 /**
  *
  * @export
@@ -580,7 +691,6 @@ export interface SongResultDto {
      */
     'artistName'?: string | null;
 }
-
 /**
  *
  * @export
@@ -622,23 +732,22 @@ export interface TrackDto {
 /**
  *
  * @export
- * @interface TrackDtoResultDto
+ * @interface TrackDtoBaseResultDto
  */
-export interface TrackDtoResultDto {
+export interface TrackDtoBaseResultDto {
     /**
      *
      * @type {TrackDto}
-     * @memberof TrackDtoResultDto
+     * @memberof TrackDtoBaseResultDto
      */
     'result'?: TrackDto;
     /**
      *
      * @type {ErrorDto}
-     * @memberof TrackDtoResultDto
+     * @memberof TrackDtoBaseResultDto
      */
     'error'?: ErrorDto;
 }
-
 /**
  *
  * @export
@@ -696,6 +805,9 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -728,6 +840,9 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -758,6 +873,9 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -919,6 +1037,10 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -953,6 +1075,10 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
@@ -960,6 +1086,7 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             if (offset !== undefined) {
                 localVarQueryParameter['offset'] = offset;
             }
+
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -987,7 +1114,7 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async albumIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumDtoResultDto>> {
+        async albumIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -999,7 +1126,7 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDtoResultDto>> {
+        async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdTracksGet(id, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1019,7 +1146,7 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        albumIdGet(id: string, options?: any): AxiosPromise<AlbumDtoResultDto> {
+        albumIdGet(id: string, options?: any): AxiosPromise<AlbumDtoBaseResultDto> {
             return localVarFp.albumIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1030,7 +1157,7 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDtoResultDto> {
+        albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDtoBaseResultDto> {
             return localVarFp.albumIdTracksGet(id, limit, offset, options).then((request) => request(axios, basePath));
         },
     };
@@ -1097,6 +1224,10 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -1123,7 +1254,7 @@ export const ArtistApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoResultDto>> {
+        async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtistDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.artistIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1143,7 +1274,7 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        artistIdGet(id: string, options?: any): AxiosPromise<TrackDtoResultDto> {
+        artistIdGet(id: string, options?: any): AxiosPromise<ArtistDtoBaseResultDto> {
             return localVarFp.artistIdGet(id, options).then((request) => request(axios, basePath));
         },
     };
@@ -1196,6 +1327,10 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
             if (q !== undefined) {
                 localVarQueryParameter['q'] = q;
             }
@@ -1237,7 +1372,7 @@ export const SearchApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoResultDto>> {
+        async searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1259,7 +1394,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet(q?: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoResultDto> {
+        searchSearchGet(q?: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoBaseResultDto> {
             return localVarFp.searchSearchGet(q, offset, limit, options).then((request) => request(axios, basePath));
         },
     };
@@ -1315,6 +1450,10 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -1341,7 +1480,7 @@ export const TrackApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoResultDto>> {
+        async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trackIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1361,7 +1500,7 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trackIdGet(id: string, options?: any): AxiosPromise<TrackDtoResultDto> {
+        trackIdGet(id: string, options?: any): AxiosPromise<TrackDtoBaseResultDto> {
             return localVarFp.trackIdGet(id, options).then((request) => request(axios, basePath));
         },
     };
@@ -1383,6 +1522,103 @@ export class TrackApi extends BaseAPI {
      */
     public trackIdGet(id: string, options?: AxiosRequestConfig) {
         return TrackApiFp(this.configuration).trackIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserApi - axios parameter creator
+ * @export
+ */
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userCurrentUserGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/User/CurrentUser`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserApi - functional programming interface
+ * @export
+ */
+export const UserApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userCurrentUserGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CurrentUserDtoSuccessBaseResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userCurrentUserGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserApi - factory interface
+ * @export
+ */
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
+    return {
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userCurrentUserGet(options?: any): AxiosPromise<CurrentUserDtoSuccessBaseResultDto> {
+            return localVarFp.userCurrentUserGet(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserApi - object-oriented interface
+ * @export
+ * @class UserApi
+ * @extends {BaseAPI}
+ */
+export class UserApi extends BaseAPI {
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userCurrentUserGet(options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).userCurrentUserGet(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1410,6 +1646,10 @@ export const WeatherForecastApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
