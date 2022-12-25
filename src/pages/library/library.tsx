@@ -61,18 +61,18 @@ const Library: React.FC<LibraryProps> = (props) => {
                     <LibrarySortButton selectedId={selectedSort} onSelected={(id) => setSelectedSort(id)}/>
                 </div>
                 <div className={styles.results}>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
                 </div>
             </IonContent>
         </IonPage>

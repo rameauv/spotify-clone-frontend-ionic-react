@@ -1,0 +1,35 @@
+@import "../../../design-system/styles/variables";
+
+.container {
+  display: flex;
+}
+
+.container:active {
+  transform: scale(0.99);
+  transition: transform 100ms;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image {
+  border-radius: 100%;
+  max-width: 3rem;
+  max-height: 3rem;
+  min-width: 3rem;
+  min-height: 3rem;
+  margin-right: 8px;
+}
+
+.title {
+  @include font-p1;
+  @include font-bold;
+  margin-bottom: 4px;
+}
+
+.description {
+  @include font-p2;
+}

@@ -5,15 +5,17 @@ import SearchSong from "../../components/thumbnails/search-song/search-song";
 import {useHistory} from "react-router-dom";
 import FilteringTag from "../../components/filtering-tag/filtering-tag";
 import {searchApi} from "../../tools/client";
-import {SongResultDto} from "../../api";
+import {SearchResultDto} from "../../api";
 import {debounce} from 'lodash';
 import SearchInput from "../../components/search-input/search-input";
+import {SearchAlbum} from "../../components/thumbnails/search-album/search-album";
+import {SearchArtist} from "../../components/thumbnails/search-artist/search-artist";
 
 interface AdvancedSearchProps {
     songPath: string;
 }
 
-const search = (value: string, callback: (T: SongResultDto[]) => void, myController: AbortController) => {
+const search = (value: string, callback: (T: SearchResultDto | undefined) => void, myController: AbortController) => {
     searchApi.searchSearchGet(value, undefined, undefined, {
         signal: myController.signal
     })
@@ -21,15 +23,14 @@ const search = (value: string, callback: (T: SongResultDto[]) => void, myControl
             if (myController.signal.aborted) {
                 return;
             }
-            const songs = searchResult.data?.result?.songResult
             console.log(searchResult);
-            callback(songs ?? [])
+            callback(searchResult.data?.result)
         });
 }
 
 const INTERVAL = 500;
 
-const buildSearchManager = (callback: (T: SongResultDto[]) => void) => {
+const buildSearchManager = (callback: (T: SearchResultDto | undefined) => void) => {
     let controller = new AbortController();
     const debounceSearch = debounce(search, INTERVAL, {
         leading: true,
@@ -73,12 +74,43 @@ const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag:
 
 
 const AdvancedSearch: React.FC<AdvancedSearchProps> = ({songPath}) => {
-    const searchManager = useMemo(() => buildSearchManager(songs => {
-        _setResults(songs)
-    }), [songPath]);
     const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
     const [searchQuery, _setSearchQuery] = useState<string>("");
-    const [results, _setResults] = useState<SongResultDto[]>([]);
+    const [results, _setResults] = useState<JSX.Element[]>([]);
+
+    const searchManager = useMemo(() => buildSearchManager(searchResult => {
+        if (!searchResult) {
+            _setResults([]);
+            return;
+        }
+        const mappedTracks = searchResult.songResult?.map(track => (<SearchSong
+            key={track.id}
+            id={track.id!}
+            title={track.title ?? 'unknown'}
+            artistName={track.artistName!}
+            imageLink={track.thumbnailUrl ?? undefined}
+        ></SearchSong>)) ?? [];
+        const mappedAlbums = searchResult.releaseResults?.map(album => (<SearchAlbum
+            key={album.id}
+            id={album.id!}
+            title={album.title ?? 'unknown'}
+            artistName={album.artistName!}
+            imageLink={album.thumbnailUrl ?? undefined}
+            type="Album"
+        ></SearchAlbum>)) ?? [];
+        const mappedArtists = searchResult.artistResult?.map(artist => (<SearchArtist
+            key={artist.id}
+            id={artist.id!}
+            name={artist.name ?? 'unknown'}
+            imageLink={artist.thumbnailUrl ?? undefined}
+        ></SearchArtist>)) ?? [];
+        const elements = [
+            ...mappedTracks,
+            ...mappedAlbums,
+            ...mappedArtists
+        ]
+        _setResults(elements);
+    }), [songPath]);
 
     const modal: any = useRef<HTMLIonModalElement>(null);
     const history = useHistory();
@@ -110,14 +142,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({songPath}) => {
                     </div>
                 </div>
                 <div className={styles.results}>
-                    {results?.map(track =>
-                        (<SearchSong
-                            key={track.id}
-                            id={track.id!}
-                            title={track.title ?? 'unknown'}
-                            description={`Song - ${track.artistName ?? 'unknown'}`}
-                            imageLink={track.thumbnailUrl ?? undefined}
-                        ></SearchSong>))}
+                    {results}
                 </div>
             </IonContent>
         </IonPage>

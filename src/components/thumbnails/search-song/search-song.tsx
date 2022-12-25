@@ -7,22 +7,22 @@ interface ContainerProps {
     id: string;
     imageLink?: string;
     title: string;
-    description: string;
+    artistName: string;
 }
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
-const SearchSong: React.FC<ContainerProps> = ({id, title, description, imageLink = defaultImage}) => {
+const SearchSong: React.FC<ContainerProps> = ({id, title, artistName, imageLink = defaultImage}) => {
     const songPath = useContext(SongPathContext);
     const history = useHistory();
     const fullpath = `${songPath}/${id}`;
 
     return (
         <div onClick={() => history?.push(fullpath)} className={styles.container}>
-            <img className={styles.image} src={imageLink}/>
+            <img className={styles.image ?? defaultImage} src={imageLink}/>
             <div className={styles.textContainer}>
                 <p className={styles.title}>{title}</p>
-                <p className={styles.description}>{description}</p>
+                <p className={styles.description}>Song . {artistName}</p>
             </div>
         </div>
     );
