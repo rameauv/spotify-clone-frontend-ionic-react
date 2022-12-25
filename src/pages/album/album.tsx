@@ -2,7 +2,7 @@ import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '
 import styles from './album.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
 import React, {useContext, useEffect, useState} from "react";
-import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
+import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
 import {Link, useHistory, useParams} from "react-router-dom";
 import {ArtistPathContext} from '../private/private-pages-router';
 import {useDispatch, useSelector} from "react-redux";
@@ -14,19 +14,23 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_C
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
 
 const Album: React.FC = () => {
-    const song: SongMoreMenuModalSong = {
-        thumbnailUrl: defaultImage,
-        title: 'Civilisation',
-        artist: 'Orelsan'
-    };
     const [isLiked, setIsLiked] = useState<boolean>();
     const history = useHistory();
-    const artistPath = useContext(ArtistPathContext);
     const {id} = useParams<{ id: string }>();
+    const artistPath = useContext(ArtistPathContext);
+    const fullArtistPath = `${artistPath}/${id}`;
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
     const status = cachedTrack?.status;
     const album = cachedTrack?.album;
+
+    useEffect(() => {
+        try {
+            dispatch<any>(fetchAlbum({id}));
+        } catch (e) {
+            console.log(e);
+        }
+    }, [id, dispatch]);
 
     const [present, dismiss] = useIonModal(SongMoreMenuModal, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
@@ -36,13 +40,6 @@ const Album: React.FC = () => {
             artist: album?.artistName
         }
     });
-    useEffect(() => {
-        try {
-            dispatch<any>(fetchAlbum({id}));
-        } catch (e) {
-            console.log(e);
-        }
-    }, [id, dispatch]);
     const content = !album ?
         undefined :
         (<>
@@ -54,8 +51,8 @@ const Album: React.FC = () => {
             </div>
             <div className={styles.container}>
                 <h1 className={styles.title}>{album.title}</h1>
-                <Link className={styles.artistContainer} to={artistPath}>
-                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl}/>
+                <Link className={styles.artistContainer} to={fullArtistPath}>
+                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl ?? artistImage}/>
                     <p className={styles.artist}>{album.artistName}</p>
                 </Link>
                 <p className={styles.type}>{album.albumType} . {album.releaseDate}</p>
@@ -115,8 +112,8 @@ const Album: React.FC = () => {
                     <p className={styles.songListContainer__song__more}>and more</p>
                 </div>
                 <p className={styles.releaseDate}>{album.releaseDate}</p>
-                <Link className={styles.bigArtistContainer} to={artistPath}>
-                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl ?? defaultImage}/>
+                <Link className={styles.bigArtistContainer} to={fullArtistPath}>
+                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl ?? artistImage}/>
                     <p className={styles.artist}>{album.artistName}</p>
                 </Link>
             </div>

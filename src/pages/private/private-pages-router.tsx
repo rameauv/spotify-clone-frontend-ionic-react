@@ -106,7 +106,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                                 <Route path={match.url} component={Home}/>
                                                 <Route path={`${match.url}/song/:id`} component={Song}/>
                                                 <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist`} component={Artist}/>
+                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
                                                 <Route exact path={`${match.url}/settings`} component={Settings}/>
                                                 <Route exact path={`${match.url}/settings/profile-settings`}
                                                        component={ProfileSettings}/>
@@ -130,7 +130,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                                 <Route path={`${match.url}/song/:id`} component={Song}/>
                                                 <Route path={`${match.url}/tag`} component={Tag}/>
                                                 <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist`} component={Artist}/>
+                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
                                                 <Route path={`${match.url}/test`}>
                                                     <AdvancedSearch songPath="/tab2/song"/>
                                                 </Route>
@@ -153,7 +153,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                                 <Route path={`${match.url}/search`} component={LibrarySearch}/>
                                                 <Route path={`${match.url}/song/:id`} component={Song}/>
                                                 <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist`} component={Artist}/>
+                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
                                                 <Route exact path={`${match.url}/settings`} component={Settings}/>
                                                 <Route exact path={`${match.url}/settings/profile-settings`}
                                                        component={ProfileSettings}/>

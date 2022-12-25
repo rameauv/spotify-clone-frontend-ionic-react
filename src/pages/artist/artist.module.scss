@@ -13,6 +13,26 @@
   --artistImage: url("https://yeah.paleo.ch/sites/default/files/styles/artist_description/public/artist/image/2021/Logo%20Orelsan%5B75%5D_b749075368ff278e91261eb8d8881ca2.jpg?h=838c7dac&itok=HnXIVOsd&cropToken=E-FKPX8i");
 }
 
+
+.noContentHeader {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  .noContentHeader__backButton {
+    height: 24px;
+    width: 24px;
+    margin-right: 2rem;
+
+    &:active {
+      transform: scale(0.95);
+      transition: transform 100ms;
+      color: var(--app-color-text-secondary);
+    }
+  }
+}
+
+
 .ionContent {
   --background: linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos));
   background-image: var(--artistImage);

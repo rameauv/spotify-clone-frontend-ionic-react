@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, AlbumApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
+import {AccountsApi, AlbumApi, ArtistApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
 
 const client = axios.create();
 const publicClient = axios.create();
@@ -75,7 +75,13 @@ const albumkApi = new AlbumApi(
     client
 );
 
-export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi, trackApi, albumkApi};
+const artistApi = new ArtistApi(
+    undefined,
+    'http://localhost:5103',
+    client
+);
+
+export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi, trackApi, albumkApi, artistApi};
 
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');

@@ -1,10 +1,14 @@
-import {IonContent, IonIcon, IonPage, useIonModal} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './artist.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import SearchSong from "../../components/thumbnails/search-song/search-song";
+import {useDispatch, useSelector} from "react-redux";
+import {MyState} from "../../store/store";
+import {CachedArtist} from "../../features/artist-slice/models/cachedArtist";
+import {fetchArtist, selectArtistById} from "../../features/artist-slice/artist-slice";
 
 const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ46fmCsDjEEyOxhiI_yyhUEvR0QFSoHMbepw&usqp=CAU';
 
@@ -38,10 +42,7 @@ const Artist: React.FC = () => {
     const [headerTitleOpacity, setHeaderTitleOpacity] = useState(0);
     const [titleBg, setTitleBg] = useState('transparent');
     const [headerBg, setHeaderBg] = useState('transparent');
-    const [present, dismiss] = useIonModal(SongMoreMenuModal, {
-        onDismiss: (data: string, role: string) => dismiss(data, role),
-        song: song
-    });
+
     const history = useHistory();
     const handleScrollEvent = (e: any) => {
         const scrollTop = e.detail.scrollTop;
@@ -54,15 +55,50 @@ const Artist: React.FC = () => {
         setBgOpacity(tempBgOpacity);
         setTitleBg(tempTitleBg)
     }
-    return (
-        <IonPage className={styles.variables}>
+
+    const {id} = useParams<{ id: string }>();
+    const dispatch = useDispatch();
+    const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
+    const status = cachedArtist?.status;
+    const artist = cachedArtist?.artist;
+    const [present, dismiss] = useIonModal(SongMoreMenuModal, {
+        onDismiss: (data: string, role: string) => dismiss(data, role),
+        song: song
+    });
+
+    useEffect(() => {
+        try {
+            dispatch<any>(fetchArtist({id}));
+        } catch (e) {
+            console.log(e);
+        }
+    }, [id, dispatch]);
+
+    const content = !artist ?
+        (<>
+            <IonHeader>
+                <IonToolbar>
+                    <div className={styles.noContentHeader}>
+                        <IonIcon
+                            className={styles.noContentHeader__backButton}
+                            icon={arrowBackOutline}
+                            onClick={() => history.goBack()}
+                        />
+                    </div>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent>
+            </IonContent>
+        </>) :
+        (<>
             <IonContent
                 className={styles.ionContent}
                 style={{
                     "--backgroundOpacity": bgOpacity,
                     "--headerTitleOpacity": headerTitleOpacity,
                     "--headerBg": headerBg,
-                    "--titleBg": titleBg
+                    "--titleBg": titleBg,
+                    "--artistImage": `url("${artist.thumbnailUrl}")`,
                 }}
                 scrollEvents
                 onIonScroll={(e) => handleScrollEvent(e)}
@@ -73,12 +109,12 @@ const Artist: React.FC = () => {
                         icon={arrowBackOutline}
                         onClick={() => history.goBack()}
                     ></IonIcon>
-                    <p className={styles.header__title}>Orelsan</p>
+                    <p className={styles.header__title}>{artist.name}</p>
                 </div>
                 <div className={styles.container}>
-                    <h1 className={styles.title}>Orelsan</h1>
+                    <h1 className={styles.title}>{artist.name}</h1>
                     <div className={styles.solidContainer}>
-                        <p className={styles.viewers}>3,498,563 monthly viewers</p>
+                        <p className={styles.viewers}>{artist.monthlyListeners} monthly viewers</p>
                         <div className={styles.buttons}>
                             <div className={styles.addToPlaylistButtonContainer}>
                                 {
@@ -153,6 +189,11 @@ const Artist: React.FC = () => {
                     </div>
                 </div>
             </IonContent>
+        </>);
+
+    return (
+        <IonPage className={styles.variables}>
+            {content}
         </IonPage>
     );
 };
