@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, SearchApi, WeatherForecastApi} from '../api';
+import {AccountsApi, SearchApi, UserApi, WeatherForecastApi} from '../api';
 
 const client = axios.create();
 const publicClient = axios.create();
@@ -9,6 +9,8 @@ client.interceptors.request.use(
     async (config) => {
         config.withCredentials = true;
         const token = await getAccessToken();
+        console.log('client.interceptors => ' + token)
+        console.log(token);
         if (token) {
             config.headers = {
                 ...config.headers,
@@ -19,6 +21,21 @@ client.interceptors.request.use(
     },
     error => Promise.reject(error)
 );
+
+publicClient.interceptors.request.use(
+    async (config) => {
+        config.withCredentials = true;
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${token}`
+            };
+        }
+        return config;
+    },
+    error => Promise.reject(error)
+)
 
 const accountsApi = new AccountsApi(
     undefined,
@@ -42,7 +59,13 @@ const searchApi = new SearchApi(
     client
 );
 
-export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi};
+const userApi = new UserApi(
+    undefined,
+    'http://localhost:5103',
+    client
+);
+
+export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi};
 
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');
@@ -54,9 +77,9 @@ function refreshToken() {
         withCredentials: true
     })
         .then(response => {
-            const token = response.data;
+            const token = response.data.accessToken;
             console.log(token);
-            localStorage.setItem('jwt', token.accessToken);
+            localStorage.setItem('jwt', token);
             return token;
         })
         .catch(reason => {
@@ -68,11 +91,11 @@ function refreshToken() {
 export async function getAccessToken() {
     const jwt = localStorage.getItem('jwt');
     console.log(jwt);
-    if (!jwt) return null;
+    if (!jwt) return await refreshToken();
+    ;
 
     //check if the JWT is close to expiring (e.g. within 5 minutes)
     const jwtExp = jwtDecode<any>(jwt).exp;
-    console.log(jwtDecode<any>(jwt));
     const fiveMinutesInSeconds = 60 * 1;
     if (jwtExp - (Date.now() / 1000) < fiveMinutesInSeconds) {
         // if it is, try to refresh the token
@@ -82,3 +105,4 @@ export async function getAccessToken() {
         return jwt;
     }
 }
+

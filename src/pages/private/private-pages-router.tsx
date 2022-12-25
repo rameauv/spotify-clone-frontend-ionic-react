@@ -17,7 +17,8 @@ import LibrarySearch from "../library-search/library-search";
 import {Keyboard} from "@capacitor/keyboard";
 import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
-import {getAccessToken} from '../../tools/client';
+import {fetechCurrentUser, selectCurrentUserStatus} from "../../features/current-user/current-user-sliice";
+import {useDispatch, useSelector} from "react-redux";
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
@@ -31,27 +32,21 @@ StatusBar.setStyle({
     style: Style.Dark
 }).catch(console.error);
 
-enum AuthStatus {
-    LOGGED_IN,
-    LOGGED_OUT,
-    IDDLE
-}
-
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
-let ready = false;
-
 const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
-    console.log(props);
-    const [authStatus, setAuthStatus] = useState<AuthStatus>(AuthStatus.IDDLE)
-    useEffect(() => {
-        getAccessToken()
-            .then(token => {
-                setAuthStatus(token ? AuthStatus.LOGGED_IN : AuthStatus.LOGGED_OUT);
-            });
-    });
+    const dispatch = useDispatch();
+    const currentUserStatus = useSelector(selectCurrentUserStatus);
+    const [ready, setReady] = useState<boolean>(false);
     const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
     const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
     const [isPlayerHidden, setIsPlayerHidden] = useState(false);
+    useEffect(() => {
+        if (currentUserStatus === 'idle') {
+            dispatch<any>(fetechCurrentUser()).unwrap();
+        }
+    }, [currentUserStatus, dispatch]);
+
+
     if (!ready) {
         try {
             Keyboard.addListener('keyboardWillShow', () => {
@@ -64,7 +59,9 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
             console.error(e);
         }
     }
-    ready = true;
+    if (!ready) {
+        setReady(true);
+    }
     const loadingContent = (<></>);
     const content = (
         <>
@@ -190,10 +187,10 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
             {/*</IonReactRouter>*/}
         </>
     );
-    if (authStatus === AuthStatus.LOGGED_OUT) {
+    if (currentUserStatus === 'failed') {
         return (<Redirect to='/'/>);
     }
-    return (authStatus === AuthStatus.LOGGED_IN ? content : loadingContent);
+    return (currentUserStatus === 'succeeded' ? content : loadingContent);
 };
 
 export default PrivatePagesRouter;

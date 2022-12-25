@@ -9,6 +9,16 @@ import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from "react-router";
 import {accountsApi, weatherForecastApi} from '../../tools/client';
 
+import {
+    fetchPosts,
+    getPostError,
+    getPostStatus,
+    postAdded,
+    reset,
+    selectAllPosts
+} from '../../features/posts/posts-slide';
+import {useDispatch, useSelector} from "react-redux";
+
 interface HomeProps extends RouteComponentProps {
 }
 
@@ -40,10 +50,50 @@ const Home: React.FC<HomeProps> = (props) => {
         }
         localStorage.setItem('jwt', token);
     }
-
     const handleWeather = () => {
         weatherForecastApi.getWeatherForecast();
     }
+
+
+    const dispatch = useDispatch();
+
+    const posts = useSelector(selectAllPosts);
+    const postsStatus = useSelector(getPostStatus);
+    const postsErrors = useSelector(getPostError);
+
+    // useEffect(() => {
+    if (postsStatus === 'idle') {
+        dispatch<any>(fetchPosts());
+    }
+    // }, [postsStatus, dispatch]);
+
+
+    let content;
+
+    if (postsStatus === 'loading') {
+        content = <p>loading...</p>
+    } else if (postsStatus === 'succeeded') {
+        const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(b.date));
+        content = orderedPosts.map(post => <div key={post.id}>
+            <p>{post.id}</p>
+            <p>{post.title}</p>
+            <p>{post.body}</p>
+            <p>{post.date}</p>
+        </div>);
+    } else if (postsStatus === 'failed') {
+        content = <p>{postsErrors}</p>
+    }
+
+
+    const handleAddPost = () => {
+        dispatch(postAdded('test', 'content'));
+    }
+    const handleResetPosts = () => {
+        dispatch(reset());
+    }
+    console.log(posts);
+    console.log(postsStatus);
+    console.log(postsErrors);
     return (
         <IonPage>
             <IonHeader><IonToolbar className="no-height"/></IonHeader>
@@ -63,9 +113,11 @@ const Home: React.FC<HomeProps> = (props) => {
                     </div>
                 </div>
                 <IonButton onClick={() => handleLogin()}>login</IonButton>
-                <IonButton>refresh</IonButton>
+                <IonButton onClick={() => handleAddPost()}>addPost</IonButton>
+                <IonButton onClick={() => handleResetPosts()}>reset</IonButton>
                 <IonButton>register</IonButton>
                 <IonButton onClick={() => handleWeather()}>weather</IonButton>
+                {content}
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Recently played</p>
                 <div className={styles.scroller}>
                     <SmallAlbum title={'Granps'}></SmallAlbum>

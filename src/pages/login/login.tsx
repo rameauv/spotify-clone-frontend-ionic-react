@@ -29,7 +29,7 @@ const Login: React.FC<LoginProps> = (props) => {
         }
         const f = async () => {
             const response = await publicAccountsApi.accountsLoginPost({
-                deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa7",
                 username: state.username,
                 password: state.password
             })
