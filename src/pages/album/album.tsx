@@ -18,11 +18,11 @@ const Album: React.FC = () => {
     const history = useHistory();
     const {id} = useParams<{ id: string }>();
     const artistPath = useContext(ArtistPathContext);
-    const fullArtistPath = `${artistPath}/${id}`;
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
     const status = cachedTrack?.status;
     const album = cachedTrack?.album;
+    const fullArtistPath = `${artistPath}/${album?.artistId}`;
 
     useEffect(() => {
         try {
