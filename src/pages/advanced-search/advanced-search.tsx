@@ -53,6 +53,7 @@ const tags = ['Top', 'Podcasts & Shows', 'Songs', 'Artists', 'Profiles', 'Albums
 const tagProvider = (text: string, selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
     return (
         <FilteringTag
+            key={text}
             onClick={() => handleTagSelection(text)}
             activated={selectedTag === text}
         >
@@ -111,6 +112,8 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({songPath}) => {
                 <div className={styles.results}>
                     {results?.map(track =>
                         (<SearchSong
+                            key={track.id}
+                            id={track.id!}
                             title={track.title ?? 'unknown'}
                             description={`Song - ${track.artistName ?? 'unknown'}`}
                             imageLink={track.thumbnailUrl ?? undefined}

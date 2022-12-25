@@ -141,12 +141,12 @@ const Artist: React.FC = () => {
                         </div>
                         {sectionProvider('Popular release', (
                             <div className={styles.popularRelease}>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="fakeId" title="Hope" description="Song - XXXTENTACION"></SearchSong>
                                 {seeButtonProvider('See discography')}
                             </div>
                         ))}

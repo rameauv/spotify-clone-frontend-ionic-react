@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
 import {userApi} from "../../tools/client";
 import {MyState} from "../../store/store";
 
@@ -9,17 +9,19 @@ export interface CurrentUser {
     name: string
 }
 
-export interface CurrentUserSliiceState {
+export interface CurrentUserSliiceState extends EntityState<any> {
     data: CurrentUser | undefined;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | undefined;
 }
 
-const initialState: CurrentUserSliiceState = {
+const postsAdapter = createEntityAdapter({})
+
+const initialState: CurrentUserSliiceState = postsAdapter.getInitialState({
     data: undefined,
     status: "idle",
     error: undefined
-}
+})
 
 export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, thunkAPI) => {
     const response = await userApi.userCurrentUserGet();

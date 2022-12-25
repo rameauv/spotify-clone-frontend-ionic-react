@@ -16,7 +16,7 @@ import {
     postAdded,
     reset,
     selectAllPosts
-} from '../../features/posts/posts-slide';
+} from '../../features/posts/posts-slice';
 import {useDispatch, useSelector} from "react-redux";
 
 interface HomeProps extends RouteComponentProps {

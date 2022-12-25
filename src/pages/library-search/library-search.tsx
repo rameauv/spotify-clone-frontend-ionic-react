@@ -56,7 +56,8 @@ interface Result {
 const resultsProvider = (data: Result[]) => {
     return (
         <div className={styles.results}>
-            {data.map(item => (<SearchSong title={item.title} description={item.description}></SearchSong>))}
+            {data.map(item => (
+                <SearchSong id="fakeId" title={item.title} description={item.description}></SearchSong>))}
         </div>
     );
 }

@@ -17,7 +17,7 @@ import LibrarySearch from "../library-search/library-search";
 import {Keyboard} from "@capacitor/keyboard";
 import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
-import {fetechCurrentUser, selectCurrentUserStatus} from "../../features/current-user/current-user-sliice";
+import {fetechCurrentUser, selectCurrentUserStatus} from "../../features/current-user/current-user-slice";
 import {useDispatch, useSelector} from "react-redux";
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
@@ -127,7 +127,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
 
                                             <IonRouterOutlet>
                                                 <Route exact path={match.url} component={Search}/>
-                                                <Route path={`${match.url}/song`} component={Song}/>
+                                                <Route path={`${match.url}/song/:id`} component={Song}/>
                                                 <Route path={`${match.url}/tag`} component={Tag}/>
                                                 <Route path={`${match.url}/album`} component={Album}/>
                                                 <Route path={`${match.url}/artist`} component={Artist}/>
