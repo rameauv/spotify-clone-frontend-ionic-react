@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
+import {AccountsApi, AlbumApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
 
 const client = axios.create();
 const publicClient = axios.create();
@@ -9,8 +9,6 @@ client.interceptors.request.use(
     async (config) => {
         config.withCredentials = true;
         const token = await getAccessToken();
-        console.log('client.interceptors => ' + token)
-        console.log(token);
         if (token) {
             config.headers = {
                 ...config.headers,
@@ -71,7 +69,13 @@ const trackApi = new TrackApi(
     client
 );
 
-export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi, trackApi};
+const albumkApi = new AlbumApi(
+    undefined,
+    'http://localhost:5103',
+    client
+);
+
+export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi, trackApi, albumkApi};
 
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');
@@ -84,7 +88,6 @@ function refreshToken() {
     })
         .then(response => {
             const token = response.data.accessToken;
-            console.log(token);
             localStorage.setItem('jwt', token);
             return token;
         })
@@ -96,7 +99,6 @@ function refreshToken() {
 
 export async function getAccessToken() {
     const jwt = localStorage.getItem('jwt');
-    console.log(jwt);
     if (!jwt) return await refreshToken();
     ;
 

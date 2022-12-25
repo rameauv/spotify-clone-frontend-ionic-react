@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import postReducer, {PostsState} from '../features/posts/posts-slice'
 import currentUserSliice, {CurrentUserSliiceState} from "../features/current-user/current-user-slice";
 import trackSlice, {TrackSliceState} from "../features/track-slice/track-slice";
+import albumSlice, {AlbumSliceState} from "../features/album-slice/album-slice";
 
 export interface MyState {
     posts: PostsState;
@@ -21,13 +22,7 @@ export interface MyState {
         }
     };
     currentUser: CurrentUserSliiceState;
-    albums: {
-        ['']: {
-            data: {};
-            status: 'idle' | 'loading' | 'succeeded' | 'failed';
-            error: string | undefined;
-        }
-    },
+    albums: AlbumSliceState;
     artists: {
         ['']: {
             mainData: {
@@ -53,6 +48,7 @@ export const store = configureStore({
     reducer: {
         posts: postReducer,
         currentUser: currentUserSliice,
-        tracks: trackSlice
+        tracks: trackSlice,
+        albums: albumSlice
     }
 });
