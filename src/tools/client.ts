@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, AlbumApi, ArtistApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
+import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
 
 const client = axios.create();
 const publicClient = axios.create();
@@ -81,7 +81,23 @@ const artistApi = new ArtistApi(
     client
 );
 
-export {accountsApi, weatherForecastApi, searchApi, publicAccountsApi, userApi, trackApi, albumkApi, artistApi};
+const likeApi = new LikeApi(
+    undefined,
+    'http://localhost:5103',
+    client
+);
+
+export {
+    accountsApi,
+    weatherForecastApi,
+    searchApi,
+    publicAccountsApi,
+    userApi,
+    trackApi,
+    albumkApi,
+    artistApi,
+    likeApi
+};
 
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');
@@ -106,7 +122,6 @@ function refreshToken() {
 export async function getAccessToken() {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) return await refreshToken();
-    ;
 
     //check if the JWT is close to expiring (e.g. within 5 minutes)
     const jwtExp = jwtDecode<any>(jwt).exp;

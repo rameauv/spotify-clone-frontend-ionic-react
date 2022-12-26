@@ -3,6 +3,7 @@ export interface Track {
     title: string;
     artistName: string;
     thumbnailUrl?: string;
+    likeId?: string;
 }
 
 export interface CachedTrack {

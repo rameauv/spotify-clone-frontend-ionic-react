@@ -2,6 +2,7 @@ import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, Enti
 import {artistApi} from "../../tools/client";
 import {Artist, CachedArtist} from "./models/cachedArtist";
 import {MyState} from "../../store/store";
+import {addLike, deleteLike} from "../like-slise/like-slice";
 
 export interface ArtistSliceState extends EntityState<any> {
 }
@@ -11,7 +12,7 @@ const artistAdapter = createEntityAdapter<CachedArtist>({});
 const initialState: ArtistSliceState = artistAdapter.getInitialState({});
 
 
-export const fetchArtist = createAsyncThunk<Artist, { id: string }>('artist/fetch', async (arg, thunkAPI) => {
+export const fetchArtist = createAsyncThunk('artist/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
     const response = await artistApi.artistIdGet(id);
     const artistDto = response.data.result!;
@@ -20,6 +21,17 @@ export const fetchArtist = createAsyncThunk<Artist, { id: string }>('artist/fetc
         monthlyListeners: artistDto.monthlyListeners!,
         name: artistDto.name!,
         thumbnailUrl: artistDto.thumbnailUrl ?? undefined,
+        likeId: artistDto.likeId ?? undefined
+    }
+    if (artistDto.likeId) {
+        thunkAPI.dispatch(addLike({
+            id: artistDto.likeId,
+            associatedId: id
+        }));
+    } else {
+        thunkAPI.dispatch(deleteLike({
+            associatedId: id
+        }));
     }
     return mappedArtist;
 });

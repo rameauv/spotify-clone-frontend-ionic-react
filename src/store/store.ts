@@ -4,6 +4,7 @@ import currentUserSliice, {CurrentUserSliiceState} from "../features/current-use
 import trackSlice, {TrackSliceState} from "../features/track-slice/track-slice";
 import albumSlice, {AlbumSliceState} from "../features/album-slice/album-slice";
 import artistSlice, {ArtistSliceState} from "../features/artist-slice/artist-slice";
+import likeSlice, {LikeSlideState} from "../features/like-slise/like-slice";
 
 export interface MyState {
     posts: PostsState;
@@ -26,9 +27,7 @@ export interface MyState {
     albums: AlbumSliceState;
     artists: ArtistSliceState;
     tracks: TrackSliceState;
-    likes: {
-        ['']: true
-    };
+    likes: LikeSlideState;
 }
 
 
@@ -38,6 +37,7 @@ export const store = configureStore({
         currentUser: currentUserSliice,
         tracks: trackSlice,
         albums: albumSlice,
-        artists: artistSlice
+        artists: artistSlice,
+        likes: likeSlice
     }
 });

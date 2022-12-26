@@ -19,7 +19,8 @@ export const fetchTrack = createAsyncThunk<Track, { id: string }>('track/fetch',
         id: track.id!,
         title: track.title!,
         artistName: track.artistName!,
-        thumbnailUrl: track.thumbnailUrl ?? undefined
+        thumbnailUrl: track.thumbnailUrl ?? undefined,
+        likeId: track.likeId ?? undefined
     }
     return mappedTrack;
 });

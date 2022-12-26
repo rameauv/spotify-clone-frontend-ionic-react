@@ -33,12 +33,12 @@ const Login: React.FC<LoginProps> = (props) => {
                 username: state.username,
                 password: state.password
             })
-            const token = response.data as unknown as string;
+            const token = response.data;
             console.log(token);
-            if (!token) {
+            if (!token?.accessToken) {
                 return;
             }
-            localStorage.setItem('jwt', token);
+            localStorage.setItem('jwt', token.accessToken);
             router.push(`/home/tab1`, 'root', "replace");
         }
         f();

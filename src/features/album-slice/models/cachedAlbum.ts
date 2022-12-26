@@ -7,6 +7,7 @@ export interface Album {
     artistName: string;
     artistThumbnailUrl?: string;
     albumType: string;
+    likeId?: string;
 }
 
 export interface CachedAlbum {

@@ -11,7 +11,7 @@ const albumAdapter = createEntityAdapter<CachedAlbum>({});
 const initialState: AlbumSliceState = albumAdapter.getInitialState({});
 
 
-export const fetchAlbum = createAsyncThunk<Album, { id: string }>('album/fetch', async (arg, thunkAPI) => {
+export const fetchAlbum = createAsyncThunk('album/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
     const response = await albumkApi.albumIdGet(id);
     const albumDto = response.data.result!;
@@ -23,7 +23,8 @@ export const fetchAlbum = createAsyncThunk<Album, { id: string }>('album/fetch',
         albumType: albumDto.albumType!,
         artistId: albumDto.artistId!,
         artistThumbnailUrl: albumDto.artistThumbnailUrl!,
-        releaseDate: albumDto.releaseDate!
+        releaseDate: albumDto.releaseDate!,
+        likeId: albumDto.likeId ?? undefined
     }
     return mappedAlbum;
 });

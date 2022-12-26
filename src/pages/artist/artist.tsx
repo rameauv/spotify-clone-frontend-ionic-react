@@ -9,6 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
 import {CachedArtist} from "../../features/artist-slice/models/cachedArtist";
 import {fetchArtist, selectArtistById} from "../../features/artist-slice/artist-slice";
+import {
+    addArtistLikeThunk,
+    CachedLike,
+    deleteLikeThunk,
+    selectLikeByAssociatedId
+} from "../../features/like-slise/like-slice";
 
 const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ46fmCsDjEEyOxhiI_yyhUEvR0QFSoHMbepw&usqp=CAU';
 
@@ -59,12 +65,21 @@ const Artist: React.FC = () => {
     const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
     const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
+    const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const status = cachedArtist?.status;
     const artist = cachedArtist?.artist;
     const [present, dismiss] = useIonModal(SongMoreMenuModal, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
         song: song
     });
+
+    const handleFollowButtonEvent = () => {
+        if (cachedLike) {
+            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
+        } else {
+            dispatch<any>(addArtistLikeThunk({id}));
+        }
+    };
 
     useEffect(() => {
         try {
@@ -118,15 +133,15 @@ const Artist: React.FC = () => {
                         <div className={styles.buttons}>
                             <div className={styles.addToPlaylistButtonContainer}>
                                 {
-                                    isLiked ?
+                                    cachedLike ?
                                         <div className={styles.addToPlaylistButton}
-                                             onClick={() => setIsLiked(false)}
+                                             onClick={() => handleFollowButtonEvent()}
                                         >
                                             <p>Following</p>
                                         </div> :
                                         <div
                                             className={`${styles.addToPlaylistButton} ${styles.addToPlaylistButtonActivated}`}
-                                            onClick={() => setIsLiked(true)}
+                                            onClick={() => handleFollowButtonEvent()}
                                         >
                                             <p>Follow</p>
                                         </div>

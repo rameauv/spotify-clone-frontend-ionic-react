@@ -3,7 +3,8 @@ export interface Artist {
     name: string;
     thumbnailUrl?: string;
     monthlyListeners: number;
-    albums?: any[]
+    albums?: any[];
+    likeId?: string;
 }
 
 export interface CachedArtist {

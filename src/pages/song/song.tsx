@@ -29,11 +29,7 @@ const Song: React.FC = () => {
     });
     useEffect(() => {
         // if (!cachedTrack || status === "idle") {
-        try {
-            dispatch<any>(fetchTrack({id}));
-        } catch (e) {
-            console.log(e);
-        }
+        dispatch<any>(fetchTrack({id}));
         // }
     }, [id, dispatch]);
 

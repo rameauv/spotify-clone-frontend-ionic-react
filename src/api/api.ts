@@ -88,12 +88,11 @@ export interface AlbumDto {
     'albumType'?: string | null;
     /**
      *
-     * @type {boolean}
+     * @type {string}
      * @memberof AlbumDto
      */
-    'isLiked'?: boolean;
+    'likeId'?: string | null;
 }
-
 /**
  *
  * @export
@@ -144,7 +143,6 @@ export interface AlbumTracksDto {
      */
     'total'?: number;
 }
-
 /**
  *
  * @export
@@ -164,7 +162,6 @@ export interface AlbumTracksDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
-
 /**
  *
  * @export
@@ -191,10 +188,10 @@ export interface ArtistDto {
     'thumbnailUrl'?: string | null;
     /**
      *
-     * @type {boolean}
+     * @type {string}
      * @memberof ArtistDto
      */
-    'isFollowing'?: boolean;
+    'likeId'?: string | null;
     /**
      *
      * @type {number}
@@ -202,7 +199,6 @@ export interface ArtistDto {
      */
     'monthlyListeners'?: number;
 }
-
 /**
  *
  * @export
@@ -222,7 +218,6 @@ export interface ArtistDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
-
 /**
  *
  * @export
@@ -273,7 +268,6 @@ export interface CreateUserDto {
      */
     'data'?: string | null;
 }
-
 /**
  *
  * @export
@@ -303,13 +297,13 @@ export interface CurrentUserDto {
 /**
  *
  * @export
- * @interface CurrentUserDtoErrorBaseResultDto
+ * @interface CurrentUserDtoErrorResultDto
  */
-export interface CurrentUserDtoErrorBaseResultDto {
+export interface CurrentUserDtoErrorResultDto {
     /**
      *
      * @type {ErrorDto}
-     * @memberof CurrentUserDtoErrorBaseResultDto
+     * @memberof CurrentUserDtoErrorResultDto
      */
     'error': ErrorDto;
 }
@@ -317,13 +311,13 @@ export interface CurrentUserDtoErrorBaseResultDto {
 /**
  *
  * @export
- * @interface CurrentUserDtoSuccessBaseResultDto
+ * @interface CurrentUserDtoSuccessResultDto
  */
-export interface CurrentUserDtoSuccessBaseResultDto {
+export interface CurrentUserDtoSuccessResultDto {
     /**
      *
      * @type {CurrentUserDto}
-     * @memberof CurrentUserDtoSuccessBaseResultDto
+     * @memberof CurrentUserDtoSuccessResultDto
      */
     'result': CurrentUserDto;
 }
@@ -389,6 +383,20 @@ export const DayOfWeek = {
 
 export type DayOfWeek = typeof DayOfWeek[keyof typeof DayOfWeek];
 
+
+/**
+ *
+ * @export
+ * @interface DeleteLikeDto
+ */
+export interface DeleteLikeDto {
+    /**
+     *
+     * @type {string}
+     * @memberof DeleteLikeDto
+     */
+    'id'?: string | null;
+}
 
 /**
  *
@@ -481,6 +489,48 @@ export const HttpStatusCode = {
 
 export type HttpStatusCode = typeof HttpStatusCode[keyof typeof HttpStatusCode];
 
+
+/**
+ *
+ * @export
+ * @interface LikeDto
+ */
+export interface LikeDto {
+    /**
+     *
+     * @type {string}
+     * @memberof LikeDto
+     */
+    'id'?: string | null;
+}
+
+/**
+ *
+ * @export
+ * @interface LikeDtoErrorResultDto
+ */
+export interface LikeDtoErrorResultDto {
+    /**
+     *
+     * @type {ErrorDto}
+     * @memberof LikeDtoErrorResultDto
+     */
+    'error': ErrorDto;
+}
+
+/**
+ *
+ * @export
+ * @interface LikeDtoSuccessResultDto
+ */
+export interface LikeDtoSuccessResultDto {
+    /**
+     *
+     * @type {LikeDto}
+     * @memberof LikeDtoSuccessResultDto
+     */
+    'result': LikeDto;
+}
 
 /**
  *
@@ -615,7 +665,6 @@ export interface SearchResultDto {
      */
     'artistResult'?: Array<ArtistResultDto> | null;
 }
-
 /**
  *
  * @export
@@ -635,6 +684,35 @@ export interface SearchResultDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
+
+/**
+ *
+ * @export
+ * @interface SetLikeRequest
+ */
+export interface SetLikeRequest {
+    /**
+     *
+     * @type {string}
+     * @memberof SetLikeRequest
+     */
+    'associatedId': string;
+}
+
+/**
+ *
+ * @export
+ * @interface SetNameRequestDto
+ */
+export interface SetNameRequestDto {
+    /**
+     *
+     * @type {string}
+     * @memberof SetNameRequestDto
+     */
+    'name': string;
+}
+
 /**
  *
  * @export
@@ -723,12 +801,11 @@ export interface TrackDto {
     'thumbnailUrl'?: string | null;
     /**
      *
-     * @type {boolean}
+     * @type {string}
      * @memberof TrackDto
      */
-    'isLiked'?: boolean;
+    'likeId'?: string | null;
 }
-
 /**
  *
  * @export
@@ -810,6 +887,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
+
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -845,6 +923,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -876,6 +955,7 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1042,6 +1122,7 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1088,10 +1169,45 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             }
 
 
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Album/Like`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1130,6 +1246,16 @@ export const AlbumApiFp = function (configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdTracksGet(id, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.albumLikePatch(setLikeRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -1159,6 +1285,15 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          */
         albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDtoBaseResultDto> {
             return localVarFp.albumIdTracksGet(id, limit, offset, options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+            return localVarFp.albumLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1192,6 +1327,17 @@ export class AlbumApi extends BaseAPI {
      */
     public albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig) {
         return AlbumApiFp(this.configuration).albumIdTracksGet(id, limit, offset, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {SetLikeRequest} [setLikeRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumApi
+     */
+    public albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
+        return AlbumApiFp(this.configuration).albumLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1238,6 +1384,42 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        artistLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Artist/Like`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1256,6 +1438,16 @@ export const ArtistApiFp = function (configuration?: Configuration) {
          */
         async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtistDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.artistIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.artistLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1277,6 +1469,15 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
         artistIdGet(id: string, options?: any): AxiosPromise<ArtistDtoBaseResultDto> {
             return localVarFp.artistIdGet(id, options).then((request) => request(axios, basePath));
         },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        artistLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+            return localVarFp.artistLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1297,6 +1498,121 @@ export class ArtistApi extends BaseAPI {
     public artistIdGet(id: string, options?: AxiosRequestConfig) {
         return ArtistApiFp(this.configuration).artistIdGet(id, options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     *
+     * @param {SetLikeRequest} [setLikeRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ArtistApi
+     */
+    public artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
+        return ArtistApiFp(this.configuration).artistLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LikeApi - axios parameter creator
+ * @export
+ */
+export const LikeApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        likeDeleteDelete: async (deleteLikeDto?: DeleteLikeDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Like/Delete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteLikeDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LikeApi - functional programming interface
+ * @export
+ */
+export const LikeApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = LikeApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.likeDeleteDelete(deleteLikeDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LikeApi - factory interface
+ * @export
+ */
+export const LikeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LikeApiFp(configuration)
+    return {
+        /**
+         *
+         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: any): AxiosPromise<void> {
+            return localVarFp.likeDeleteDelete(deleteLikeDto, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LikeApi - object-oriented interface
+ * @export
+ * @class LikeApi
+ * @extends {BaseAPI}
+ */
+export class LikeApi extends BaseAPI {
+    /**
+     *
+     * @param {DeleteLikeDto} [deleteLikeDto]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LikeApi
+     */
+    public likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: AxiosRequestConfig) {
+        return LikeApiFp(this.configuration).likeDeleteDelete(deleteLikeDto, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 
@@ -1308,13 +1624,15 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          *
-         * @param {string} [q]
+         * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet: async (q?: string, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchSearchGet: async (q: string, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'q' is not null or undefined
+            assertParamExists('searchSearchGet', 'q', q)
             const localVarPath = `/Search/Search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1366,13 +1684,13 @@ export const SearchApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @param {string} [q]
+         * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoBaseResultDto>> {
+        async searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1388,13 +1706,13 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          *
-         * @param {string} [q]
+         * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet(q?: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoBaseResultDto> {
+        searchSearchGet(q: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoBaseResultDto> {
             return localVarFp.searchSearchGet(q, offset, limit, options).then((request) => request(axios, basePath));
         },
     };
@@ -1409,14 +1727,14 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
 export class SearchApi extends BaseAPI {
     /**
      *
-     * @param {string} [q]
+     * @param {string} q
      * @param {number} [offset]
      * @param {number} [limit]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public searchSearchGet(q?: string, offset?: number, limit?: number, options?: AxiosRequestConfig) {
+    public searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig) {
         return SearchApiFp(this.configuration).searchSearchGet(q, offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 }
@@ -1464,6 +1782,42 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trackLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Track/Like`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1482,6 +1836,16 @@ export const TrackApiFp = function (configuration?: Configuration) {
          */
         async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoBaseResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trackIdGet(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trackLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1503,6 +1867,15 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
         trackIdGet(id: string, options?: any): AxiosPromise<TrackDtoBaseResultDto> {
             return localVarFp.trackIdGet(id, options).then((request) => request(axios, basePath));
         },
+        /**
+         *
+         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        trackLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+            return localVarFp.trackLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1522,6 +1895,17 @@ export class TrackApi extends BaseAPI {
      */
     public trackIdGet(id: string, options?: AxiosRequestConfig) {
         return TrackApiFp(this.configuration).trackIdGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {SetLikeRequest} [setLikeRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TrackApi
+     */
+    public trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
+        return TrackApiFp(this.configuration).trackLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1564,6 +1948,42 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         *
+         * @param {SetNameRequestDto} [setNameRequestDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userNamePatch: async (setNameRequestDto?: SetNameRequestDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/User/Name`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setNameRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1579,8 +1999,18 @@ export const UserApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userCurrentUserGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CurrentUserDtoSuccessBaseResultDto>> {
+        async userCurrentUserGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CurrentUserDtoSuccessResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.userCurrentUserGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {SetNameRequestDto} [setNameRequestDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async userNamePatch(setNameRequestDto?: SetNameRequestDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.userNamePatch(setNameRequestDto, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1598,8 +2028,17 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userCurrentUserGet(options?: any): AxiosPromise<CurrentUserDtoSuccessBaseResultDto> {
+        userCurrentUserGet(options?: any): AxiosPromise<CurrentUserDtoSuccessResultDto> {
             return localVarFp.userCurrentUserGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {SetNameRequestDto} [setNameRequestDto]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        userNamePatch(setNameRequestDto?: SetNameRequestDto, options?: any): AxiosPromise<void> {
+            return localVarFp.userNamePatch(setNameRequestDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1619,6 +2058,17 @@ export class UserApi extends BaseAPI {
      */
     public userCurrentUserGet(options?: AxiosRequestConfig) {
         return UserApiFp(this.configuration).userCurrentUserGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {SetNameRequestDto} [setNameRequestDto]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public userNamePatch(setNameRequestDto?: SetNameRequestDto, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).userNamePatch(setNameRequestDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
