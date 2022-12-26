@@ -1,7 +1,4 @@
 import styles from "./small-playlist-with-follow.module.scss";
-import {useContext} from "react";
-import {useHistory} from "react-router-dom";
-import {SongPathContext} from "../../../pages/private/private-pages-router";
 
 interface SmallPlaylistWithfollowProps {
     imageLink?: string;
@@ -17,11 +14,8 @@ const SmallPlaylistWithfollow: React.FC<SmallPlaylistWithfollowProps> =
          imageLink = defaultImage,
          followers
      }) => {
-        const songPath = useContext(SongPathContext);
-        const history = useHistory();
-
         return (
-            <div onClick={() => history?.push(songPath)} className={styles.container}>
+            <div className={styles.container}>
                 <img className={styles.image} src={imageLink}/>
                 <div className={styles.textContainer}>
                     <p className={styles.title}>{title}</p>

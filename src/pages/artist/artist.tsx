@@ -192,12 +192,18 @@ const Artist: React.FC = () => {
                         </div>
                         {sectionProvider('Popular release', (
                             <div className={styles.popularRelease}>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                                <SearchSong id="fakeId" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
+                                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
+                                            artistName="Song - XXXTENTACION"></SearchSong>
                                 {seeButtonProvider('See discography')}
                             </div>
                         ))}

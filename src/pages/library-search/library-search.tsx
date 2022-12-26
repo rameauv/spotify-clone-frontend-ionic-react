@@ -57,7 +57,8 @@ const resultsProvider = (data: Result[]) => {
     return (
         <div className={styles.results}>
             {data.map(item => (
-                <SearchSong id="fakeId" title={item.title} artistName={item.description}></SearchSong>))}
+                <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title={item.title}
+                            artistName={item.description}></SearchSong>))}
         </div>
     );
 }

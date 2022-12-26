@@ -19,8 +19,14 @@ export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageL
     const fullpath = `${path}/${id}`;
 
     return (
-        <div onClick={() => history?.push(fullpath)} className={styles.container}>
-            <img className={styles.image} src={imageLink ?? defaultImage}/>
+        <div
+            className={styles.container}
+            onClick={() => history?.push(fullpath)}
+        >
+            <img
+                className={styles.image}
+                src={imageLink ?? defaultImage}
+            />
             <div className={styles.textContainer}>
                 <p className={styles.title}>{title}</p>
                 <p className={styles.description}>{type} . {artistName}</p>

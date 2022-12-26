@@ -9,6 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
 import {fetchAlbum, selectAlbumById} from "../../features/album-slice/album-slice";
 import {CachedAlbum} from "../../features/album-slice/models/cachedAlbum";
+import {
+    addAlbumLikeThunk,
+    CachedLike,
+    deleteLikeThunk,
+    selectLikeByAssociatedId
+} from "../../features/like-slise/like-slice";
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
@@ -20,6 +26,7 @@ const Album: React.FC = () => {
     const artistPath = useContext(ArtistPathContext);
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
+    const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const status = cachedTrack?.status;
     const album = cachedTrack?.album;
     const fullArtistPath = `${artistPath}/${album?.artistId}`;
@@ -40,6 +47,13 @@ const Album: React.FC = () => {
             artist: album?.artistName
         }
     });
+    const handleLikeButtonEvent = () => {
+        if (cachedLike) {
+            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
+        } else {
+            dispatch<any>(addAlbumLikeThunk({id}));
+        }
+    };
     const content = !album ?
         undefined :
         (<>
@@ -58,16 +72,16 @@ const Album: React.FC = () => {
                 <p className={styles.type}>{album.albumType} . {album.releaseDate}</p>
                 <div className={styles.buttons}>
                     {
-                        isLiked ?
+                        cachedLike ?
                             <IonIcon
                                 className={`${styles.heartButtonActivated}`}
                                 icon={heart}
-                                onClick={() => setIsLiked(false)}
+                                onClick={() => handleLikeButtonEvent()}
                             ></IonIcon> :
                             <IonIcon
                                 className={styles.heartButton}
                                 icon={heartOutline}
-                                onClick={() => setIsLiked(true)}
+                                onClick={() => handleLikeButtonEvent()}
                             ></IonIcon>
                     }
                     <IonIcon

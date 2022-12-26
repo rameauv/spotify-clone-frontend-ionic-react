@@ -103,7 +103,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                     <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
                                         <ArtistPathContext.Provider value={`${match.url}/artist`}>
                                             <IonRouterOutlet>
-                                                <Route path={match.url} component={Home}/>
+                                                <Route exact path={match.url} component={Home}/>
                                                 <Route path={`${match.url}/song/:id`} component={Song}/>
                                                 <Route path={`${match.url}/album/:id`} component={Album}/>
                                                 <Route path={`${match.url}/artist/:id`} component={Artist}/>

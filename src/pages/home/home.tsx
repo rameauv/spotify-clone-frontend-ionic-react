@@ -1,4 +1,4 @@
-import {IonButton, IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
 import styles from './home.module.scss';
 import SmallAlbum from "../../components/thumbnails/small-album/small-album";
 import Playlist from "../../components/thumbnails/playlist/playlist";
@@ -7,17 +7,6 @@ import {notificationsOutline, settingsOutline, timerOutline} from "ionicons/icon
 import {Tag} from "../../components/filter/filter";
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from "react-router";
-import {accountsApi, weatherForecastApi} from '../../tools/client';
-
-import {
-    fetchPosts,
-    getPostError,
-    getPostStatus,
-    postAdded,
-    reset,
-    selectAllPosts
-} from '../../features/posts/posts-slice';
-import {useDispatch, useSelector} from "react-redux";
 
 interface HomeProps extends RouteComponentProps {
 }
@@ -37,63 +26,7 @@ const Home: React.FC<HomeProps> = (props) => {
     const _handleSettingsButtonEvent = () => {
         history.push(`${props.match.url}/settings`);
     };
-    const handleLogin = async () => {
-        const response = await accountsApi.accountsLoginPost({
-            deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            password: 'string',
-            username: 'string'
-        })
-        const token = response.data as unknown as string;
-        console.log(token);
-        if (token == undefined) {
-            return;
-        }
-        localStorage.setItem('jwt', token);
-    }
-    const handleWeather = () => {
-        weatherForecastApi.getWeatherForecast();
-    }
 
-
-    const dispatch = useDispatch();
-
-    const posts = useSelector(selectAllPosts);
-    const postsStatus = useSelector(getPostStatus);
-    const postsErrors = useSelector(getPostError);
-
-    // useEffect(() => {
-    if (postsStatus === 'idle') {
-        dispatch<any>(fetchPosts());
-    }
-    // }, [postsStatus, dispatch]);
-
-
-    let content;
-
-    if (postsStatus === 'loading') {
-        content = <p>loading...</p>
-    } else if (postsStatus === 'succeeded') {
-        const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(b.date));
-        content = orderedPosts.map(post => <div key={post.id}>
-            <p>{post.id}</p>
-            <p>{post.title}</p>
-            <p>{post.body}</p>
-            <p>{post.date}</p>
-        </div>);
-    } else if (postsStatus === 'failed') {
-        content = <p>{postsErrors}</p>
-    }
-
-
-    const handleAddPost = () => {
-        dispatch(postAdded('test', 'content'));
-    }
-    const handleResetPosts = () => {
-        dispatch(reset());
-    }
-    console.log(posts);
-    console.log(postsStatus);
-    console.log(postsErrors);
     return (
         <IonPage>
             <IonHeader><IonToolbar className="no-height"/></IonHeader>
@@ -112,18 +45,12 @@ const Home: React.FC<HomeProps> = (props) => {
                                  icon={settingsOutline}/>
                     </div>
                 </div>
-                <IonButton onClick={() => handleLogin()}>login</IonButton>
-                <IonButton onClick={() => handleAddPost()}>addPost</IonButton>
-                <IonButton onClick={() => handleResetPosts()}>reset</IonButton>
-                <IonButton>register</IonButton>
-                <IonButton onClick={() => handleWeather()}>weather</IonButton>
-                {content}
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Recently played</p>
                 <div className={styles.scroller}>
-                    <SmallAlbum title={'Granps'}></SmallAlbum>
-                    <SmallAlbum title={'why'}></SmallAlbum>
-                    <SmallAlbum title={'Granps'}></SmallAlbum>
-                    <SmallAlbum title={'why'}></SmallAlbum>
+                    <SmallAlbum id="2noRn2Aes5aoNVsU6iWThc" title={'Granps'}></SmallAlbum>
+                    <SmallAlbum id="2noRn2Aes5aoNVsU6iWThc" title={'why'}></SmallAlbum>
+                    <SmallAlbum id="2noRn2Aes5aoNVsU6iWThc" title={'Granps'}></SmallAlbum>
+                    <SmallAlbum id="2noRn2Aes5aoNVsU6iWThc" title={'why'}></SmallAlbum>
                 </div>
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Your top mixes</p>
                 <div className={styles.scroller}>
@@ -134,10 +61,10 @@ const Home: React.FC<HomeProps> = (props) => {
                 </div>
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Trending near you</p>
                 <div className={styles.scroller}>
-                    <Album title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
-                    <Album title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
-                    <Album title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
-                    <Album title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
+                    <Album id="2noRn2Aes5aoNVsU6iWThc" title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
+                    <Album id="2noRn2Aes5aoNVsU6iWThc" title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
+                    <Album id="2noRn2Aes5aoNVsU6iWThc" title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
+                    <Album id="2noRn2Aes5aoNVsU6iWThc" title={'Mal de Amores'} subtitle={'Album - Sofia Reyes'}></Album>
                 </div>
             </IonContent>
         </IonPage>

@@ -8,6 +8,12 @@ import {fetchTrack, selectById} from '../../features/track-slice/track-slice';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
 import {CachedTrack} from "../../features/track-slice/models/cachedTrack";
+import {
+    addTrackLikeThunk,
+    CachedLike,
+    deleteLikeThunk,
+    selectLikeByAssociatedId
+} from "../../features/like-slise/like-slice";
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
@@ -17,6 +23,7 @@ const Song: React.FC = () => {
     const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedTrack | undefined>(state => selectById(state, id));
+    const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const status = cachedTrack?.status;
     const track = cachedTrack?.track;
     const [present, dismiss] = useIonModal(SongMoreMenuModal, {
@@ -32,7 +39,13 @@ const Song: React.FC = () => {
         dispatch<any>(fetchTrack({id}));
         // }
     }, [id, dispatch]);
-
+    const handleLikeButtonEvent = () => {
+        if (cachedLike) {
+            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
+        } else {
+            dispatch<any>(addTrackLikeThunk({id}));
+        }
+    };
     const content = !track ?
         undefined :
         (<>
@@ -48,16 +61,16 @@ const Song: React.FC = () => {
                 <p className={styles.type}>Song</p>
                 <div className={styles.buttons}>
                     {
-                        isLiked ?
+                        cachedLike ?
                             <IonIcon
                                 className={`${styles.heartButtonActivated}`}
                                 icon={heart}
-                                onClick={() => setIsLiked(false)}
+                                onClick={() => handleLikeButtonEvent()}
                             ></IonIcon> :
                             <IonIcon
                                 className={styles.heartButton}
                                 icon={heartOutline}
-                                onClick={() => setIsLiked(true)}
+                                onClick={() => handleLikeButtonEvent()}
                             ></IonIcon>
                     }
                     <IonIcon
