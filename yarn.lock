@@ -1300,29 +1300,29 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@^6.2.5":
-  version "6.2.5"
-  resolved "https://registry.npmjs.org/@ionic/core/-/core-6.2.5.tgz"
-  integrity sha512-PLnG182RYydXB71cjkMk2TLxFVKabvEc9wjeK5SsvxI1/QE9+wPfxDnvKWag8UeXgaGUhby1bitWkV5pniDaXA==
+"@ionic/core@6.4.1":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.4.1.tgz#9d94457bcaafe49d7ef1ca047beb61fe6268d0b2"
+  integrity sha512-l1Z2sA9VjkO5rFhQMlNkqWQaSRyV1mcb6nYvLgi1cyDegcSDqLLJjZeyKVKYxTuc2qCaZhRlBe+c2155W8hmsw==
   dependencies:
-    "@stencil/core" "^2.17.4"
-    ionicons "^6.0.3"
+    "@stencil/core" "^2.18.0"
+    ionicons "^6.0.4"
     tslib "^2.1.0"
 
 "@ionic/react-router@^6.0.0":
-  version "6.2.5"
-  resolved "https://registry.npmjs.org/@ionic/react-router/-/react-router-6.2.5.tgz"
-  integrity sha512-56KygdYv/KExvZLlCKTJp84l+4/5Y5TY9G8eIENo75Wunr8CA+a1CFFbR75ov4pckJGcVKkpAgJPDQGndrEBzg==
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@ionic/react-router/-/react-router-6.4.1.tgz#7238037335dca1cc553ac0254403a9f62fd422d2"
+  integrity sha512-Y+DHCA4IUKMOuzOfm+j185eQsC94YPI4fqyV3XFtt8r40HriPn112lyNt3w0K20+EKULfQattSpTgF6fdag1Qw==
   dependencies:
-    "@ionic/react" "^6.2.5"
+    "@ionic/react" "6.4.1"
     tslib "*"
 
-"@ionic/react@^6.0.0", "@ionic/react@^6.2.5":
-  version "6.2.5"
-  resolved "https://registry.npmjs.org/@ionic/react/-/react-6.2.5.tgz"
-  integrity sha512-dvne9iY97uCb7+Wen0cRAY0nxL+ecKAMVBK6CLWMLec6Eh8NVE3BU2tG/4ZjheNrclWCPAv20us8zLbJVIht0g==
+"@ionic/react@6.4.1", "@ionic/react@^6.0.0":
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/@ionic/react/-/react-6.4.1.tgz#fb675fa2ea4a0f980ecf18448dade4dedd5148f6"
+  integrity sha512-2/9hRCCT1uTCGSCaKYbNrHp9ZwTsI0XOmccBb24N/9yPg/Zs0/ViHx4vb8K05R1mW0nVOH0nlZ3FhcRp9oARjg==
   dependencies:
-    "@ionic/core" "^6.2.5"
+    "@ionic/core" "6.4.1"
     ionicons "^6.0.2"
     tslib "*"
 
@@ -1851,14 +1851,14 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@stencil/core@^2.17.4":
-  version "2.17.4"
-  resolved "https://registry.npmjs.org/@stencil/core/-/core-2.17.4.tgz"
-  integrity sha512-SGRlHpjV1RyFvzw6jFMVKpLNox9Eds3VvpbpD2SW9CuxdLonHDSFtQks5zmT4zs1Rse9I6kFc2mFK/dHNTalkg==
+"@stencil/core@^2.18.0":
+  version "2.20.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.20.0.tgz#0e68b5b42e727233803291eb0367ab2b53f7f1f3"
+  integrity sha512-ka+eOW+dNteXIfLCRipNbbAlBEQjqJ2fkx3fxzlKgnNHEQMdZiuIjlWt63KzvOJStNeuADdQXo89BB1dC2VRUw==
 
 "@stencil/core@~2.16.0":
   version "2.16.1"
-  resolved "https://registry.npmjs.org/@stencil/core/-/core-2.16.1.tgz"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.16.1.tgz#f6752026af72a10356d5b1f27e2db6b1ee0c730f"
   integrity sha512-s/UJp9qxExL3DyQPT70kiuWeb3AdjbUZM+5lEIXn30I2DLcLYPOPXfsoWJODieQywq+3vPiLZeIdkoqjf6jcSw==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
@@ -5467,7 +5467,14 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ionicons@^6.0.2, ionicons@^6.0.3:
+ionicons@^6.0.2, ionicons@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-6.0.4.tgz#ab7aa439b7f17f29e0ef0a28568b4920c3167bfd"
+  integrity sha512-uDNOkBo0OVYV+kIhb51g9mb7r3Z0b+78GPZQBsjXuaetNmrB/mNTqN/uFtO+vxL/rQySKjzk8qeKJI5NWL9Ueg==
+  dependencies:
+    "@stencil/core" "^2.18.0"
+
+ionicons@^6.0.3:
   version "6.0.3"
   resolved "https://registry.npmjs.org/ionicons/-/ionicons-6.0.3.tgz"
   integrity sha512-kVOWER991EMqLiVShrCSWKMHkgHZP7XfVdyN6YPMuoO33W7pc5CPNVNfR8OMe/I8rYEbaunyBs6dXNYpR6gGZw==
@@ -9184,10 +9191,10 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@*, tslib@^2.0.1, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
-  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
+tslib@*, tslib@^2.1.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
+  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tslib@2.0.3:
   version "2.0.3"
@@ -9203,6 +9210,11 @@ tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.0.1, tslib@^2.0.3, tslib@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
+  integrity sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==
 
 tsutils@^3.21.0:
   version "3.21.0"
