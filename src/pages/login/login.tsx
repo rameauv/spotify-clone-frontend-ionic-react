@@ -39,7 +39,7 @@ const Login: React.FC<LoginProps> = (props) => {
                 return;
             }
             localStorage.setItem('jwt', token.accessToken);
-            router.push(`/home/tab1`, 'root', "replace");
+            router.push(`/home`, 'root', "replace");
         }
         f();
     }

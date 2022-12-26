@@ -20,6 +20,7 @@ import Settings from '../settings/settings';
 import {fetechCurrentUser, selectCurrentUserStatus} from "../../features/current-user/current-user-slice";
 import {useDispatch, useSelector} from "react-redux";
 
+
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
 
@@ -96,7 +97,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
             {/*<IonReactRouter>*/}
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route path={`${props.match.url}/tab1`} render={({match, history}) => {
+                    <Route path={`${props.match.url}/feed`} render={({match, history}) => {
                         return (
                             <SongPathContext.Provider value={`${match.url}/song`}>
                                 <AlbumPathContext.Provider value={`${match.url}/album`}>
@@ -118,7 +119,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                         );
                     }}>
                     </Route>
-                    <Route path={`${props.match.url}/tab2`} render={({match, history}) => {
+                    <Route path={`${props.match.url}/search`} render={({match, history}) => {
                         return (
                             <SongPathContext.Provider value={`${match.url}/song`}>
                                 <AlbumPathContext.Provider value={`${match.url}/album`}>
@@ -132,7 +133,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                                 <Route path={`${match.url}/album/:id`} component={Album}/>
                                                 <Route path={`${match.url}/artist/:id`} component={Artist}/>
                                                 <Route path={`${match.url}/test`}>
-                                                    <AdvancedSearch songPath="/tab2/song"/>
+                                                    <AdvancedSearch songPath="/search/song"/>
                                                 </Route>
                                             </IonRouterOutlet>
                                         </ArtistPathContext.Provider>
@@ -142,7 +143,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                         );
                     }}>
                     </Route>
-                    <Route path={`${props.match.url}/tab3`} render={({match, history}) => {
+                    <Route path={`${props.match.url}/library`} render={({match, history}) => {
                         return (
                             <SongPathContext.Provider value={`${match.url}/song`}>
                                 <AlbumPathContext.Provider value={`${match.url}/album`}>
@@ -165,20 +166,20 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                         );
                     }}/>
                     <Route exact path={`${props.match.url}/`}>
-                        <Redirect to={`${props.match.url}/tab1`}/>
+                        <Redirect to={`${props.match.url}/feed`}/>
                     </Route>
                 </IonRouterOutlet>
 
                 <IonTabBar className={styles.ionTabBar} slot="bottom">
-                    <IonTabButton tab="tab1" href="/home/tab1">
+                    <IonTabButton tab="feed" href="/home/feed">
                         <IonIcon icon={homeSharp}/>
                         <IonLabel>Home</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="tab2" href="/home/tab2">
+                    <IonTabButton tab="search" href="/home/search">
                         <IonIcon icon={searchSharp}/>
                         <IonLabel>Search</IonLabel>
                     </IonTabButton>
-                    <IonTabButton tab="tab3" href="/home/tab3">
+                    <IonTabButton tab="library" href="/home/library">
                         <IonIcon icon={library}/>
                         <IonLabel>Your library</IonLabel>
                     </IonTabButton>
