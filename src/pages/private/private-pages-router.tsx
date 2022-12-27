@@ -19,7 +19,6 @@ import Settings from '../settings/settings';
 import {fetechCurrentUser, selectCurrentUserStatus} from "../../features/current-user/current-user-slice";
 import {useDispatch, useSelector} from "react-redux";
 
-
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
 
@@ -38,6 +37,7 @@ interface Paths {
     artist: (tab: string) => string;
     settings: (tab: string) => string;
     ['settings-profileSettings']: (tab: string) => string;
+    ['serach-advanceSearch']: (tab: string) => string;
 }
 
 export const PathsContext = React.createContext<Paths>({
@@ -46,6 +46,7 @@ export const PathsContext = React.createContext<Paths>({
     artist: (tab: string) => '',
     settings: (tab: string) => '',
     'settings-profileSettings': (tab: string) => '',
+    'serach-advanceSearch': (tab: string) => ''
 });
 
 const createPaths = (basePath: string) => {
@@ -55,6 +56,7 @@ const createPaths = (basePath: string) => {
         artist: (tab: string) => `${basePath}/${tab}/artist`,
         settings: (tab: string) => `${basePath}/${tab}/settings`,
         'settings-profileSettings': (tab: string) => `${basePath}/${tab}/settings/profile-settings`,
+        'serach-advanceSearch': (tab: string) => `${basePath}/${tab}/advanced`
     };
     return paths;
 }
@@ -127,7 +129,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                             <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
                             <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
                             <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
-                            <Route path={`${props.match.url}/:tab(search)/test`} component={AdvancedSearch}/>
+                            <Route path={`${props.match.url}/:tab(search)/advanced`} component={AdvancedSearch}/>
                             <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
                             <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
