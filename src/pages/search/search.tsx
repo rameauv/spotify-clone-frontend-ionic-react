@@ -5,14 +5,14 @@ import SearchButton from "../../components/search-button/search-button";
 import SearchCategorie from "../../components/search-categorie/search-categorie";
 import {Link, useRouteMatch} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
-import {useContext} from "react";
-import {PathsContext, TabRouteParams} from "../private/private-pages-router";
+import {TabRouteParams} from "../private/private-pages-router";
+import {usePaths} from "../../hooks/usePaths";
 
 interface SearchProps extends RouteComponentProps {
 }
 
 const Search: React.FC<SearchProps> = ({match}) => {
-    const paths = useContext(PathsContext);
+    const paths = usePaths();
     const tab = useRouteMatch<TabRouteParams>().params.tab;
     const advancedSearchPath = paths["serach-advanceSearch"](tab);
     return (
