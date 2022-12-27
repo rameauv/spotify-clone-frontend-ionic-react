@@ -222,3 +222,7 @@ ion-router-link {
   --background: transparent;
   --color: inerit;
 }
+
+ion-app ion-content {
+  --padding-bottom: var(--page-padding-bottom);
+}
