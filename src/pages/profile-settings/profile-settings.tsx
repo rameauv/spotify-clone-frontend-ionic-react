@@ -6,6 +6,9 @@ import {useHistory} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import SmallPlaylistWithfollow from "../../components/thumbnails/small-playlist-with-follow/small-playlist-withfollow";
 import EditProfileModalController from "../../components/edit-profile-modal/edit-profile-modal-controller";
+import {useSelector} from "react-redux";
+import {MyState} from "../../store/store";
+import {CurrentUser, selectCurrentUser} from "../../features/current-user/current-user-slice";
 
 interface ProfileSettingsProps extends RouteComponentProps {
 }
@@ -42,7 +45,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
         setTitleOpacity(limitOpacity(0, 1, tempTitleOpacity));
     }
     console.log(bgOpacity);
-    const profileTitle = 'ValentinValentinVale ntinVale ntinVal entinV alentinVale ntinVa lentin Valent inVal entinValent inValentinV alentinV alenti nVale ntin';
+    const profileTitle = useSelector<MyState, CurrentUser | undefined>(selectCurrentUser)?.name ?? '';
     return (
         <IonPage
             style={{
@@ -51,7 +54,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
                 "--accentColor": accentColor
             }}
         >
-            <EditProfileModalController isOpen={isOpen} onClose={event => setIsOpen(false)}/>
+            <EditProfileModalController isOpen={isOpen} onClose={() => setIsOpen(false)}/>
             <IonHeader>
                 <IonToolbar className={styles.ionToolbar}>
                     <div className={styles.headerBg}>

@@ -15,9 +15,9 @@ export interface CurrentUserSliiceState extends EntityState<any> {
     error: string | undefined;
 }
 
-const postsAdapter = createEntityAdapter({})
+const currentUserAdapter = createEntityAdapter({})
 
-const initialState: CurrentUserSliiceState = postsAdapter.getInitialState({
+const initialState: CurrentUserSliiceState = currentUserAdapter.getInitialState({
     data: undefined,
     status: "idle",
     error: undefined
@@ -26,6 +26,12 @@ const initialState: CurrentUserSliiceState = postsAdapter.getInitialState({
 export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, thunkAPI) => {
     const response = await userApi.userCurrentUserGet();
     return response.data.result;
+});
+
+export const setCurrnetUseProfileTitle = createAsyncThunk('currentUser/setName', async (arg: { profileTitle: string }, thunkAPI) => {
+    await userApi.userNamePatch({
+        name: arg.profileTitle
+    });
 });
 
 const currentUserSlide = createSlice({
@@ -53,6 +59,13 @@ const currentUserSlide = createSlice({
         });
         builder.addCase(fetechCurrentUser.pending, (state, action) => {
             state.status = 'loading';
+        });
+        builder.addCase(setCurrnetUseProfileTitle.fulfilled, (state, action) => {
+            if (state.data) {
+                state.data.name = action.meta.arg.profileTitle;
+            } else {
+                console.log('trying to set the profile name while the current user\'s data is not set');
+            }
         });
     }
 });

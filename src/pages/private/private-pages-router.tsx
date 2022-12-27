@@ -125,7 +125,6 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                 <AlbumPathContext.Provider value={`${match.url}/album`}>
                                     <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
                                         <ArtistPathContext.Provider value={`${match.url}/artist`}>
-
                                             <IonRouterOutlet>
                                                 <Route exact path={match.url} component={Search}/>
                                                 <Route path={`${match.url}/song/:id`} component={Song}/>

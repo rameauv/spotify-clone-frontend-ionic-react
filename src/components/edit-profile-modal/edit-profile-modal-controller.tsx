@@ -1,11 +1,19 @@
-import React, {MouseEventHandler, useState} from "react";
+import React, {useState} from "react";
 import {Animation, createAnimation, IonContent, IonIcon, IonModal, IonToolbar} from "@ionic/react";
 import styles from "./edit-profile-modal.module.scss";
 import {closeSharp} from "ionicons/icons";
+import DiscardModalController from "../discard-modal/discard-modal-controller";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    CurrentUser,
+    selectCurrentUser,
+    setCurrnetUseProfileTitle
+} from "../../features/current-user/current-user-slice";
+import {MyState} from "../../store/store";
 
 interface EditProfileModalControllerProps {
     isOpen?: boolean;
-    onClose?: MouseEventHandler<Element> | undefined;
+    onClose?: () => void | undefined;
 }
 
 export const mdLeaveAnimation = (baseEl: HTMLElement): Animation => {
@@ -49,10 +57,14 @@ export const mdEnterAnimation = (baseEl: HTMLElement): Animation => {
 };
 
 const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({isOpen, onClose}) => {
+    const dispatch = useDispatch();
     const [showAlert, setShowAlert] = useState(false);
-    const oldProfileTitle = "Valentin";
-    const [profileTitle, setProfileTitle] = useState(oldProfileTitle);
+    const currentUser = useSelector<MyState, CurrentUser | undefined>(selectCurrentUser);
+    const name = currentUser?.name ?? '';
+    const [profileTitle, setProfileTitle] = useState(name);
+    const [oldProfileTitle] = useState(name);
     const saveDisabled = oldProfileTitle === profileTitle;
+
 
     const handleProfileTitleInputOnInputEvent = (e?: React.ChangeEvent<HTMLInputElement>) => {
         if (!e) {
@@ -61,14 +73,21 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
         setProfileTitle(e.target.value);
     }
 
-    const handleSaveButtonEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const handleSaveButtonEvent = async (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (saveDisabled) {
             return;
         }
         if (!event || !onClose) {
             return;
         }
-        onClose(event);
+        try {
+            const res = await dispatch<any>(setCurrnetUseProfileTitle({profileTitle: profileTitle})).unwrap();
+            console.log(res);
+        } catch (e: any) {
+            console.error(e);
+            return;
+        }
+        onClose();
     }
 
     const handleCloseEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -80,49 +99,20 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
         if (!event || !onClose) {
             return;
         }
-        onClose(event);
+        onClose();
     }
 
-    const handleDiscardEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (!event || !onClose) {
-            return;
+    const handleDiscardModalClodeEvent = (result: { discard: boolean }) => {
+        setShowAlert(false);
+        if (onClose && result.discard) {
+            setProfileTitle(oldProfileTitle);
+            onClose();
         }
-        setShowAlert(false);
-        onClose(event);
-    }
-
-    const handleKeepEditingEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        setShowAlert(false);
     }
 
     return (
         <IonModal isOpen={isOpen} keepContentsMounted={false}>
-            <IonModal
-                className={`${styles.alert} myAlert`}
-                isOpen={showAlert}
-                onDidDismiss={() => setShowAlert(false)}
-                backdropDismiss
-                enterAnimation={mdEnterAnimation}
-                leaveAnimation={mdLeaveAnimation}
-            >
-                <div className={`${styles.alertMainContent} modal-content`}>
-                    <div className={styles.alertContent}>
-                        <p className={styles.alertContent__title}>Discard changes?</p>
-                        <p className={styles.alertContent__subTitle}>If you go back know, you will loose your
-                            changes.</p>
-                        <div
-                            className={styles.alertContent__keepEditingButton}
-                            onClick={event => handleKeepEditingEvent(event)}
-                        >
-                            <p className={styles.alertContent__keepEditingButton__inner}>Keep editing</p>
-                        </div>
-                        <p
-                            className={styles.alertContent__discardButton}
-                            onClick={event => handleDiscardEvent(event)}
-                        >Discard</p>
-                    </div>
-                </div>
-            </IonModal>
+            <DiscardModalController isOpen={showAlert} onClose={result => handleDiscardModalClodeEvent(result)}/>
             <IonToolbar className={styles.ionToolbar}>
                 <div className={styles.ionToolbar__header}>
                     <IonIcon
