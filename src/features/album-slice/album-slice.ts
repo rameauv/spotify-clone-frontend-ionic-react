@@ -2,6 +2,7 @@ import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, Enti
 import {albumkApi} from "../../tools/client";
 import {Album, CachedAlbum} from "./models/cachedAlbum";
 import {MyState} from "../../store/store";
+import {addLike, deleteLike} from "../like-slise/like-slice";
 
 export interface AlbumSliceState extends EntityState<any> {
 }
@@ -25,6 +26,16 @@ export const fetchAlbum = createAsyncThunk('album/fetch', async (arg: { id: stri
         artistThumbnailUrl: albumDto.artistThumbnailUrl!,
         releaseDate: albumDto.releaseDate!,
         likeId: albumDto.likeId ?? undefined
+    }
+    if (mappedAlbum.likeId) {
+        thunkAPI.dispatch(addLike({
+            id: mappedAlbum.likeId,
+            associatedId: id
+        }));
+    } else {
+        thunkAPI.dispatch(deleteLike({
+            associatedId: id
+        }));
     }
     return mappedAlbum;
 });

@@ -2,6 +2,7 @@ import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, Enti
 import {trackApi} from "../../tools/client";
 import {CachedTrack, Track} from "./models/cachedTrack";
 import {MyState} from "../../store/store";
+import {addLike, deleteLike} from "../like-slise/like-slice";
 
 export interface TrackSliceState extends EntityState<any> {
 }
@@ -21,6 +22,16 @@ export const fetchTrack = createAsyncThunk<Track, { id: string }>('track/fetch',
         artistName: track.artistName!,
         thumbnailUrl: track.thumbnailUrl ?? undefined,
         likeId: track.likeId ?? undefined
+    }
+    if (mappedTrack.likeId) {
+        thunkAPI.dispatch(addLike({
+            id: mappedTrack.likeId,
+            associatedId: id
+        }));
+    } else {
+        thunkAPI.dispatch(deleteLike({
+            associatedId: id
+        }));
     }
     return mappedTrack;
 });
