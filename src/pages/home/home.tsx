@@ -4,7 +4,6 @@ import SmallAlbum from "../../components/thumbnails/small-album/small-album";
 import Playlist from "../../components/thumbnails/playlist/playlist";
 import Album from "../../components/thumbnails/album/album";
 import {notificationsOutline, settingsOutline, timerOutline} from "ionicons/icons";
-import {Tag} from "../../components/filter/filter";
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from "react-router";
 
@@ -12,16 +11,6 @@ interface HomeProps extends RouteComponentProps {
 }
 
 const Home: React.FC<HomeProps> = (props) => {
-    const tags: Tag[] = [
-        {
-            value: 'Music',
-            id: 'Music'
-        },
-        {
-            value: 'Podcasts & Shows',
-            id: 'Podcasts & Shows'
-        }
-    ];
     const history = useHistory();
     const _handleSettingsButtonEvent = () => {
         history.push(`${props.match.url}/settings`);

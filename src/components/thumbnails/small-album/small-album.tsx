@@ -1,7 +1,8 @@
 import styles from "./small-album.module.scss";
 import {useContext} from "react";
-import {AlbumPathContext} from "../../../pages/private/private-pages-router";
+import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
 import {useIonRouter} from "@ionic/react";
+import {useRouteMatch} from "react-router-dom";
 
 interface ContainerProps {
     id: string;
@@ -12,7 +13,8 @@ interface ContainerProps {
 const defaultImage = 'https://image.spreadshirtmedia.net/image-server/v1/mp/compositions/T127A1PA5161PT21X2Y6D135599871W2540H2132/views/1,width=550,height=550,appearanceId=1,backgroundColor=FFFFFF,noPt=true/garde-la-peche-grands-badges.jpg';
 
 const SmallAlbum: React.FC<ContainerProps> = ({id, title, imageLink = defaultImage}) => {
-    const albumPath = useContext(AlbumPathContext);
+    const tab = useRouteMatch<TabRouteParams>().params.tab;
+    const albumPath = useContext(PathsContext).album(tab);
     const fullpath = `${albumPath}/${id}`;
     const router = useIonRouter();
 

@@ -13,7 +13,6 @@ import Search from "../search/search";
 import Tag from "../tag/tag";
 import AdvancedSearch from "../advanced-search/advanced-search";
 import Library from "../library/library";
-import LibrarySearch from "../library-search/library-search";
 import {Keyboard} from "@capacitor/keyboard";
 import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
@@ -24,16 +23,44 @@ import {useDispatch, useSelector} from "react-redux";
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
 
-export const SongPathContext = React.createContext('');
-export const AlbumPathContext = React.createContext('');
-export const PlaylistPathContext = React.createContext('');
-export const ArtistPathContext = React.createContext('');
+export interface TabRouteParams {
+    tab: string
+}
 
 StatusBar.setStyle({
     style: Style.Dark
 }).catch(console.error);
 
+
+interface Paths {
+    track: (tab: string) => string;
+    album: (tab: string) => string;
+    artist: (tab: string) => string;
+    settings: (tab: string) => string;
+    ['settings-profileSettings']: (tab: string) => string;
+}
+
+export const PathsContext = React.createContext<Paths>({
+    track: (tab: string) => '',
+    album: (tab: string) => '',
+    artist: (tab: string) => '',
+    settings: (tab: string) => '',
+    'settings-profileSettings': (tab: string) => '',
+});
+
+const createPaths = (basePath: string) => {
+    const paths: Paths = {
+        track: (tab: string) => `${basePath}/${tab}/song`,
+        album: (tab: string) => `${basePath}/${tab}/album`,
+        artist: (tab: string) => `${basePath}/${tab}/artist`,
+        settings: (tab: string) => `${basePath}/${tab}/settings`,
+        'settings-profileSettings': (tab: string) => `${basePath}/${tab}/settings/profile-settings`,
+    };
+    return paths;
+}
+
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
+
 const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const dispatch = useDispatch();
     const currentUserStatus = useSelector(selectCurrentUserStatus);
@@ -65,128 +92,72 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     }
     const loadingContent = (<></>);
     const content = (
-        <>
-            <div className={styles.player}
-                 style={{visibility: isPlayerHidden ? 'hidden' : 'visible', opacity: isPlayerHidden ? 0 : 1}}>
-                <div className={styles.playerContainer}>
-                    <img className={styles.thumbnail} src={defaultImage}/>
-                    <div className={styles.titlesContainer}>
-                        <p className={styles.playerTitle}>Je te donne</p>
-                        <p className={styles.playerArtist}>Jean-jaques goldman</p>
+            <>
+                <PathsContext.Provider value={createPaths(props.match.url)}>
+                    <div className={styles.player}
+                         style={{visibility: isPlayerHidden ? 'hidden' : 'visible', opacity: isPlayerHidden ? 0 : 1}}>
+                        <div className={styles.playerContainer}>
+                            <img className={styles.thumbnail} src={defaultImage}/>
+                            <div className={styles.titlesContainer}>
+                                <p className={styles.playerTitle}>Je te donne</p>
+                                <p className={styles.playerArtist}>Jean-jaques goldman</p>
+                            </div>
+                            {
+                                isCurrentSongLiked ?
+                                    <IonIcon className={styles.heartButtonActivated} icon={heart}
+                                             onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
+                                    <IonIcon className={styles.heartButton} icon={heartOutline}
+                                             onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
+                            }
+                            {
+                                isCurrentSongPlaying ?
+                                    <IonIcon className={styles.playButton} icon={pause}
+                                             onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
+                                    <IonIcon className={styles.playButton} icon={play}
+                                             onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
+                            }
+                        </div>
+                        <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
                     </div>
-                    {
-                        isCurrentSongLiked ?
-                            <IonIcon className={styles.heartButtonActivated} icon={heart}
-                                     onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
-                            <IonIcon className={styles.heartButton} icon={heartOutline}
-                                     onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
-                    }
-                    {
-                        isCurrentSongPlaying ?
-                            <IonIcon className={styles.playButton} icon={pause}
-                                     onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
-                            <IonIcon className={styles.playButton} icon={play}
-                                     onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
-                    }
-                </div>
-                <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
-            </div>
 
-            <div className={styles.chin}></div>
+                    <div className={styles.chin}></div>
 
-            {/*<IonReactRouter>*/}
-            <IonTabs>
-                <IonRouterOutlet>
-                    <Route path={`${props.match.url}/feed`} render={({match, history}) => {
-                        return (
-                            <SongPathContext.Provider value={`${match.url}/song`}>
-                                <AlbumPathContext.Provider value={`${match.url}/album`}>
-                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
-                                        <ArtistPathContext.Provider value={`${match.url}/artist`}>
-                                            <IonRouterOutlet>
-                                                <Route exact path={match.url} component={Home}/>
-                                                <Route path={`${match.url}/song/:id`} component={Song}/>
-                                                <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
-                                                <Route exact path={`${match.url}/settings`} component={Settings}/>
-                                                <Route exact path={`${match.url}/settings/profile-settings`}
-                                                       component={ProfileSettings}/>
-                                            </IonRouterOutlet>
-                                        </ArtistPathContext.Provider>
-                                    </PlaylistPathContext.Provider>
-                                </AlbumPathContext.Provider>
-                            </SongPathContext.Provider>
-                        );
-                    }}>
-                    </Route>
-                    <Route path={`${props.match.url}/search`} render={({match, history}) => {
-                        return (
-                            <SongPathContext.Provider value={`${match.url}/song`}>
-                                <AlbumPathContext.Provider value={`${match.url}/album`}>
-                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
-                                        <ArtistPathContext.Provider value={`${match.url}/artist`}>
-                                            <IonRouterOutlet>
-                                                <Route exact path={match.url} component={Search}/>
-                                                <Route path={`${match.url}/song/:id`} component={Song}/>
-                                                <Route path={`${match.url}/tag`} component={Tag}/>
-                                                <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
-                                                <Route path={`${match.url}/test`}>
-                                                    <AdvancedSearch songPath="/search/song"/>
-                                                </Route>
-                                            </IonRouterOutlet>
-                                        </ArtistPathContext.Provider>
-                                    </PlaylistPathContext.Provider>
-                                </AlbumPathContext.Provider>
-                            </SongPathContext.Provider>
-                        );
-                    }}>
-                    </Route>
-                    <Route path={`${props.match.url}/library`} render={({match, history}) => {
-                        return (
-                            <SongPathContext.Provider value={`${match.url}/song`}>
-                                <AlbumPathContext.Provider value={`${match.url}/album`}>
-                                    <PlaylistPathContext.Provider value={`${match.url}/playlist`}>
-                                        <ArtistPathContext.Provider value={`${match.url}/artist`}>
-                                            <IonRouterOutlet>
-                                                <Route exact path={match.url} component={Library}/>
-                                                <Route path={`${match.url}/search`} component={LibrarySearch}/>
-                                                <Route path={`${match.url}/song/:id`} component={Song}/>
-                                                <Route path={`${match.url}/album/:id`} component={Album}/>
-                                                <Route path={`${match.url}/artist/:id`} component={Artist}/>
-                                                <Route exact path={`${match.url}/settings`} component={Settings}/>
-                                                <Route exact path={`${match.url}/settings/profile-settings`}
-                                                       component={ProfileSettings}/>
-                                            </IonRouterOutlet>
-                                        </ArtistPathContext.Provider>
-                                    </PlaylistPathContext.Provider>
-                                </AlbumPathContext.Provider>
-                            </SongPathContext.Provider>
-                        );
-                    }}/>
-                    <Route exact path={`${props.match.url}/`}>
-                        <Redirect to={`${props.match.url}/feed`}/>
-                    </Route>
-                </IonRouterOutlet>
+                    <IonTabs>
+                        <IonRouterOutlet>
+                            <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
+                            <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
+                            <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
+                            <Route path={`${props.match.url}/:tab(search)/test`}>
+                                <AdvancedSearch songPath="/search/song"/>
+                            </Route>
+                            <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
+                            <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
+                            <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
+                            <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
+                            <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>
+                            <Route exact path={`${props.match.url}/:tab/settings/profile-settings`}
+                                   component={ProfileSettings}/>
+                        </IonRouterOutlet>
 
-                <IonTabBar className={styles.ionTabBar} slot="bottom">
-                    <IonTabButton tab="feed" href="/home/feed">
-                        <IonIcon icon={homeSharp}/>
-                        <IonLabel>Home</IonLabel>
-                    </IonTabButton>
-                    <IonTabButton tab="search" href="/home/search">
-                        <IonIcon icon={searchSharp}/>
-                        <IonLabel>Search</IonLabel>
-                    </IonTabButton>
-                    <IonTabButton tab="library" href="/home/library">
-                        <IonIcon icon={library}/>
-                        <IonLabel>Your library</IonLabel>
-                    </IonTabButton>
-                </IonTabBar>
-            </IonTabs>
-            {/*</IonReactRouter>*/}
-        </>
-    );
+                        <IonTabBar className={styles.ionTabBar} slot="bottom">
+                            <IonTabButton tab="feed" href="/home/feed">
+                                <IonIcon icon={homeSharp}/>
+                                <IonLabel>Home</IonLabel>
+                            </IonTabButton>
+                            <IonTabButton tab="search" href="/home/search">
+                                <IonIcon icon={searchSharp}/>
+                                <IonLabel>Search</IonLabel>
+                            </IonTabButton>
+                            <IonTabButton tab="library" href="/home/library">
+                                <IonIcon icon={library}/>
+                                <IonLabel>Your library</IonLabel>
+                            </IonTabButton>
+                        </IonTabBar>
+                    </IonTabs>
+                </PathsContext.Provider>
+            </>
+        )
+    ;
     if (currentUserStatus === 'failed') {
         return (<Redirect to='/'/>);
     }

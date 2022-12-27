@@ -1,6 +1,4 @@
 import styles from "./playlist.module.scss";
-import {useContext} from "react";
-import {PlaylistPathContext} from "../../../pages/private/private-pages-router";
 
 interface ContainerProps {
     imageLink?: string;
@@ -10,8 +8,6 @@ interface ContainerProps {
 const defaultImage = 'https://i1.sndcdn.com/artworks-siw08m3LeGTDrlq0-YNHzKA-t500x500.jpg';
 
 const Playlist: React.FC<ContainerProps> = ({title, imageLink = defaultImage}) => {
-    const playlistPath = useContext(PlaylistPathContext);
-
     return (
         // <Link to={playlistPath}>
             <div className={styles.container}>

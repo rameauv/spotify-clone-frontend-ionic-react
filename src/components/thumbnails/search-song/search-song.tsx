@@ -1,7 +1,7 @@
 import styles from "./search-song.module.scss";
-import {useHistory} from "react-router-dom";
+import {useHistory, useRouteMatch} from "react-router-dom";
 import {useContext} from "react";
-import {SongPathContext} from "../../../pages/private/private-pages-router";
+import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
 
 interface ContainerProps {
     id: string;
@@ -13,7 +13,8 @@ interface ContainerProps {
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
 const SearchSong: React.FC<ContainerProps> = ({id, title, artistName, imageLink = defaultImage}) => {
-    const songPath = useContext(SongPathContext);
+    const tab = useRouteMatch<TabRouteParams>().params.tab;
+    const songPath = useContext(PathsContext).track(tab);
     const history = useHistory();
     const fullpath = `${songPath}/${id}`;
 

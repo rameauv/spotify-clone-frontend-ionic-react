@@ -31,7 +31,6 @@ const Library: React.FC<LibraryProps> = (props) => {
     const _handleSettingsButtonEvent = () => {
         history.push(`${props.match.url}/settings`);
     };
-    console.log(props)
     return (
         <IonPage>
             <IonHeader>

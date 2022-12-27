@@ -1,7 +1,7 @@
 import styles from "./search-album.module.scss";
 import {useContext} from "react";
-import {AlbumPathContext} from "../../../pages/private/private-pages-router";
-import {useHistory} from "react-router-dom";
+import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
+import {useHistory, useRouteMatch} from "react-router-dom";
 
 export interface SearchAlbumProps {
     id: string;
@@ -14,7 +14,8 @@ export interface SearchAlbumProps {
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
 export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageLink, artistName}) => {
-    const path = useContext(AlbumPathContext);
+    const tab = useRouteMatch<TabRouteParams>().params.tab;
+    const path = useContext(PathsContext).album(tab);
     const history = useHistory();
     const fullpath = `${path}/${id}`;
 

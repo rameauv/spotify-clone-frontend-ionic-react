@@ -1,10 +1,10 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {Link, useHistory, useParams} from "react-router-dom";
-import {ArtistPathContext} from '../private/private-pages-router';
+import {Link, useHistory, useParams, useRouteMatch} from "react-router-dom";
+import {PathsContext, TabRouteParams} from '../private/private-pages-router';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
 import {fetchAlbum, selectAlbumById} from "../../features/album-slice/album-slice";
@@ -20,14 +20,13 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_C
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
 
 const Album: React.FC = () => {
-    const [isLiked, setIsLiked] = useState<boolean>();
     const history = useHistory();
     const {id} = useParams<{ id: string }>();
-    const artistPath = useContext(ArtistPathContext);
+    const tab = useRouteMatch<TabRouteParams>().params.tab;
+    const artistPath = useContext(PathsContext).artist(tab);
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
-    const status = cachedTrack?.status;
     const album = cachedTrack?.album;
     const fullArtistPath = `${artistPath}/${album?.artistId}`;
 
