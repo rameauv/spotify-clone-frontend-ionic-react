@@ -32,6 +32,7 @@ StatusBar.setStyle({
 
 
 interface Paths {
+    feed: string;
     track: (tab: string) => string;
     album: (tab: string) => string;
     artist: (tab: string) => string;
@@ -41,6 +42,7 @@ interface Paths {
 }
 
 export const PathsContext = React.createContext<Paths>({
+    feed: '',
     track: (tab: string) => '',
     album: (tab: string) => '',
     artist: (tab: string) => '',
@@ -51,6 +53,7 @@ export const PathsContext = React.createContext<Paths>({
 
 const createPaths = (basePath: string) => {
     const paths: Paths = {
+        feed: `${basePath}/feed`,
         track: (tab: string) => `${basePath}/${tab}/song`,
         album: (tab: string) => `${basePath}/${tab}/album`,
         artist: (tab: string) => `${basePath}/${tab}/artist`,
@@ -96,64 +99,75 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const content = (
             <>
                 <PathsContext.Provider value={createPaths(props.match.url)}>
-                    <div className={styles.player}
-                         style={{visibility: isPlayerHidden ? 'hidden' : 'visible', opacity: isPlayerHidden ? 0 : 1}}>
-                        <div className={styles.playerContainer}>
-                            <img className={styles.thumbnail} src={defaultImage}/>
-                            <div className={styles.titlesContainer}>
-                                <p className={styles.playerTitle}>Je te donne</p>
-                                <p className={styles.playerArtist}>Jean-jaques goldman</p>
+                    <PathsContext.Consumer>
+                        {paths => (<>
+                            <div className={styles.player}
+                                 style={{
+                                     visibility: isPlayerHidden ? 'hidden' : 'visible',
+                                     opacity: isPlayerHidden ? 0 : 1
+                                 }}>
+                                <div className={styles.playerContainer}>
+                                    <img className={styles.thumbnail} src={defaultImage}/>
+                                    <div className={styles.titlesContainer}>
+                                        <p className={styles.playerTitle}>Je te donne</p>
+                                        <p className={styles.playerArtist}>Jean-jaques goldman</p>
+                                    </div>
+                                    {
+                                        isCurrentSongLiked ?
+                                            <IonIcon className={styles.heartButtonActivated} icon={heart}
+                                                     onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
+                                            <IonIcon className={styles.heartButton} icon={heartOutline}
+                                                     onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
+                                    }
+                                    {
+                                        isCurrentSongPlaying ?
+                                            <IonIcon className={styles.playButton} icon={pause}
+                                                     onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
+                                            <IonIcon className={styles.playButton} icon={play}
+                                                     onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
+                                    }
+                                </div>
+                                <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
                             </div>
-                            {
-                                isCurrentSongLiked ?
-                                    <IonIcon className={styles.heartButtonActivated} icon={heart}
-                                             onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
-                                    <IonIcon className={styles.heartButton} icon={heartOutline}
-                                             onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
-                            }
-                            {
-                                isCurrentSongPlaying ?
-                                    <IonIcon className={styles.playButton} icon={pause}
-                                             onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
-                                    <IonIcon className={styles.playButton} icon={play}
-                                             onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
-                            }
-                        </div>
-                        <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
-                    </div>
 
-                    <div className={styles.chin}></div>
+                            <div className={styles.chin}></div>
 
-                    <IonTabs>
-                        <IonRouterOutlet>
-                            <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
-                            <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
-                            <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
-                            <Route path={`${props.match.url}/:tab(search)/advanced`} component={AdvancedSearch}/>
-                            <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
-                            <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
-                            <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
-                            <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
-                            <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>
-                            <Route exact path={`${props.match.url}/:tab/settings/profile-settings`}
-                                   component={ProfileSettings}/>
-                        </IonRouterOutlet>
+                            <IonTabs>
+                                <IonRouterOutlet>
+                                    <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
+                                    <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
+                                    <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
+                                    <Route path={`${props.match.url}/:tab(search)/advanced`}
+                                           component={AdvancedSearch}/>
+                                    <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
+                                    <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
+                                    <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
+                                    <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
+                                    <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>
+                                    <Route exact path={`${props.match.url}/:tab/settings/profile-settings`}
+                                           component={ProfileSettings}/>
+                                    <Route exact path={`${props.match.url}`}>
+                                        <Redirect to={paths.feed}/>
+                                    </Route>
+                                </IonRouterOutlet>
 
-                        <IonTabBar className={styles.ionTabBar} slot="bottom">
-                            <IonTabButton tab="feed" href="/home/feed">
-                                <IonIcon icon={homeSharp}/>
-                                <IonLabel>Home</IonLabel>
-                            </IonTabButton>
-                            <IonTabButton tab="search" href="/home/search">
-                                <IonIcon icon={searchSharp}/>
-                                <IonLabel>Search</IonLabel>
-                            </IonTabButton>
-                            <IonTabButton tab="library" href="/home/library">
-                                <IonIcon icon={library}/>
-                                <IonLabel>Your library</IonLabel>
-                            </IonTabButton>
-                        </IonTabBar>
-                    </IonTabs>
+                                <IonTabBar className={styles.ionTabBar} slot="bottom">
+                                    <IonTabButton tab="feed" href="/home/feed">
+                                        <IonIcon icon={homeSharp}/>
+                                        <IonLabel>Home</IonLabel>
+                                    </IonTabButton>
+                                    <IonTabButton tab="search" href="/home/search">
+                                        <IonIcon icon={searchSharp}/>
+                                        <IonLabel>Search</IonLabel>
+                                    </IonTabButton>
+                                    <IonTabButton tab="library" href="/home/library">
+                                        <IonIcon icon={library}/>
+                                        <IonLabel>Your library</IonLabel>
+                                    </IonTabButton>
+                                </IonTabBar>
+                            </IonTabs>
+                        </>)}
+                    </PathsContext.Consumer>
                 </PathsContext.Provider>
             </>
         )
