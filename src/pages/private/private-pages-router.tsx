@@ -70,7 +70,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const [isPlayerHidden, setIsPlayerHidden] = useState(false);
     useEffect(() => {
         if (currentUserStatus === 'idle') {
-            dispatch<any>(fetechCurrentUser()).unwrap();
+            dispatch(fetechCurrentUser()).unwrap();
         }
     }, [currentUserStatus, dispatch]);
 
@@ -127,9 +127,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                             <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
                             <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
                             <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
-                            <Route path={`${props.match.url}/:tab(search)/test`}>
-                                <AdvancedSearch songPath="/search/song"/>
-                            </Route>
+                            <Route path={`${props.match.url}/:tab(search)/test`} component={AdvancedSearch}/>
                             <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
                             <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
