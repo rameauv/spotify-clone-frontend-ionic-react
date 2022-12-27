@@ -5,6 +5,7 @@ import trackSlice, {TrackSliceState} from "../features/track-slice/track-slice";
 import albumSlice, {AlbumSliceState} from "../features/album-slice/album-slice";
 import artistSlice, {ArtistSliceState} from "../features/artist-slice/artist-slice";
 import likeSlice, {LikeSlideState} from "../features/like-slise/like-slice";
+import searchSlice, {SearchSliceState} from "../features/search-feature/search-slice";
 
 export interface MyState {
     posts: PostsState;
@@ -15,14 +16,7 @@ export interface MyState {
             error: string | undefined;
         }
     };
-    search: {
-        history: [],
-        results: {
-            items: [];
-            status: 'idle' | 'loading' | 'succeeded' | 'failed';
-            error: string | undefined;
-        }
-    };
+    search: SearchSliceState,
     currentUser: CurrentUserSliiceState;
     albums: AlbumSliceState;
     artists: ArtistSliceState;
@@ -38,6 +32,7 @@ export const store = configureStore({
         tracks: trackSlice,
         albums: albumSlice,
         artists: artistSlice,
-        likes: likeSlice
+        likes: likeSlice,
+        search: searchSlice
     }
 });
