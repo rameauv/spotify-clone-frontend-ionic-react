@@ -1,5 +1,4 @@
-import {configureStore} from "@reduxjs/toolkit";
-import postReducer, {PostsState} from '../features/posts/posts-slice'
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import currentUserSliice, {CurrentUserSliiceState} from "../features/current-user/current-user-slice";
 import trackSlice, {TrackSliceState} from "../features/track-slice/track-slice";
 import albumSlice, {AlbumSliceState} from "../features/album-slice/album-slice";
@@ -8,14 +7,6 @@ import likeSlice, {LikeSlideState} from "../features/like-slise/like-slice";
 import searchSlice, {SearchSliceState} from "../features/search-feature/search-slice";
 
 export interface MyState {
-    posts: PostsState;
-    home: {
-        feed: {
-            items: [];
-            status: 'idle' | 'loading' | 'succeeded' | 'failed';
-            error: string | undefined;
-        }
-    };
     search: SearchSliceState,
     currentUser: CurrentUserSliiceState;
     albums: AlbumSliceState;
@@ -24,15 +15,27 @@ export interface MyState {
     likes: LikeSlideState;
 }
 
+const combinedReducer = combineReducers({
+    currentUser: currentUserSliice,
+    tracks: trackSlice,
+    albums: albumSlice,
+    artists: artistSlice,
+    likes: likeSlice,
+    search: searchSlice
+});
 
-export const store = configureStore({
-    reducer: {
-        posts: postReducer,
-        currentUser: currentUserSliice,
-        tracks: trackSlice,
-        albums: albumSlice,
-        artists: artistSlice,
-        likes: likeSlice,
-        search: searchSlice
+const rootReducer: (state: any, action: any) => MyState = (state: any, action: any) => {
+    if (action.type === 'USER_LOGOUT') {
+        const state = combinedReducer(undefined, action);
+        return {
+            ...state, currentUser: {
+                status: 'succeeded'
+            }
+        }
     }
+    return combinedReducer(state, action);
+};
+
+export const store = configureStore<MyState>({
+    reducer: rootReducer
 });

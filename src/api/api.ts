@@ -14,23 +14,23 @@
 
 
 import {Configuration} from './configuration';
-import globalAxios, {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
+import globalAxios, {AxiosPromise, AxiosInstance, AxiosRequestConfig} from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import {
-    assertParamExists,
-    createRequestFunction,
     DUMMY_BASE_URL,
-    serializeDataIfNeeded,
+    assertParamExists,
     setApiKeyToObject,
     setBasicAuthToObject,
     setBearerAuthToObject,
     setOAuthToObject,
     setSearchParams,
-    toPathString
+    serializeDataIfNeeded,
+    toPathString,
+    createRequestFunction
 } from './common';
 // @ts-ignore
-import {BASE_PATH, BaseAPI, COLLECTION_FORMATS, RequestArgs, RequiredError} from './base';
+import {BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError} from './base';
 
 /**
  *
@@ -93,6 +93,7 @@ export interface AlbumDto {
      */
     'likeId'?: string | null;
 }
+
 /**
  *
  * @export
@@ -112,6 +113,7 @@ export interface AlbumDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
+
 /**
  *
  * @export
@@ -143,6 +145,7 @@ export interface AlbumTracksDto {
      */
     'total'?: number;
 }
+
 /**
  *
  * @export
@@ -162,6 +165,7 @@ export interface AlbumTracksDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
+
 /**
  *
  * @export
@@ -199,6 +203,7 @@ export interface ArtistDto {
      */
     'monthlyListeners'?: number;
 }
+
 /**
  *
  * @export
@@ -218,6 +223,7 @@ export interface ArtistDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
+
 /**
  *
  * @export
@@ -243,6 +249,7 @@ export interface ArtistResultDto {
      */
     'name'?: string | null;
 }
+
 /**
  *
  * @export
@@ -268,6 +275,7 @@ export interface CreateUserDto {
      */
     'data'?: string | null;
 }
+
 /**
  *
  * @export
@@ -365,6 +373,7 @@ export interface DateOnly {
      */
     'dayNumber'?: number;
 }
+
 /**
  *
  * @export
@@ -417,6 +426,7 @@ export interface ErrorDto {
      */
     'message'?: string | null;
 }
+
 /**
  *
  * @export
@@ -550,13 +560,8 @@ export interface LoginCredentialsDto {
      * @memberof LoginCredentialsDto
      */
     'password'?: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof LoginCredentialsDto
-     */
-    'deviceId'?: string;
 }
+
 /**
  *
  * @export
@@ -570,6 +575,7 @@ export interface NewAccessTokenDto {
      */
     'accessToken'?: string | null;
 }
+
 /**
  *
  * @export
@@ -609,6 +615,7 @@ export interface ProblemDetails {
      */
     'instance'?: string | null;
 }
+
 /**
  *
  * @export
@@ -640,6 +647,7 @@ export interface ReleaseResultDto {
      */
     'artistName'?: string | null;
 }
+
 /**
  *
  * @export
@@ -665,6 +673,7 @@ export interface SearchResultDto {
      */
     'artistResult'?: Array<ArtistResultDto> | null;
 }
+
 /**
  *
  * @export
@@ -738,6 +747,7 @@ export interface SimpleTrackDto {
      */
     'artistName'?: string | null;
 }
+
 /**
  *
  * @export
@@ -769,6 +779,7 @@ export interface SongResultDto {
      */
     'artistName'?: string | null;
 }
+
 /**
  *
  * @export
@@ -806,6 +817,7 @@ export interface TrackDto {
      */
     'likeId'?: string | null;
 }
+
 /**
  *
  * @export
@@ -825,6 +837,7 @@ export interface TrackDtoBaseResultDto {
      */
     'error'?: ErrorDto;
 }
+
 /**
  *
  * @export
@@ -887,13 +900,44 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(loginCredentialsDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        accountsLogoutPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Accounts/Logout`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -921,7 +965,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -957,7 +1000,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -988,6 +1030,15 @@ export const AccountsApiFp = function (configuration?: Configuration) {
          */
         async accountsLoginPost(loginCredentialsDto?: LoginCredentialsDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewAccessTokenDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.accountsLoginPost(loginCredentialsDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async accountsLogoutPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewAccessTokenDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.accountsLogoutPost(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1033,6 +1084,14 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        accountsLogoutPost(options?: any): AxiosPromise<NewAccessTokenDto> {
+            return localVarFp.accountsLogoutPost(options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         accountsRefreshAccessTokenPost(options?: any): AxiosPromise<NewAccessTokenDto> {
             return localVarFp.accountsRefreshAccessTokenPost(options).then((request) => request(axios, basePath));
         },
@@ -1064,6 +1123,16 @@ export class AccountsApi extends BaseAPI {
      */
     public accountsLoginPost(loginCredentialsDto?: LoginCredentialsDto, options?: AxiosRequestConfig) {
         return AccountsApiFp(this.configuration).accountsLoginPost(loginCredentialsDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AccountsApi
+     */
+    public accountsLogoutPost(options?: AxiosRequestConfig) {
+        return AccountsApiFp(this.configuration).accountsLogoutPost(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1120,7 +1189,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -1660,7 +1728,6 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
-
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);

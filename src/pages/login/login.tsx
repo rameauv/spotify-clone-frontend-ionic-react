@@ -4,8 +4,9 @@ import styles from "./login.module.scss";
 import React, {useState} from "react";
 import {arrowBackOutline} from "ionicons/icons";
 import {publicAccountsApi} from "../../tools/client";
+import {useAuth} from "../../hooks/use-auth";
 
-interface LoginProps extends RouteComponentProps {
+interface LoginProps {
 }
 
 interface State {
@@ -14,6 +15,9 @@ interface State {
 }
 
 const Login: React.FC<LoginProps> = (props) => {
+    console.log('login page render fn');
+    const authHook = useAuth();
+
     const [state, setState] = useState<State>({
         username: '',
         password: '',
@@ -27,21 +31,10 @@ const Login: React.FC<LoginProps> = (props) => {
         ) {
             return;
         }
-        const f = async () => {
-            const response = await publicAccountsApi.accountsLoginPost({
-                deviceId: "3fa85f64-5717-4562-b3fc-2c963f66afa7",
-                username: state.username,
-                password: state.password
-            })
-            const token = response.data;
-            console.log(token);
-            if (!token?.accessToken) {
-                return;
-            }
-            localStorage.setItem('jwt', token.accessToken);
-            router.push(`/home`, 'root', "replace");
-        }
-        f();
+        authHook.login({
+            username: state.username,
+            password: state.password
+        });
     }
     const handleUserNameInputEvent = (event: any) => {
         const value = event.target.value;

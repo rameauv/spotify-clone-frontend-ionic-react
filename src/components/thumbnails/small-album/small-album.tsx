@@ -1,6 +1,6 @@
 import styles from "./small-album.module.scss";
 import {useContext} from "react";
-import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
+import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
 import {useIonRouter} from "@ionic/react";
 import {useRouteMatch} from "react-router-dom";
 

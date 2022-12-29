@@ -1,6 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
 import {userApi} from "../../tools/client";
 import {MyState} from "../../store/store";
+import {AxiosError} from "axios";
 
 
 export interface CurrentUser {
@@ -9,23 +10,29 @@ export interface CurrentUser {
     name: string
 }
 
-export interface CurrentUserSliiceState extends EntityState<any> {
-    data: CurrentUser | undefined;
+export interface CurrentUserSliiceState {
+    data?: CurrentUser;
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
-    error: string | undefined;
+    error?: string;
 }
 
-const currentUserAdapter = createEntityAdapter({})
 
-const initialState: CurrentUserSliiceState = currentUserAdapter.getInitialState({
+const initialState: CurrentUserSliiceState = {
     data: undefined,
     status: "idle",
     error: undefined
-})
+};
 
 export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, thunkAPI) => {
-    const response = await userApi.userCurrentUserGet();
-    return response.data.result;
+    try {
+        const response = await userApi.userCurrentUserGet();
+        return response.data.result;
+    } catch (e: unknown) {
+        if (e instanceof AxiosError && e.response?.status === 401) {
+            return undefined;
+        }
+        throw e;
+    }
 });
 
 export const setCurrnetUseProfileTitle = createAsyncThunk('currentUser/setName', async (arg: { profileTitle: string }, thunkAPI) => {
@@ -46,14 +53,20 @@ const currentUserSlide = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetechCurrentUser.fulfilled, (state, action) => {
-            state.data = {
-                id: action.payload?.id,
-                userName: action.payload.username,
-                name: action.payload.name
-            };
+            const user = action.payload;
+            if (user) {
+                state.data = {
+                    id: user.id,
+                    userName: user.username,
+                    name: user.name
+                };
+            } else {
+                state.data = undefined;
+            }
             state.status = 'succeeded';
         });
         builder.addCase(fetechCurrentUser.rejected, (state, action) => {
+            console.log(action.error);
             state.error = action.error.message;
             state.status = 'failed';
         });

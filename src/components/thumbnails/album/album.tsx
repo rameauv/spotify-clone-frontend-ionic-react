@@ -1,7 +1,7 @@
 import styles from "./album.module.scss";
 import {useContext} from "react";
 import {useHistory, useRouteMatch} from "react-router-dom";
-import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
+import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
 
 interface ContainerProps {
     id: string;

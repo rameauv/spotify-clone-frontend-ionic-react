@@ -1,42 +1,23 @@
-import {createAnimation, IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonRouter} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
 import styles from './settings.module.scss';
 import React from "react";
 import {arrowBackOutline, chevronForward} from 'ionicons/icons';
 import {useHistory} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
+import {useAuth} from "../../hooks/use-auth";
 
 interface SettingsProps extends RouteComponentProps {
 }
 
-const animationBuilder = (baseEl: any, opts: any) => {
-    const enteringAnimation = createAnimation()
-        .addElement(opts.enteringEl)
-        .fromTo('opacity', 0, 1)
-        .duration(250);
-
-    const leavingAnimation = createAnimation()
-        .addElement(opts.leavingEl)
-        .fromTo('opacity', 1, 0)
-        .duration(250);
-
-    const animation = createAnimation()
-        .addAnimation(enteringAnimation)
-        .addAnimation(leavingAnimation);
-
-    return animation;
-};
 
 const Settings: React.FC<SettingsProps> = (props) => {
-    console.log(props);
+    const authHook = useAuth();
     const history = useHistory();
-    const router = useIonRouter();
     const _handleProfileSettingsButtonEvent = () => {
         history.push(`${props.match.url}/profile-settings`);
     };
     const handleLogoutEvent = () => {
-        console.log('handleLogoutEvent')
-        localStorage.removeItem('jwt');
-        router.push('/', 'root', 'replace', undefined, animationBuilder);
+        authHook.logout();
     }
     const profileTitle = 'ValentinValentinVale ntinVale ntinVal entinV alentinVale ntinVa lentin Valent inVal entinValent inValentinV alentinV alenti nVale ntin';
     return (

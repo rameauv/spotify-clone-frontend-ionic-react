@@ -9,6 +9,7 @@ client.interceptors.request.use(
     async (config) => {
         config.withCredentials = true;
         const token = await getAccessToken();
+        console.log('access token:' + token);
         if (token) {
             config.headers = {
                 ...config.headers,
@@ -113,10 +114,6 @@ function refreshToken() {
             localStorage.setItem('jwt', token);
             return token;
         })
-        .catch(reason => {
-            console.log(reason);
-            return undefined;
-        });
 }
 
 export async function getAccessToken() {

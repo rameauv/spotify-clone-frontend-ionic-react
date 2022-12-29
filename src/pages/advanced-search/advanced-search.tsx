@@ -10,6 +10,7 @@ import {SearchAlbum} from "../../components/thumbnails/search-album/search-album
 import {SearchArtist} from "../../components/thumbnails/search-artist/search-artist";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchSearchResults, getSearchResults} from "../../features/search-feature/search-slice";
+import {useRedirectToLoginOnUnauthorised} from "../../hooks/use-redirect-to-login-on-unauthorised";
 
 interface AdvancedSearchProps {
 }
@@ -44,6 +45,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const [searchQuery, _setSearchQuery] = useState<string>("");
     const [results, _setResults] = useState<JSX.Element[]>([]);
     const searchResult = useSelector(getSearchResults);
+    const redirectToLoginOnUnauthorised = useRedirectToLoginOnUnauthorised();
     useEffect(() => {
         if (!searchResult) {
             _setResults([]);
@@ -80,8 +82,10 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
 
     const searchResultRequest = useMemo(() => {
         return debounce((q: string) => {
+            console.log(searchThunkPromise);
             searchThunkPromise?.abort()
-            searchThunkPromise = dispatch(fetchSearchResults({q}));
+            searchThunkPromise = redirectToLoginOnUnauthorised(dispatch(fetchSearchResults({q})))
+            console.log(searchThunkPromise);
         }, 500, {
             leading: true,
             trailing: true

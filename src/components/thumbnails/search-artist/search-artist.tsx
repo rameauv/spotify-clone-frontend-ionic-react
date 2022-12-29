@@ -1,6 +1,6 @@
 import styles from "./search-artist.module.scss";
 import {useContext} from "react";
-import {PathsContext, TabRouteParams} from "../../../pages/private/private-pages-router";
+import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
 import {useHistory, useRouteMatch} from "react-router-dom";
 
 export interface SearchArtistProps {

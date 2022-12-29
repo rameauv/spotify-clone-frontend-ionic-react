@@ -4,7 +4,7 @@ import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle
 import React, {useContext, useEffect} from "react";
 import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
 import {Link, useHistory, useParams, useRouteMatch} from "react-router-dom";
-import {PathsContext, TabRouteParams} from '../private/private-pages-router';
+import {PathsContext, TabRouteParams} from '../private-pages-router/private-pages-router';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
 import {fetchAlbum, selectAlbumById} from "../../features/album-slice/album-slice";

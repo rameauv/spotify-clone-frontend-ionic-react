@@ -1,21 +1,22 @@
-import {IonContent, IonPage} from '@ionic/react';
-import {RouteComponentProps} from "react-router";
+import {IonContent, IonPage, useIonRouter} from '@ionic/react';
 import styles from "./login-signin.module.scss";
 import React from "react";
+import {useRouteMatch} from "react-router-dom";
 
-interface LoginSigninProps extends RouteComponentProps {
+interface LoginSigninProps {
 }
 
 const LoginSignin: React.FC<LoginSigninProps> = (props) => {
-    console.log('login signin page')
+    console.log('login signin page render fn')
+    const router = useIonRouter();
+    const match = useRouteMatch();
 
     const handleDiscardEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (!event) {
             return;
         }
-        props.history.push(`${props.match.url}login`);
+        router.push(`${match.url}login`);
     }
-    console.log(props);
     return (
         <IonPage>
             <IonContent
