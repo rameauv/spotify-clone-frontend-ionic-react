@@ -1,7 +1,7 @@
 import {accountsApi, publicAccountsApi} from "../tools/client";
 import {createAnimation, useIonRouter} from "@ionic/react";
 import {useDispatch} from "react-redux";
-import {fetechCurrentUser} from "../features/current-user/current-user-slice";
+import {fetechCurrentUser} from "../store/slices/current-user/current-user-slice";
 
 const animationBuilder = (baseEl: any, opts: any) => {
     const enteringAnimation = createAnimation()

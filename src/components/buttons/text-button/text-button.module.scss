@@ -1,0 +1,21 @@
+@import "src/design-system/styles/variables";
+
+.button {
+  --color: inherit;
+  color: var(--color);
+  @include font-p1;
+
+  &:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+}
+
+.disabled {
+  color: var(--app-color-text-secondary);
+}
+
+.bold {
+  @include font-bold;
+}

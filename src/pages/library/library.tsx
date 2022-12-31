@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library.module.scss';
 import Filter, {Tag} from "../../components/filter/filter";
 import React, {useState} from "react";
@@ -7,6 +7,7 @@ import LibrarySortButton from "../../components/library-sort-button/library-sort
 import {addOutline, searchOutline} from 'ionicons/icons';
 import {useHistory} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
+import IconButton, {IconButtonSize} from "../../components/buttons/icon-button/icon-button";
 
 interface LibraryProps extends RouteComponentProps {
 }
@@ -41,12 +42,15 @@ const Library: React.FC<LibraryProps> = (props) => {
                         </div>
                         <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
                         <div className={styles.headerButtons}>
-                            <IonIcon
-                                className={styles.headerButton}
+                            <IconButton
                                 icon={searchOutline}
+                                size={IconButtonSize.MD}
                                 onClick={() => _handleSearchButtonEvent()}
-                            ></IonIcon>
-                            <IonIcon className={styles.headerButton} icon={addOutline}></IonIcon>
+                            ></IconButton>
+                            <IconButton
+                                icon={addOutline}
+                                size={IconButtonSize.MD}
+                            ></IconButton>
                         </div>
                     </div>
                 </IonToolbar>

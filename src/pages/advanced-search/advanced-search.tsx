@@ -9,7 +9,7 @@ import SearchInput from "../../components/search-input/search-input";
 import {SearchAlbum} from "../../components/thumbnails/search-album/search-album";
 import {SearchArtist} from "../../components/thumbnails/search-artist/search-artist";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchSearchResults, getSearchResults} from "../../features/search-feature/search-slice";
+import {fetchSearchResults, getSearchResults} from "../../store/slices/search-feature/search-slice";
 import {useRedirectToLoginOnUnauthorised} from "../../hooks/use-redirect-to-login-on-unauthorised";
 
 interface AdvancedSearchProps {

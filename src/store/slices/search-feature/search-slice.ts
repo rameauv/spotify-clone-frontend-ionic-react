@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSelector, createSlice} from "@reduxjs/toolkit";
-import {searchApi} from "../../tools/client";
-import {SearchResultDto} from "../../api";
-import {MyState} from "../../store/store";
+import {searchApi} from "../../../tools/client";
+import {SearchResultDto} from "../../../api";
+import {MyState} from "../../store";
 
 
 export interface SearchSliceState {

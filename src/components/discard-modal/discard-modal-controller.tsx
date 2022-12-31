@@ -1,13 +1,10 @@
 import React from "react";
 import {Animation, createAnimation, IonModal} from "@ionic/react";
 import styles from "./discard-modal.module.scss";
+import TextButton from "../buttons/text-button/text-button";
+import RegularButton from "../buttons/regular-button/regular-button";
 
-interface EditProfileModalControllerProps {
-    isOpen?: boolean;
-    onClose?: (result: { discard: boolean }) => void | undefined;
-}
-
-export const mdLeaveAnimation = (baseEl: HTMLElement): Animation => {
+const leaveAnimation = (baseEl: HTMLElement): Animation => {
     const baseAnimation = createAnimation();
     const backdropAnimation = createAnimation();
     const wrapperAnimation = createAnimation();
@@ -23,7 +20,7 @@ export const mdLeaveAnimation = (baseEl: HTMLElement): Animation => {
         .addAnimation([backdropAnimation, wrapperAnimation]);
 };
 
-export const mdEnterAnimation = (baseEl: HTMLElement): Animation => {
+const enterAnimation = (baseEl: HTMLElement): Animation => {
     const baseAnimation = createAnimation();
     const backdropAnimation = createAnimation();
     const wrapperAnimation = createAnimation();
@@ -47,15 +44,20 @@ export const mdEnterAnimation = (baseEl: HTMLElement): Animation => {
         .addAnimation([backdropAnimation, wrapperAnimation]);
 };
 
+interface EditProfileModalControllerProps {
+    isOpen?: boolean;
+    onClose?: (result: { discard: boolean }) => void | undefined;
+}
+
 const DiscardModalController: React.FC<EditProfileModalControllerProps> = ({isOpen, onClose}) => {
-    const handleDiscardEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (!event || !onClose) {
+    const handleDiscardEvent = () => {
+        if (!onClose) {
             return;
         }
         onClose({discard: true});
     }
 
-    const handleKeepEditingEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const handleKeepEditingEvent = () => {
         if (onClose) {
             onClose({discard: false});
         }
@@ -65,24 +67,24 @@ const DiscardModalController: React.FC<EditProfileModalControllerProps> = ({isOp
         <IonModal
             className={`${styles.alert} myAlert`}
             isOpen={isOpen}
-            enterAnimation={mdEnterAnimation}
-            leaveAnimation={mdLeaveAnimation}
+            enterAnimation={enterAnimation}
+            leaveAnimation={leaveAnimation}
+            backdropDismiss={false}
         >
             <div className={`${styles.alertMainContent} modal-content`}>
                 <div className={styles.alertContent}>
                     <p className={styles.alertContent__title}>Discard changes?</p>
                     <p className={styles.alertContent__subTitle}>If you go back know, you will loose your
                         changes.</p>
-                    <div
-                        className={styles.alertContent__keepEditingButton}
-                        onClick={event => handleKeepEditingEvent(event)}
-                    >
-                        <p className={styles.alertContent__keepEditingButton__inner}>Keep editing</p>
-                    </div>
-                    <p
-                        className={styles.alertContent__discardButton}
-                        onClick={event => handleDiscardEvent(event)}
-                    >Discard</p>
+                    <RegularButton
+                        title="Keep editing"
+                        onClick={() => handleKeepEditingEvent()}
+                    />
+                    <TextButton
+                        title="Discard"
+                        onClick={() => handleDiscardEvent()}
+                        isBold
+                    />
                 </div>
             </div>
         </IonModal>

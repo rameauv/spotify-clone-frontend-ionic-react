@@ -1,0 +1,16 @@
+@import "../../../design-system/styles/variables";
+
+.ionToolbar__header {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  .ionToolbar__header__backButton {
+    margin-right: 2rem;
+  }
+
+  .ionToolbar__header__title {
+    @include font-p1;
+    @include font-bold;
+  }
+}

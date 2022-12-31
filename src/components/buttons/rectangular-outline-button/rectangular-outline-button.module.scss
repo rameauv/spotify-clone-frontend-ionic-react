@@ -1,0 +1,30 @@
+@import "src/design-system/styles/variables";
+
+.button {
+  border-color: white;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+
+  p {
+    @include font-p1;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition: transform 100ms;
+  }
+}
+
+.disabled {
+  border-color: var(--app-color-text-secondary);
+
+  &:active {
+    border-color: var(--app-color-gray-1);
+
+  }
+}

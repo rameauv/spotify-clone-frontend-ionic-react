@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
-import {artistApi} from "../../tools/client";
+import {artistApi} from "../../../tools/client";
 import {Artist, CachedArtist} from "./models/cachedArtist";
-import {MyState} from "../../store/store";
+import {MyState} from "../../store";
 import {addLike, deleteLike} from "../like-slise/like-slice";
 
 export interface ArtistSliceState extends EntityState<any> {

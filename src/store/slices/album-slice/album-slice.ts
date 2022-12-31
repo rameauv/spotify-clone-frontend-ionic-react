@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
-import {albumkApi} from "../../tools/client";
+import {albumkApi} from "../../../tools/client";
 import {Album, CachedAlbum} from "./models/cachedAlbum";
-import {MyState} from "../../store/store";
+import {MyState} from "../../store";
 import {addLike, deleteLike} from "../like-slise/like-slice";
 
 export interface AlbumSliceState extends EntityState<any> {

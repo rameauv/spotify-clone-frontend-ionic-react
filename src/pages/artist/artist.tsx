@@ -1,32 +1,23 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonRouter} from '@ionic/react';
 import styles from './artist.module.scss';
-import {arrowBackOutline, ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
+import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons'
 import React, {useEffect, useState} from "react";
-import SongMoreMenuModal, {SongMoreMenuModalSong} from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {useHistory, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import SearchSong from "../../components/thumbnails/search-song/search-song";
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
-import {CachedArtist} from "../../features/artist-slice/models/cachedArtist";
-import {fetchArtist, selectArtistById} from "../../features/artist-slice/artist-slice";
+import {CachedArtist} from "../../store/slices/artist-slice/models/cachedArtist";
+import {fetchArtist, selectArtistById} from "../../store/slices/artist-slice/artist-slice";
 import {
     addArtistLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from "../../features/like-slise/like-slice";
-
-const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ46fmCsDjEEyOxhiI_yyhUEvR0QFSoHMbepw&usqp=CAU';
-
-const seeButtonProvider = (label: string) => {
-    return (
-        <div className={styles.seeButtonContainer}>
-            <div className={styles.seeButton}>
-                <p>{label}</p>
-            </div>
-        </div>
-    )
-}
+} from "../../store/slices/like-slise/like-slice";
+import BigPlayButton from "../../components/buttons/big-play-button/big-play-button";
+import FollowButton from "../../components/buttons/follow-button/follow-button";
+import RoundOutlineButton from "../../components/buttons/round-outline-button/round-outline-button";
+import IconButton, {IconButtonSize} from "../../components/buttons/icon-button/icon-button";
 
 const sectionProvider = (title: string, content: any) => {
     return (
@@ -38,18 +29,25 @@ const sectionProvider = (title: string, content: any) => {
 }
 
 const Artist: React.FC = () => {
-    const song: SongMoreMenuModalSong = {
-        thumbnailUrl: defaultImage,
-        title: 'Civilisation',
-        artist: 'Orelsan'
-    };
-    const [isLiked, setIsLiked] = useState<boolean>();
     const [bgOpacity, setBgOpacity] = useState(0.3);
     const [headerTitleOpacity, setHeaderTitleOpacity] = useState(0);
     const [titleBg, setTitleBg] = useState('transparent');
     const [headerBg, setHeaderBg] = useState('transparent');
+    const router = useIonRouter();
+    const {id} = useParams<{ id: string }>();
+    const dispatch = useDispatch();
+    const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
+    const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
+    const artist = cachedArtist?.artist;
 
-    const history = useHistory();
+    useEffect(() => {
+        try {
+            dispatch<any>(fetchArtist({id}));
+        } catch (e) {
+            console.log(e);
+        }
+    }, [id, dispatch]);
+
     const handleScrollEvent = (e: any) => {
         const scrollTop = e.detail.scrollTop;
         const tempBgOpacity = ((scrollTop / 176) * 0.6) + 0.4;
@@ -62,17 +60,6 @@ const Artist: React.FC = () => {
         setTitleBg(tempTitleBg)
     }
 
-    const {id} = useParams<{ id: string }>();
-    const dispatch = useDispatch();
-    const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
-    const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
-    const status = cachedArtist?.status;
-    const artist = cachedArtist?.artist;
-    const [present, dismiss] = useIonModal(SongMoreMenuModal, {
-        onDismiss: (data: string, role: string) => dismiss(data, role),
-        song: song
-    });
-
     const handleFollowButtonEvent = () => {
         if (cachedLike) {
             dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
@@ -80,15 +67,6 @@ const Artist: React.FC = () => {
             dispatch<any>(addArtistLikeThunk({id}));
         }
     };
-
-    useEffect(() => {
-        try {
-            dispatch<any>(fetchArtist({id}));
-        } catch (e) {
-            console.log(e);
-        }
-    }, [id, dispatch]);
-
     const content = !artist ?
         (<>
             <IonHeader>
@@ -97,7 +75,7 @@ const Artist: React.FC = () => {
                         <IonIcon
                             className={styles.noContentHeader__backButton}
                             icon={arrowBackOutline}
-                            onClick={() => history.goBack()}
+                            onClick={() => router.goBack()}
                         />
                     </div>
                 </IonToolbar>
@@ -119,11 +97,13 @@ const Artist: React.FC = () => {
                 onIonScroll={(e) => handleScrollEvent(e)}
             >
                 <div className={styles.header}>
-                    <IonIcon
-                        className={`${styles.header__backButton}`}
-                        icon={arrowBackOutline}
-                        onClick={() => history.goBack()}
-                    ></IonIcon>
+                    <div className={styles.header__backButton}>
+                        <IconButton
+                            icon={arrowBackOutline}
+                            onClick={() => router.goBack()}
+                            size={IconButtonSize.MD}
+                        ></IconButton>
+                    </div>
                     <p className={styles.header__title}>{artist.name}</p>
                 </div>
                 <div className={styles.container}>
@@ -132,29 +112,18 @@ const Artist: React.FC = () => {
                         <p className={styles.viewers}>{artist.monthlyListeners} monthly viewers</p>
                         <div className={styles.buttons}>
                             <div className={styles.addToPlaylistButtonContainer}>
-                                {
-                                    cachedLike ?
-                                        <div className={styles.addToPlaylistButton}
-                                             onClick={() => handleFollowButtonEvent()}
-                                        >
-                                            <p>Following</p>
-                                        </div> :
-                                        <div
-                                            className={`${styles.addToPlaylistButton} ${styles.addToPlaylistButtonActivated}`}
-                                            onClick={() => handleFollowButtonEvent()}
-                                        >
-                                            <p>Follow</p>
-                                        </div>
-                                }
+                                <FollowButton
+                                    isFollowing={!!cachedLike}
+                                    onClick={() => handleFollowButtonEvent()}
+                                />
                             </div>
                             <IonIcon
                                 className={styles.moreMenuButton}
                                 icon={ellipsisVerticalSharp}
-                                onClick={() => present()}
                             ></IonIcon>
                         </div>
                         <div className={styles.playbuttonContainer}>
-                            <IonIcon className={styles.playbutton} icon={playCircle}></IonIcon>
+                            <BigPlayButton/>
                         </div>
                         <div className={styles.songListContainer}>
                             <p className={styles.songListContainer__song__artist}>Orelsan </p>
@@ -204,7 +173,9 @@ const Artist: React.FC = () => {
                                             artistName="Song - XXXTENTACION"></SearchSong>
                                 <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope"
                                             artistName="Song - XXXTENTACION"></SearchSong>
-                                {seeButtonProvider('See discography')}
+                                <div className={styles.seeButtonContainer}>
+                                    <RoundOutlineButton title="See discography"/>
+                                </div>
                             </div>
                         ))}
                     </div>

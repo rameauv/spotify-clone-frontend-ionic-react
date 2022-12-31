@@ -14,7 +14,7 @@
 }
 
 .headerBgGradiant {
-  height: 3rem;
+  height: var(--header-height);
   opacity: 0.8;
   background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 90px);
 }
@@ -25,12 +25,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: calc(3rem + var(--ion-safe-area-top));
+  height: var(--header-height);
   z-index: 1;
-  padding-bottom: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: calc(1rem + var(--ion-safe-area-top));
   align-items: center;
   min-width: 0;
 
@@ -115,27 +113,6 @@
   justify-content: left;
   align-items: center;
   margin-bottom: 1.5rem;
-
-  .editButton {
-    border-color: var(--app-color-text-secondary);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border-radius: 1.0625rem; // 17px
-    border-width: 1px;
-    border-style: solid;
-    margin-right: 1rem;
-
-    p {
-      @include font-p1;
-    }
-
-    &:active {
-      transform: scale(0.97);
-      transition: transform 100ms;
-    }
-  }
 }
 
 .playlistsLabel {

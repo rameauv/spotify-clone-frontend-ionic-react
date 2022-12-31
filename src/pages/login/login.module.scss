@@ -1,56 +1,5 @@
 @import "src/design-system/styles/variables";
 
-@import "src/design-system/styles/variables";
-
-.ionToolbar {
-  --padding-bottom: 1rem;
-  --padding-top: 1rem;
-  --padding-start: 0;
-  --padding-end: 0;
-
-  .ionToolbar__header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .ionToolbar__header__backButton {
-      height: 1.5rem;
-      width: 1.5rem;
-      margin-right: 2rem;
-      position: absolute;
-      left: 1rem;
-
-      &:active {
-        transform: scale(0.95);
-        transition: transform 100ms;
-        color: var(--app-color-text-secondary);
-      }
-    }
-
-    .ionToolbar__header__title {
-      @include font-p1;
-      @include font-bold;
-    }
-
-    .ionToolbar__header__saveButton {
-      margin-left: 2rem;
-      position: absolute;
-      right: 1rem;
-      @include font-p1;
-
-      &:active {
-        transform: scale(0.95);
-        transition: transform 100ms;
-        color: var(--app-color-text-secondary);
-      }
-
-      &.disabled {
-        color: var(--app-color-text-secondary);
-      }
-    }
-  }
-}
-
 .ionContent {
   --padding-top: 1rem;
   --padding-start: var(--page-side-padding);
@@ -96,36 +45,6 @@
 }
 
 .loginButton {
-  color: black;
-
-  .loginButton__inner {
-    @include font-p1;
-    @include font-bold;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    background-color: white;
-  }
-
-  background-color: var(--app-color-backgroud-1);
-  margin-bottom: 2rem;
-  border-radius: 9999px;
-  overflow: hidden;
-
-  &:not(.loginDisable):active {
-    transform: scale(0.95);
-    transition: transform 100ms;
-
-    .loginButton__inner {
-      opacity: 0.7;
-    }
-  }
-}
-
-.loginDisable {
-  .loginButton__inner {
-    background-color: var(--app-color-text-secondary);
-    opacity: 0.7;
-  }
+  --color: black;
+  --background-color: white;
 }

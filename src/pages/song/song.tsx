@@ -1,30 +1,31 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './song.module.scss';
-import {arrowBackOutline, ellipsisVertical, heart, heartOutline, playCircle} from 'ionicons/icons'
-import {useEffect, useState} from "react";
+import {ellipsisVertical, playCircle} from 'ionicons/icons'
+import {useEffect} from "react";
 import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {useHistory, useParams} from "react-router-dom";
-import {fetchTrack, selectById} from '../../features/track-slice/track-slice';
+import {useParams} from "react-router-dom";
+import {fetchTrack, selectById} from '../../store/slices/track-slice/track-slice';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
-import {CachedTrack} from "../../features/track-slice/models/cachedTrack";
+import {CachedTrack} from "../../store/slices/track-slice/models/cachedTrack";
 import {
     addTrackLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from "../../features/like-slise/like-slice";
+} from "../../store/slices/like-slise/like-slice";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
+import RoundOutlineButton from "../../components/buttons/round-outline-button/round-outline-button";
+import HeartButton from "../../components/buttons/heart-button/heart-button";
+import BigPlayButton from "../../components/buttons/big-play-button/big-play-button";
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
 const Song: React.FC = () => {
-    const [isLiked, setIsLiked] = useState<boolean>();
-    const history = useHistory();
     const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
     const cachedTrack = useSelector<MyState, CachedTrack | undefined>(state => selectById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
-    const status = cachedTrack?.status;
     const track = cachedTrack?.track;
     const [present, dismiss] = useIonModal(SongMoreMenuModal, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
@@ -35,9 +36,7 @@ const Song: React.FC = () => {
         }
     });
     useEffect(() => {
-        // if (!cachedTrack || status === "idle") {
-        dispatch<any>(fetchTrack({id}));
-        // }
+        dispatch(fetchTrack({id}));
     }, [id, dispatch]);
     const handleLikeButtonEvent = () => {
         if (cachedLike) {
@@ -60,30 +59,23 @@ const Song: React.FC = () => {
                 <p className={styles.artist}>{track.artistName}</p>
                 <p className={styles.type}>Song</p>
                 <div className={styles.buttons}>
-                    {
-                        cachedLike ?
-                            <IonIcon
-                                className={`${styles.heartButtonActivated}`}
-                                icon={heart}
-                                onClick={() => handleLikeButtonEvent()}
-                            ></IonIcon> :
-                            <IonIcon
-                                className={styles.heartButton}
-                                icon={heartOutline}
-                                onClick={() => handleLikeButtonEvent()}
-                            ></IonIcon>
-                    }
+                    <div className={styles.heartButton}>
+                        <HeartButton
+                            isActivated={!!cachedLike}
+                            onClick={() => handleLikeButtonEvent()}
+                        />
+                    </div>
                     <IonIcon
                         className={styles.moreMenuButton}
                         icon={ellipsisVertical}
                         onClick={() => present()}
                     ></IonIcon>
-                    <IonIcon className={styles.playbutton} icon={playCircle}></IonIcon>
+                    <div className={styles.playbutton}>
+                        <BigPlayButton/>
+                    </div>
                 </div>
                 <div className={styles.addToPlaylistButtonContainer}>
-                    <div className={styles.addToPlaylistButton}>
-                        <p>Add to playlist</p>
-                    </div>
+                    <RoundOutlineButton title="Add to playlist"/>
                 </div>
             </div>
         </>);
@@ -91,11 +83,7 @@ const Song: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonIcon
-                        className={`${styles.backButton}`}
-                        icon={arrowBackOutline}
-                        onClick={() => history.goBack()}
-                    ></IonIcon>
+                    <HeaderWithCenteredTitle title=""/>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>

@@ -5,6 +5,8 @@ import React, {useState} from "react";
 import {arrowBackOutline} from "ionicons/icons";
 import {publicAccountsApi} from "../../tools/client";
 import {useAuth} from "../../hooks/use-auth";
+import RegularButton from "../../components/buttons/regular-button/regular-button";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
 
 interface LoginProps {
 }
@@ -25,12 +27,7 @@ const Login: React.FC<LoginProps> = (props) => {
 
     const valid = state.username && state.password;
     const router = useIonRouter();
-    const handleLoginButtonClick = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (!event
-            || !valid
-        ) {
-            return;
-        }
+    const handleLoginButtonClick = () => {
         authHook.login({
             username: state.username,
             password: state.password
@@ -54,15 +51,7 @@ const Login: React.FC<LoginProps> = (props) => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar className={styles.ionToolbar}>
-                    <div className={styles.ionToolbar__header}>
-                        <IonIcon
-                            className={styles.ionToolbar__header__backButton}
-                            icon={arrowBackOutline}
-                            onClick={() => router.goBack()}
-                        />
-                    </div>
-                </IonToolbar>
+                <HeaderWithCenteredTitle title=""/>
             </IonHeader>
             <IonContent
                 className={styles.ionContent}
@@ -85,13 +74,12 @@ const Login: React.FC<LoginProps> = (props) => {
                     />
                 </div>
 
-                <div
-                    className={`${styles.loginButton} ${valid ? '' : styles.loginDisable}`}
-                    onClick={event => handleLoginButtonClick(event)}
-                >
-                    <p className={styles.loginButton__inner}>Log in</p>
-                </div>
-
+                <RegularButton
+                    className={styles.loginButton}
+                    title="Log in"
+                    isDisabled={!valid}
+                    onClick={() => handleLoginButtonClick()}
+                />
             </IonContent>
         </IonPage>
     );

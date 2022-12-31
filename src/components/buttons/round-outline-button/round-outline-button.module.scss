@@ -1,0 +1,21 @@
+@import "src/design-system/styles/variables";
+
+.editButton {
+  border-color: var(--app-color-text-secondary);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 1.0625rem; // 17px
+  border-width: 1px;
+  border-style: solid;
+
+  p {
+    @include font-p1;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    transition: transform 100ms;
+  }
+}

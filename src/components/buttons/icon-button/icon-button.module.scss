@@ -1,11 +1,13 @@
 @import "src/design-system/styles/variables";
 
-.container {
-  @include font-h1;
-  @include font-bold;
+.button {
+  --size: 24px;
+  height: var(--size);
+  width: var(--size);
 
   &:active {
     transform: scale(0.95);
     transition: transform 100ms;
+    color: var(--app-color-text-secondary);
   }
 }

@@ -1,23 +1,5 @@
 @import "../../design-system/styles/variables";
 
-.header {
-  padding: 16px;
-  display: flex;
-  align-items: center;
-
-  .header__backButton {
-    height: 24px;
-    width: 24px;
-    margin-right: 2rem;
-
-    &:active {
-      transform: scale(0.95);
-      transition: transform 100ms;
-      color: var(--app-color-text-secondary);
-    }
-  }
-}
-
 .image {
   max-width: 12rem;
   max-height: 12rem;
@@ -82,8 +64,6 @@
 }
 
 .heartButton {
-  height: 24px;
-  width: 24px;
   margin-right: 1rem;
 }
 

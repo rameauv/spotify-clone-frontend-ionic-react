@@ -36,18 +36,6 @@
   color: var(--app-color-gray-1);
 }
 
-.backButton {
-  margin-left: 1rem;
-  font-size: 24px;
-  margin-right: 2rem;
-}
-
-.backButton:active {
-  transform: scale(0.95);
-  transition: transform 100ms;
-  color: var(--app-color-text-secondary);
-}
-
 .buttons {
   display: flex;
   align-items: center;
@@ -80,14 +68,6 @@
 
 .playbutton {
   margin-left: auto;
-  height: 60px;
-  width: 60px;
-  color: var(--app-color-green-1);
-
-  &:active {
-    transform: scale(0.97);
-    transition: transform 100ms;
-  }
 }
 
 .addToPlaylistButtonContainer {

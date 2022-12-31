@@ -3,7 +3,7 @@ import {
     fetechCurrentUser,
     selectCurrentUser,
     selectCurrentUserStatus
-} from "../../features/current-user/current-user-slice";
+} from "../../store/slices/current-user/current-user-slice";
 import {useEffect} from "react";
 import {Redirect} from "react-router-dom";
 

@@ -7,14 +7,16 @@ import {Link, useHistory, useParams, useRouteMatch} from "react-router-dom";
 import {PathsContext, TabRouteParams} from '../private-pages-router/private-pages-router';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
-import {fetchAlbum, selectAlbumById} from "../../features/album-slice/album-slice";
-import {CachedAlbum} from "../../features/album-slice/models/cachedAlbum";
+import {fetchAlbum, selectAlbumById} from "../../store/slices/album-slice/album-slice";
+import {CachedAlbum} from "../../store/slices/album-slice/models/cachedAlbum";
 import {
     addAlbumLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from "../../features/like-slise/like-slice";
+} from "../../store/slices/like-slise/like-slice";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
+import HeartButton from "../../components/buttons/heart-button/heart-button";
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
@@ -54,7 +56,7 @@ const Album: React.FC = () => {
         }
     };
     const content = !album ?
-        undefined :
+        <p>loading...</p> :
         (<>
             <div className={styles.imageContainer}>
                 <img
@@ -70,19 +72,12 @@ const Album: React.FC = () => {
                 </Link>
                 <p className={styles.type}>{album.albumType} . {album.releaseDate}</p>
                 <div className={styles.buttons}>
-                    {
-                        cachedLike ?
-                            <IonIcon
-                                className={`${styles.heartButtonActivated}`}
-                                icon={heart}
-                                onClick={() => handleLikeButtonEvent()}
-                            ></IonIcon> :
-                            <IonIcon
-                                className={styles.heartButton}
-                                icon={heartOutline}
-                                onClick={() => handleLikeButtonEvent()}
-                            ></IonIcon>
-                    }
+                    <div className={styles.heartButton}>
+                        <HeartButton
+                            isActivated={!!cachedLike}
+                            onClick={() => handleLikeButtonEvent()}
+                        />
+                    </div>
                     <IonIcon
                         className={styles.moreMenuButton}
                         icon={ellipsisVerticalSharp}
@@ -135,13 +130,7 @@ const Album: React.FC = () => {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <div className={styles.header}>
-                        <IonIcon
-                            className={styles.header__backButton}
-                            icon={arrowBackOutline}
-                            onClick={() => history.goBack()}
-                        />
-                    </div>
+                    <HeaderWithCenteredTitle title=""/>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>

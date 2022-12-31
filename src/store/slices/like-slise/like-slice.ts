@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from "@reduxjs/toolkit";
-import {albumkApi, artistApi, likeApi, trackApi} from "../../tools/client";
-import {MyState} from "../../store/store";
-import {LikeDtoSuccessResultDto, SetLikeRequest} from "../../api";
+import {albumkApi, artistApi, likeApi, trackApi} from "../../../tools/client";
+import {MyState} from "../../store";
+import {LikeDtoSuccessResultDto, SetLikeRequest} from "../../../api";
 
 export interface CachedLike {
     id: string;

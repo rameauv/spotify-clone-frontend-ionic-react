@@ -3,18 +3,18 @@ import {IonContent, IonIcon, IonPage} from "@ionic/react";
 import styles from './song-more-modal.module.scss';
 import {banOutline, heartOutline, musicalNoteOutline, personOutline, shareSocialOutline} from "ionicons/icons";
 
-export interface SongMoreMenuModalSong {
+export interface MoreMenuModalItem {
     thumbnailUrl: string;
     title: string;
     artist: string;
 }
 
-export interface SongMoreMenuModalProps {
+export interface MoreMenuModalProps {
     onDismiss: (data?: any, role?: string) => void;
-    song: SongMoreMenuModalSong;
+    song: MoreMenuModalItem;
 }
 
-const SongMoreMenuModal: React.FC<SongMoreMenuModalProps> = ({onDismiss, song}) => {
+const SongMoreMenuModal: React.FC<MoreMenuModalProps> = ({onDismiss, song}) => {
     const modal: any = useRef<HTMLIonModalElement>(null);
 
     return (

@@ -3,8 +3,8 @@ import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import ProfileSettings from "../profile-settings/profile-settings";
-import styles from "../../App.module.scss";
-import {heart, heartOutline, homeSharp, library, pause, play, searchSharp} from "ionicons/icons";
+import styles from './private-pages-router.module.scss';
+import {homeSharp, library, searchSharp} from "ionicons/icons";
 import Home from "../home/home";
 import Song from "../song/song";
 import Album from "../album/album";
@@ -16,6 +16,9 @@ import Library from "../library/library";
 import {Keyboard} from "@capacitor/keyboard";
 import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
+import LibrarySearch from "../library-search/library-search";
+import HeartButton from "../../components/buttons/heart-button/heart-button";
+import PlayButton from "../../components/buttons/play-button/play-button";
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
@@ -100,20 +103,16 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                                 <p className={styles.playerTitle}>Je te donne</p>
                                 <p className={styles.playerArtist}>Jean-jaques goldman</p>
                             </div>
-                            {
-                                isCurrentSongLiked ?
-                                    <IonIcon className={styles.heartButtonActivated} icon={heart}
-                                             onClick={() => setIsCurrentSongLiked(false)}></IonIcon> :
-                                    <IonIcon className={styles.heartButton} icon={heartOutline}
-                                             onClick={() => setIsCurrentSongLiked(true)}></IonIcon>
-                            }
-                            {
-                                isCurrentSongPlaying ?
-                                    <IonIcon className={styles.playButton} icon={pause}
-                                             onClick={() => setIsCurrentSongPlaying(false)}></IonIcon> :
-                                    <IonIcon className={styles.playButton} icon={play}
-                                             onClick={() => setIsCurrentSongPlaying(true)}></IonIcon>
-                            }
+                            <div className={styles.heartButton}>
+                                <HeartButton
+                                    isActivated={isCurrentSongLiked}
+                                    onClick={() => setIsCurrentSongLiked(!isCurrentSongLiked)}
+                                />
+                            </div>
+                            <PlayButton
+                                isPlaying={isCurrentSongPlaying}
+                                onClick={() => setIsCurrentSongPlaying(!isCurrentSongPlaying)}
+                            />
                         </div>
                         <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
                     </div>
@@ -122,21 +121,30 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
 
                     <IonTabs>
                         <IonRouterOutlet>
+                            <Route exact path={`${props.match.url}`}>
+                                <Redirect to={paths.feed}/>
+                            </Route>
+                            {/*Feed*/}
                             <Route exact path={`${props.match.url}/:tab(feed)`} component={Home}/>
+                            {/*Search*/}
                             <Route exact path={`${props.match.url}/:tab(search)`} component={Search}/>
                             <Route path={`${props.match.url}/:tab(search)/tag`} component={Tag}/>
-                            <Route path={`${props.match.url}/:tab(search)/advanced`}
-                                   component={AdvancedSearch}/>
+                            <Route
+                                path={`${props.match.url}/:tab(search)/advanced`}
+                                component={AdvancedSearch}
+                            />
+                            {/*Library*/}
                             <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
+                            {/*Shared*/}
+                            <Route path={`${props.match.url}/:tab(library)/search`} component={LibrarySearch}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
                             <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
                             <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
                             <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>
-                            <Route exact path={`${props.match.url}/:tab/settings/profile-settings`}
-                                   component={ProfileSettings}/>
-                            <Route exact path={`${props.match.url}`}>
-                                <Redirect to={paths.feed}/>
-                            </Route>
+                            <Route
+                                path={`${props.match.url}/:tab/settings/profile-settings`}
+                                component={ProfileSettings}
+                            />
                         </IonRouterOutlet>
 
                         <IonTabBar className={styles.ionTabBar} slot="bottom">

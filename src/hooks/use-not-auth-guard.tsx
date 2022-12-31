@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {selectCurrentUser, selectCurrentUserStatus} from "../features/current-user/current-user-slice";
+import {selectCurrentUser, selectCurrentUserStatus} from "../store/slices/current-user/current-user-slice";
 import {useCallback} from "react";
 import {Redirect} from "react-router-dom";
 

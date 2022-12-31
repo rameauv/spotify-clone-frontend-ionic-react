@@ -30,11 +30,7 @@ import LoginSignin from "./pages/login-signin/login-signin";
 import Login from "./pages/login/login";
 import AuthGuard from "./components/auth-guard/auth-guard";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    fetechCurrentUser,
-    selectCurrentUser,
-    selectCurrentUserStatus
-} from "./features/current-user/current-user-slice";
+import {fetechCurrentUser, selectCurrentUserStatus} from "./store/slices/current-user/current-user-slice";
 import {useNotAuthGuard} from "./hooks/use-not-auth-guard";
 
 

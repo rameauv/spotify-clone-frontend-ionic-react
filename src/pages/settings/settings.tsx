@@ -5,6 +5,7 @@ import {arrowBackOutline, chevronForward} from 'ionicons/icons';
 import {useHistory} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import {useAuth} from "../../hooks/use-auth";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
 
 interface SettingsProps extends RouteComponentProps {
 }
@@ -23,16 +24,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar className={styles.ionToolbar}>
-                    <div className={styles.ionToolbar__header}>
-                        <IonIcon
-                            className={styles.ionToolbar__header__backButton}
-                            icon={arrowBackOutline}
-                            onClick={() => history.goBack()}
-                        />
-                        <p className={styles.ionToolbar__header__title}>Settings</p>
-                    </div>
-                </IonToolbar>
+                <HeaderWithCenteredTitle title="Settings"/>
             </IonHeader>
             <IonContent className={styles.ionContent} forceOverscroll={false}>
                 <div className={styles.container}>

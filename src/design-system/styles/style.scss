@@ -226,3 +226,10 @@ ion-router-link {
 ion-tabs ion-content {
   --padding-bottom: var(--page-padding-bottom);
 }
+
+ion-toolbar {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}

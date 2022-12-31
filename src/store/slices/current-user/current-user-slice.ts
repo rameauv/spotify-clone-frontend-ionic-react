@@ -1,6 +1,6 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
-import {userApi} from "../../tools/client";
-import {MyState} from "../../store/store";
+import {userApi} from "../../../tools/client";
+import {MyState} from "../../store";
 import {AxiosError} from "axios";
 
 

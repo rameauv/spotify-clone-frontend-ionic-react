@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import styles from './home.module.scss';
 import SmallAlbum from "../../components/thumbnails/small-album/small-album";
 import Playlist from "../../components/thumbnails/playlist/playlist";
@@ -6,6 +6,7 @@ import Album from "../../components/thumbnails/album/album";
 import {notificationsOutline, settingsOutline, timerOutline} from "ionicons/icons";
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from "react-router";
+import IconButton, {IconButtonSize} from "../../components/buttons/icon-button/icon-button";
 
 interface HomeProps extends RouteComponentProps {
 }
@@ -23,15 +24,23 @@ const Home: React.FC<HomeProps> = (props) => {
                 <div className={styles.header}>
                     <p className="app-mr-auto app-font-h2 app-font-bold">Good evening</p>
                     <div className="app-mr-6">
-                        <IonIcon className={styles.rightButtons} icon={notificationsOutline}/>
+                        <IconButton
+                            icon={notificationsOutline}
+                            size={IconButtonSize.S}
+                        />
                     </div>
                     <div className="app-mr-6">
-                        <IonIcon className={styles.rightButtons} icon={timerOutline}/>
+                        <IconButton
+                            icon={timerOutline}
+                            size={IconButtonSize.S}
+                        />
                     </div>
                     <div>
-                        <IonIcon className={styles.rightButtons}
-                                 onClick={() => _handleSettingsButtonEvent()}
-                                 icon={settingsOutline}/>
+                        <IconButton
+                            onClick={() => _handleSettingsButtonEvent()}
+                            icon={settingsOutline}
+                            size={IconButtonSize.S}
+                        />
                     </div>
                 </div>
                 <p className="app-mb-6 app-px-4 app-font-h2 app-font-bold">Recently played</p>

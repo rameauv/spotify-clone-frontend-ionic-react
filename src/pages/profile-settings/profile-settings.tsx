@@ -8,7 +8,8 @@ import SmallPlaylistWithfollow from "../../components/thumbnails/small-playlist-
 import EditProfileModalController from "../../components/edit-profile-modal/edit-profile-modal-controller";
 import {useSelector} from "react-redux";
 import {MyState} from "../../store/store";
-import {CurrentUser, selectCurrentUser} from "../../features/current-user/current-user-slice";
+import {CurrentUser, selectCurrentUser} from "../../store/slices/current-user/current-user-slice";
+import RoundOutlineButton from "../../components/buttons/round-outline-button/round-outline-button";
 
 interface ProfileSettingsProps extends RouteComponentProps {
 }
@@ -44,7 +45,6 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
         setBgOpacity(limitOpacity(0, 1, tempBgOpacity));
         setTitleOpacity(limitOpacity(0, 1, tempTitleOpacity));
     }
-    console.log(bgOpacity);
     const profileTitle = useSelector<MyState, CurrentUser | undefined>(selectCurrentUser)?.name ?? '';
     return (
         <IonPage
@@ -101,11 +101,11 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
                     </div>
                     <div
                         className={styles.buttonsContainer}
-                        onClick={event => setIsOpen(true)}
                     >
-                        <div className={styles.editButton}>
-                            <p>Edit</p>
-                        </div>
+                        <RoundOutlineButton
+                            onClick={event => setIsOpen(true)}
+                            title="Edit"
+                        />
                     </div>
                     <p className={styles.playlistsLabel}>Playlists</p>
                     <ul className={styles.playlistsList}>

@@ -15,20 +15,14 @@
 
 
 .noContentHeader {
-  padding: 16px;
+  height: var(--header-height);
+  padding-left: 1rem;
+  padding-right: 1rem;
   display: flex;
   align-items: center;
 
   .noContentHeader__backButton {
-    height: 24px;
-    width: 24px;
     margin-right: 2rem;
-
-    &:active {
-      transform: scale(0.95);
-      transition: transform 100ms;
-      color: var(--app-color-text-secondary);
-    }
   }
 }
 
@@ -50,24 +44,16 @@
   display: flex;
   position: sticky;
   top: 0;
-  height: calc(44px + var(--ion-safe-area-top));
+  height: calc(var(--header-height) + var(--ion-safe-area-top));
   z-index: 1;
   background: var(--headerBg);
-  padding-bottom: 16px;
   padding-left: 16px;
   padding-right: 16px;
-  padding-top: calc(16px + var(--ion-safe-area-top));
+  padding-top: calc(var(--ion-safe-area-top));
   align-items: center;
 
   .header__backButton {
-    font-size: 24px;
     margin-right: 2rem;
-  }
-
-  .header__backButton:active {
-    transform: scale(0.95);
-    transition: transform 100ms;
-    color: var(--app-color-text-secondary);
   }
 
   .header__title {
@@ -158,35 +144,6 @@
   display: flex;
   justify-content: center;
   margin-right: 1.5rem;
-
-  .addToPlaylistButton {
-    border-color: white;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-
-    p {
-      @include font-p1;
-    }
-  }
-
-  .addToPlaylistButtonActivated {
-    border-color: var(--app-color-text-secondary);
-  }
-
-
-  .addToPlaylistButton:active {
-    transform: scale(0.97);
-    transition: transform 100ms;
-  }
-
-  .addToPlaylistButtonActivated:active {
-    border-color: var(--app-color-gray-1);
-  }
 }
 
 .menuButton {
@@ -195,28 +152,11 @@
 }
 
 .playbuttonContainer {
-  background-color: black;;
   position: sticky;
   top: calc(14px + var(--ion-safe-area-top));
   display: inline-block;
   vertical-align: middle;
-  height: 60px;
-  width: 60px;
   z-index: 2;
-  overflow: hidden;
-  border-radius: 100%;
-
-  .playbutton {
-    color: var(--app-color-green-1);
-    font-size: 75.25px;
-    margin: -7.625px;
-  }
-}
-
-.playbuttonContainer:active {
-  transform: scale(0.97);
-  transition: transform 100ms;
-  opacity: 0.7;
 }
 
 .songListContainer > * {
@@ -249,26 +189,6 @@
 .seeButtonContainer {
   display: flex;
   justify-content: center;
-
-  .seeButton {
-    border-color: var(--app-color-text-secondary);
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    border-radius: 15px;
-    border-width: 1px;
-    border-style: solid;
-
-    p {
-      @include font-p1;
-    }
-  }
-
-  .seeButton:active {
-    transform: scale(0.97);
-    transition: transform 100ms;
-  }
 }
 
 
