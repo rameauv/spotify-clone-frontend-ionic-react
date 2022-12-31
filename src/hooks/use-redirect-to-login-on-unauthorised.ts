@@ -1,15 +1,12 @@
-import {useIonRouter} from "@ionic/react";
+import {useAuth} from "./use-auth";
 
 export const useRedirectToLoginOnUnauthorised = () => {
-    const router = useIonRouter();
+    const authHook = useAuth();
+
     return <T>(promise: T) => {
-        console.log(promise);
         (promise as any).unwrap().catch((e: any) => {
-            console.log(e);
-            router.push('/', 'root', "replace");
-            console.log(promise);
+            authHook.logout();
         });
-        console.log(promise);
         return promise;
     }
 }
