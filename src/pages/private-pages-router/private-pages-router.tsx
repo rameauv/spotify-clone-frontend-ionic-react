@@ -19,6 +19,7 @@ import Settings from '../settings/settings';
 import LibrarySearch from "../library-search/library-search";
 import HeartButton from "../../components/buttons/heart-button/heart-button";
 import PlayButton from "../../components/buttons/play-button/play-button";
+import MiniPlayer from "../../components/mini-player/mini-player";
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
@@ -65,12 +66,8 @@ const createPaths = (basePath: string) => {
     return paths;
 }
 
-const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
-
 const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const [ready, setReady] = useState<boolean>(false);
-    const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
-    const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
     const [isPlayerHidden, setIsPlayerHidden] = useState(false);
 
     if (!ready) {
@@ -92,29 +89,13 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
         <PathsContext.Provider value={createPaths(props.match.url)}>
             <PathsContext.Consumer>
                 {paths => (<>
-                    <div className={styles.player}
-                         style={{
-                             visibility: isPlayerHidden ? 'hidden' : 'visible',
-                             opacity: isPlayerHidden ? 0 : 1
-                         }}>
-                        <div className={styles.playerContainer}>
-                            <img className={styles.thumbnail} src={defaultImage}/>
-                            <div className={styles.titlesContainer}>
-                                <p className={styles.playerTitle}>Je te donne</p>
-                                <p className={styles.playerArtist}>Jean-jaques goldman</p>
-                            </div>
-                            <div className={styles.heartButton}>
-                                <HeartButton
-                                    isActivated={isCurrentSongLiked}
-                                    onClick={() => setIsCurrentSongLiked(!isCurrentSongLiked)}
-                                />
-                            </div>
-                            <PlayButton
-                                isPlaying={isCurrentSongPlaying}
-                                onClick={() => setIsCurrentSongPlaying(!isCurrentSongPlaying)}
-                            />
-                        </div>
-                        <IonProgressBar className={styles.progress} value={0.4}></IonProgressBar>
+                    <div
+                        className={styles.player}
+                        style={{
+                            visibility: isPlayerHidden ? 'hidden' : 'visible',
+                            opacity: isPlayerHidden ? 0 : 1
+                        }}>
+                        <MiniPlayer></MiniPlayer>
                     </div>
 
                     <div className={styles.chin}></div>

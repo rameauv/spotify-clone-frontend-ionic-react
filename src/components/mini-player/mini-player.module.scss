@@ -1,11 +1,10 @@
 @import "src/design-system/styles/variables";
 
 .player {
-  position: absolute;
-  z-index: 10000;
-  bottom: calc(var(--ion-safe-area-bottom) + 50px);
-  left: 0;
-  right: 0;
+  border-radius: 4px;
+  background: var(--app-color-gray-1);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 
   .playerContainer {
     display: flex;
@@ -47,24 +46,4 @@
     --progress-background: white;
     height: 2px;
   }
-}
-
-.ionTabBar {
-  position: absolute;
-  z-index: 2;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  --background: linear-gradient(#00000082, black);
-  border: none;
-}
-
-.chin {
-  position: absolute;
-  background: black;
-  height: var(--ion-safe-area-bottom);
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
 }
