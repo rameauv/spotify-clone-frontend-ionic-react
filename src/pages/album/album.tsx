@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
 import {ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
 import React, {useContext, useEffect} from "react";
@@ -142,9 +142,7 @@ const Album: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <HeaderWithCenteredTitle title=""/>
-                </IonToolbar>
+                <HeaderWithCenteredTitle title=""/>
             </IonHeader>
             <IonContent fullscreen>
                 {content}

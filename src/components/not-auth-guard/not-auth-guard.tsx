@@ -1,36 +1,43 @@
-import {useDispatch, useSelector} from "react-redux";
-import {
-    fetechCurrentUser,
-    selectCurrentUser,
-    selectCurrentUserStatus
-} from "../../store/slices/current-user/current-user-slice";
-import {useEffect} from "react";
-import {Redirect} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {selectCurrentUser, selectCurrentUserStatus} from "../../store/slices/current-user/current-user-slice";
+import {createAnimation, useIonRouter, useIonViewWillEnter} from "@ionic/react";
 
 interface NotAuthGuardProps {
-    children: any
+    children: any,
+    debug: string;
 }
 
-const NotAuthGuard: React.FC<NotAuthGuardProps> = ({children}) => {
+const animationBuilder = (baseEl: any, opts: any) => {
+    const enteringAnimation = createAnimation()
+        .addElement(opts.enteringEl)
+        .fromTo('opacity', 0, 1)
+        .duration(250);
+
+    const leavingAnimation = createAnimation()
+        .addElement(opts.leavingEl)
+        .fromTo('opacity', 1, 0)
+        .duration(250);
+
+    const animation = createAnimation()
+        .addAnimation(enteringAnimation)
+        .addAnimation(leavingAnimation);
+
+    return animation;
+};
+
+
+const NotAuthGuard: React.FC<NotAuthGuardProps> = ({children, debug}) => {
     const currentUser = useSelector(selectCurrentUser);
     const status = useSelector(selectCurrentUserStatus);
-    const dispatch = useDispatch();
+    const router = useIonRouter();
 
-    useEffect(() => {
-        console.log('useEffect')
-        if (!currentUser || status === "loading") {
-            return;
+    useIonViewWillEnter(() => {
+        if (currentUser !== undefined) {
+            router.push('/home', "root", "replace", undefined, animationBuilder);
         }
-        console.log('dispatch')
-        dispatch(fetechCurrentUser());
-    }, []);
+    });
     if (status === "loading") {
-        return (<></>);
-    }
-    if (currentUser) {
-        return (
-            <Redirect to="/home"/>
-        );
+        return (<>NotAuthGuard loading...</>);
     }
     return children;
 };

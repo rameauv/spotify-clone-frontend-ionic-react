@@ -8,11 +8,14 @@ import {addOutline, searchOutline} from 'ionicons/icons';
 import {useHistory} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
 import IconButton, {IconButtonSize} from "../../components/buttons/icon-button/icon-button";
+import {useSelector} from "react-redux";
+import {selectCurrentUser} from "../../store/slices/current-user/current-user-slice";
 
 interface LibraryProps extends RouteComponentProps {
 }
 
 const Library: React.FC<LibraryProps> = (props) => {
+    const profileTitle = useSelector(selectCurrentUser)?.name ?? '';
     const tags: Tag[] = [
         {
             value: 'Playlists',
@@ -38,7 +41,7 @@ const Library: React.FC<LibraryProps> = (props) => {
                 <IonToolbar>
                     <div className={styles.header}>
                         <div className={styles.profileIcon}
-                             onClick={() => _handleSettingsButtonEvent()}><p>V</p>
+                             onClick={() => _handleSettingsButtonEvent()}><p>{profileTitle[0]}</p>
                         </div>
                         <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
                         <div className={styles.headerButtons}>

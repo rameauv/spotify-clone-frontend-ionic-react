@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Animation, createAnimation, IonContent, IonModal} from "@ionic/react";
+import {Animation, createAnimation, IonContent, IonHeader, IonModal} from "@ionic/react";
 import styles from "./edit-profile-modal.module.scss";
 import DiscardModalController from "../discard-modal/discard-modal-controller";
 import {useDispatch, useSelector} from "react-redux";
@@ -115,16 +115,18 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
                 isOpen={showAlert}
                 onClose={result => handleDiscardModalClodeEvent(result)}
             />
-            <ModalHeader
-                title="Edit profile"
-                onClose={() => handleCloseEvent()}
-            >
-                <TextButton
-                    title="Save"
-                    isDisabled={saveDisabled}
-                    onClick={() => handleSaveButtonEvent()}
-                />
-            </ModalHeader>
+            <IonHeader>
+                <ModalHeader
+                    title="Edit profile"
+                    onClose={() => handleCloseEvent()}
+                >
+                    <TextButton
+                        title="Save"
+                        isDisabled={saveDisabled}
+                        onClick={() => handleSaveButtonEvent()}
+                    />
+                </ModalHeader>
+            </IonHeader>
             <IonContent className={styles.ionContent}>
                 <div className={styles.profileSettingsButton__profileIcon}>
                     <p>{profileTitle[0]}</p>

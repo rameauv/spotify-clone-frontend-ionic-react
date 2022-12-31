@@ -1,5 +1,14 @@
 import {Route} from 'react-router-dom';
-import {IonApp, IonRouterOutlet, isPlatform, setupIonicReact} from '@ionic/react';
+import {
+    IonApp,
+    IonContent,
+    IonHeader,
+    IonPage,
+    IonRouterOutlet,
+    IonToolbar,
+    isPlatform,
+    setupIonicReact
+} from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,8 +38,14 @@ import LoginSignin from "./pages/login-signin/login-signin";
 import Login from "./pages/login/login";
 import AuthGuard from "./components/auth-guard/auth-guard";
 import {useDispatch, useSelector} from "react-redux";
-import {fetechCurrentUser, selectCurrentUserStatus} from "./store/slices/current-user/current-user-slice";
+import {
+    fetechCurrentUser,
+    selectCurrentUser,
+    selectCurrentUserStatus
+} from "./store/slices/current-user/current-user-slice";
 import {useNotAuthGuard} from "./hooks/use-not-auth-guard";
+import TextButton from "./components/buttons/text-button/text-button";
+import NotAuthGuard from "./components/not-auth-guard/not-auth-guard";
 
 setupIonicReact();
 
@@ -47,22 +62,50 @@ loadStatusBarModule();
 
 const App: React.FC = () => {
     const status = useSelector(selectCurrentUserStatus);
+    const currentUser = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     useEffect(() => {
-        if (status === 'idle' || status === "failed") {
+        console.log('use effect')
+        if (status === 'idle') {
             dispatch(fetechCurrentUser());
         }
     }, [status, dispatch])
     const notAuthGuard = useNotAuthGuard();
+    const retry = () => {
+        console.log('retry');
+        dispatch(fetechCurrentUser());
+    };
     if (status === 'loading') {
         return (<p>loading...</p>)
+    }
+    if (status === 'failed') {
+        return (
+            <IonApp>
+                <IonPage>
+                    <IonHeader><IonToolbar/></IonHeader>
+                    <IonContent>
+                        <p>error</p>
+                        <TextButton title="Retry" onClick={() => retry()}/>
+                    </IonContent>
+                </IonPage>
+            </IonApp>
+        )
     }
     return (
         <IonApp className={styles.container}>
             <IonReactRouter>
                 <IonRouterOutlet>
-                    <Route exact path="/" render={props => (notAuthGuard(<LoginSignin/>))}/>
-                    <Route exact path="/login" render={props => (notAuthGuard(<Login/>))}/>
+                    <Route exact path="/">
+                        <NotAuthGuard debug="/">
+                            <LoginSignin/>
+                        </NotAuthGuard>
+                    </Route>
+                    <Route exact path="/login">
+                        <NotAuthGuard debug="/login">
+                            <Login/>
+                        </NotAuthGuard>
+                    </Route>
+
                     <Route path="/home" render={props => (
                         <AuthGuard>
                             <PrivatePagesRouter history={props.history} location={props.location} match={props.match}/>

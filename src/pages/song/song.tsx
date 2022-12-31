@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
+import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './song.module.scss';
 import {ellipsisVertical} from 'ionicons/icons'
 import {useEffect} from "react";
@@ -83,9 +83,7 @@ const Song: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <HeaderWithCenteredTitle title=""/>
-                </IonToolbar>
+                <HeaderWithCenteredTitle title=""/>
             </IonHeader>
             <IonContent fullscreen>
                 {content}

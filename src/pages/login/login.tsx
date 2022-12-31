@@ -14,7 +14,6 @@ interface State {
 }
 
 const Login: React.FC<LoginProps> = (props) => {
-    console.log('login page render fn');
     const authHook = useAuth();
 
     const [state, setState] = useState<State>({

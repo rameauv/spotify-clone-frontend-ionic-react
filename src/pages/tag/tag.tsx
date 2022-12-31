@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonPage} from '@ionic/react';
 import styles from './tag.module.scss';
 import React from "react";
 import TagPageScroller from "../../components/tag-page-scroller/tag-page-scroller";
@@ -8,9 +8,7 @@ const Tag: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <HeaderWithLeftTitle title="French variety"/>
-                </IonToolbar>
+                <HeaderWithLeftTitle title="French variety"/>
             </IonHeader>
             <IonContent>
                 <div className={styles.content}>

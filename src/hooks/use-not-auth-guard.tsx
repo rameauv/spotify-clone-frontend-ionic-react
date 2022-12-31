@@ -7,11 +7,7 @@ export const useNotAuthGuard = () => {
     const currentUser = useSelector(selectCurrentUser);
     const status = useSelector(selectCurrentUserStatus);
 
-    const callback = useCallback((children: JSX.Element) => {
-        console.log('not auth guard hook')
-        console.log('current user');
-        console.log(currentUser);
-        console.log('status', status);
+    const callback = useCallback((children: JSX.Element | JSX.Element[]) => {
         if (status === "loading") {
             return (<>loading...</>);
         }
@@ -20,6 +16,7 @@ export const useNotAuthGuard = () => {
                 <Redirect to="/home"/>
             );
         }
+        console.log('useNotAuthGuard -> child')
         return children;
     }, [status, currentUser]);
     return callback;

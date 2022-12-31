@@ -7,14 +7,10 @@ interface LoginSigninProps {
 }
 
 const LoginSignin: React.FC<LoginSigninProps> = (props) => {
-    console.log('login signin page render fn')
     const router = useIonRouter();
     const match = useRouteMatch();
 
-    const handleDiscardEvent = (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        if (!event) {
-            return;
-        }
+    const handleDiscardEvent = () => {
         router.push(`${match.url}login`);
     }
     return (
@@ -30,7 +26,7 @@ const LoginSignin: React.FC<LoginSigninProps> = (props) => {
                 </p>
                 <p
                     className={styles.loginButton}
-                    onClick={event => handleDiscardEvent(event)}
+                    onClick={() => handleDiscardEvent()}
                 >Login</p>
             </IonContent>
         </IonPage>

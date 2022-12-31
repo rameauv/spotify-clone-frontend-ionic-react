@@ -4,6 +4,7 @@ import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi,
 
 const client = axios.create();
 const publicClient = axios.create();
+const basePath = 'http://pc:5103';
 
 client.interceptors.request.use(
     async (config) => {
@@ -37,53 +38,53 @@ publicClient.interceptors.request.use(
 
 const accountsApi = new AccountsApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 const publicAccountsApi = new AccountsApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     publicClient
 );
 const weatherForecastApi = new WeatherForecastApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const searchApi = new SearchApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const userApi = new UserApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const trackApi = new TrackApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const albumkApi = new AlbumApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const artistApi = new ArtistApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
 const likeApi = new LikeApi(
     undefined,
-    'http://localhost:5103',
+    basePath,
     client
 );
 
@@ -102,7 +103,7 @@ export {
 function refreshToken() {
     const jwt = localStorage.getItem('jwt');
 
-    return publicClient.post('http://localhost:5103/Accounts/RefreshAccessToken', {
+    return publicClient.post(`${basePath}/Accounts/RefreshAccessToken`, {
         accessToken: jwt,
         refreshToken: 'fffdfd'
     }, {

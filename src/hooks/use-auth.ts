@@ -26,23 +26,16 @@ export const useAuth = () => {
     const dispatch = useDispatch();
     return {
         login: async (credentials: { username: string, password: string }) => {
-            console.log('useAuth hook login');
-            console.log('useAuth hook login -> login request');
             const response = await publicAccountsApi.accountsLoginPost({
                 username: credentials.username,
                 password: credentials.password
             })
             const token = response.data;
-            console.log(token);
             if (!token?.accessToken) {
                 return;
             }
-            console.log('useAuth hook login -> set access token');
             localStorage.setItem('jwt', token.accessToken);
-            console.log('useAuth hook login -> fetch current user');
             await dispatch(fetechCurrentUser());
-            console.log('useAuth hook login -> redicrect to /home');
-            router.push(`/home`, 'root', "replace", undefined, animationBuilder);
         },
         logout: async () => {
             try {
@@ -51,10 +44,7 @@ export const useAuth = () => {
                 console.error(e);
             }
             localStorage.clear();
-            // console.log('wait before cleaning the state');
-            // await new Promise(resolve => setTimeout(resolve, 3000))
             await dispatch({name: '', type: 'USER_LOGOUT'});
-            router.push('/', 'root', 'replace', undefined, animationBuilder);
         }
     };
 }

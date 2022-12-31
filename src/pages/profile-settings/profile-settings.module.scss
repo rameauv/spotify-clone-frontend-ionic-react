@@ -1,10 +1,7 @@
 @import "src/design-system/styles/variables";
 
-.ionToolbar {
-  --padding-start: 0;
-  --padding-end: 0;
-  --padding-top: 0;
-  --padding-bottom: 0;
+.ionToolbar:first-of-type {
+  padding-top: 0;
   --background: transparent;
 }
 
@@ -14,15 +11,15 @@
 }
 
 .headerBgGradiant {
-  height: var(--header-height);
+  height: calc(var(--header-height) + var(--ion-safe-area-top));
   opacity: 0.8;
-  background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 90px);
+  background: linear-gradient(180deg, var(--accentColor) var(--ion-safe-area-top), var(--app-color-backgroud-1) calc(90px + var(--ion-safe-area-top)));
 }
 
 .header {
   position: absolute;
   display: flex;
-  top: 0;
+  top: var(--ion-safe-area-top);
   left: 0;
   right: 0;
   height: var(--header-height);
@@ -62,7 +59,7 @@
   height: 2000px;
   --accentColor: brown;
   background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
-  padding-top: 3.75rem;
+  padding-top: calc(3.75rem + var(--ion-safe-area-top));
   padding-left: var(--page-side-padding);
   padding-right: var(--page-side-padding);
 }
