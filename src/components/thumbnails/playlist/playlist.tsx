@@ -9,12 +9,14 @@ const defaultImage = 'https://i1.sndcdn.com/artworks-siw08m3LeGTDrlq0-YNHzKA-t50
 
 const Playlist: React.FC<ContainerProps> = ({title, imageLink = defaultImage}) => {
     return (
-        // <Link to={playlistPath}>
-            <div className={styles.container}>
-                <img className={styles.image} src={imageLink}/>
-                <p className={styles.text}>{title}</p>
-            </div>
-        // </Link>
+        <div className={styles.container}>
+            <img
+                className={styles.image}
+                src={imageLink}
+                alt="playlist's thumbnail"
+            />
+            <p className={styles.text}>{title}</p>
+        </div>
     );
 };
 

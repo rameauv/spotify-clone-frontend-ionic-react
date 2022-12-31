@@ -1,22 +1,20 @@
-import React, {useRef} from "react";
+import React from "react";
 import {IonContent, IonIcon, IonPage} from "@ionic/react";
-import styles from './song-more-modal.module.scss';
+import styles from './more-menu-modal.module.scss';
 import {banOutline, heartOutline, musicalNoteOutline, personOutline, shareSocialOutline} from "ionicons/icons";
 
 export interface MoreMenuModalItem {
     thumbnailUrl: string;
     title: string;
-    artist: string;
+    subtitle: string;
 }
 
 export interface MoreMenuModalProps {
     onDismiss: (data?: any, role?: string) => void;
-    song: MoreMenuModalItem;
+    product: MoreMenuModalItem;
 }
 
-const SongMoreMenuModal: React.FC<MoreMenuModalProps> = ({onDismiss, song}) => {
-    const modal: any = useRef<HTMLIonModalElement>(null);
-
+const MoreMenuModal: React.FC<MoreMenuModalProps> = ({onDismiss, product}) => {
     return (
         <IonPage>
             <IonContent
@@ -24,13 +22,14 @@ const SongMoreMenuModal: React.FC<MoreMenuModalProps> = ({onDismiss, song}) => {
                 onClick={() => onDismiss()}
             >
                 <div className={styles.container}>
-                    <div className={styles.songDetailsContainer}>
+                    <div className={styles.itemDetailsContainer}>
                         <img
                             className={styles?.image}
-                            src={song.thumbnailUrl}
+                            src={product.thumbnailUrl}
+                            alt="product's thumbnail"
                         />
-                        <p className={styles.songTitle}>{song?.title}</p>
-                        <p className={styles.artist}>{song?.artist}</p>
+                        <p className={styles.title}>{product?.title}</p>
+                        <p className={styles.subtitle}>{product?.subtitle}</p>
                     </div>
                     <div className={styles.item}>
                         <IonIcon
@@ -73,4 +72,4 @@ const SongMoreMenuModal: React.FC<MoreMenuModalProps> = ({onDismiss, song}) => {
     );
 };
 
-export default SongMoreMenuModal;
+export default MoreMenuModal;

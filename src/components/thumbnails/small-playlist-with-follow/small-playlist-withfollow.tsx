@@ -16,7 +16,11 @@ const SmallPlaylistWithfollow: React.FC<SmallPlaylistWithfollowProps> =
      }) => {
         return (
             <div className={styles.container}>
-                <img className={styles.image} src={imageLink}/>
+                <img
+                    className={styles.image}
+                    src={imageLink}
+                    alt="playlist's thumbnail"
+                />
                 <div className={styles.textContainer}>
                     <p className={styles.title}>{title}</p>
                     <p className={styles.followers}>{followers} followers</p>

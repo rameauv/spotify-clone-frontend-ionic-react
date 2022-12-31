@@ -1,9 +1,9 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
-import {arrowBackOutline, ellipsisVerticalSharp, heart, heartOutline, playCircle} from 'ionicons/icons'
+import {ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
 import React, {useContext, useEffect} from "react";
-import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
-import {Link, useHistory, useParams, useRouteMatch} from "react-router-dom";
+import MoreMenuModal from "../../components/more-menu-modal/more-menu-modal";
+import {Link, useParams, useRouteMatch} from "react-router-dom";
 import {PathsContext, TabRouteParams} from '../private-pages-router/private-pages-router';
 import {useDispatch, useSelector} from "react-redux";
 import {MyState} from "../../store/store";
@@ -22,7 +22,6 @@ const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_C
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
 
 const Album: React.FC = () => {
-    const history = useHistory();
     const {id} = useParams<{ id: string }>();
     const tab = useRouteMatch<TabRouteParams>().params.tab;
     const artistPath = useContext(PathsContext).artist(tab);
@@ -40,7 +39,7 @@ const Album: React.FC = () => {
         }
     }, [id, dispatch]);
 
-    const [present, dismiss] = useIonModal(SongMoreMenuModal, {
+    const [present, dismiss] = useIonModal(MoreMenuModal, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
         song: {
             thumbnailUrl: album?.thumbnailUrl,
@@ -66,8 +65,15 @@ const Album: React.FC = () => {
             </div>
             <div className={styles.container}>
                 <h1 className={styles.title}>{album.title}</h1>
-                <Link className={styles.artistContainer} to={fullArtistPath}>
-                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl ?? artistImage}/>
+                <Link
+                    className={styles.artistContainer}
+                    to={fullArtistPath}
+                >
+                    <img
+                        className={styles.artistThumbnail}
+                        src={album.artistThumbnailUrl ?? artistImage}
+                        alt="artist thumbnail"
+                    />
                     <p className={styles.artist}>{album.artistName}</p>
                 </Link>
                 <p className={styles.type}>{album.albumType} . {album.releaseDate}</p>
@@ -120,8 +126,15 @@ const Album: React.FC = () => {
                     <p className={styles.songListContainer__song__more}>and more</p>
                 </div>
                 <p className={styles.releaseDate}>{album.releaseDate}</p>
-                <Link className={styles.bigArtistContainer} to={fullArtistPath}>
-                    <img className={styles.artistThumbnail} src={album.artistThumbnailUrl ?? artistImage}/>
+                <Link
+                    className={styles.bigArtistContainer}
+                    to={fullArtistPath}
+                >
+                    <img
+                        className={styles.artistThumbnail}
+                        src={album.artistThumbnailUrl ?? artistImage}
+                        alt="artist thumbnail"
+                    />
                     <p className={styles.artist}>{album.artistName}</p>
                 </Link>
             </div>

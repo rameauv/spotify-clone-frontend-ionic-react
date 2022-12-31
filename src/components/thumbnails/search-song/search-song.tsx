@@ -20,7 +20,11 @@ const SearchSong: React.FC<ContainerProps> = ({id, title, artistName, imageLink 
 
     return (
         <div onClick={() => history?.push(fullpath)} className={styles.container}>
-            <img className={styles.image ?? defaultImage} src={imageLink}/>
+            <img
+                className={styles.image ?? defaultImage}
+                src={imageLink}
+                alt="track's thumbnail"
+            />
             <div className={styles.textContainer}>
                 <p className={styles.title}>{title}</p>
                 <p className={styles.description}>Song . {artistName}</p>

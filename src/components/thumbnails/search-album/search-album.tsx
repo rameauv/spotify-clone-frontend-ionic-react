@@ -27,6 +27,7 @@ export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageL
             <img
                 className={styles.image}
                 src={imageLink ?? defaultImage}
+                alt="album's thumbnail"
             />
             <div className={styles.textContainer}>
                 <p className={styles.title}>{title}</p>

@@ -19,7 +19,11 @@ export const SearchArtist: React.FC<SearchArtistProps> = ({id, name, imageLink})
 
     return (
         <div onClick={() => history?.push(fullpath)} className={styles.container}>
-            <img className={styles.image} src={imageLink ?? defaultImage}/>
+            <img
+                className={styles.image}
+                src={imageLink ?? defaultImage}
+                alt="artist's thumbnail"
+            />
             <div className={styles.textContainer}>
                 <p className={styles.title}>{name}</p>
                 <p className={styles.description}>Artist . {name}</p>

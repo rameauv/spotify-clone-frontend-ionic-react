@@ -1,9 +1,6 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonRouter} from '@ionic/react';
-import {RouteComponentProps} from "react-router";
+import {IonContent, IonHeader, IonPage} from '@ionic/react';
 import styles from "./login.module.scss";
 import React, {useState} from "react";
-import {arrowBackOutline} from "ionicons/icons";
-import {publicAccountsApi} from "../../tools/client";
 import {useAuth} from "../../hooks/use-auth";
 import RegularButton from "../../components/buttons/regular-button/regular-button";
 import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
@@ -26,7 +23,6 @@ const Login: React.FC<LoginProps> = (props) => {
     })
 
     const valid = state.username && state.password;
-    const router = useIonRouter();
     const handleLoginButtonClick = () => {
         authHook.login({
             username: state.username,

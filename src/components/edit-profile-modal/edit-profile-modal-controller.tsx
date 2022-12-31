@@ -112,7 +112,10 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
 
     return (
         <IonModal isOpen={isOpen} keepContentsMounted={false}>
-            <DiscardModalController isOpen={showAlert} onClose={result => handleDiscardModalClodeEvent(result)}/>
+            <DiscardModalController
+                isOpen={showAlert}
+                onClose={result => handleDiscardModalClodeEvent(result)}
+            />
             <ModalHeader
                 title="Edit profile"
                 onClose={() => handleCloseEvent()}
@@ -120,13 +123,11 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
                 <TextButton
                     title="Save"
                     isDisabled={saveDisabled}
-                    onClick={() => handleCloseEvent()}
+                    onClick={() => handleSaveButtonEvent()}
                 />
             </ModalHeader>
             <IonContent className={styles.ionContent}>
-                <div
-                    className={styles.profileSettingsButton__profileIcon}
-                >
+                <div className={styles.profileSettingsButton__profileIcon}>
                     <p>{profileTitle[0]}</p>
                 </div>
                 <input

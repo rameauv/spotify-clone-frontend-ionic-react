@@ -23,7 +23,11 @@ const SmallAlbum: React.FC<ContainerProps> = ({id, title, imageLink = defaultIma
             className={styles.container}
             onClick={() => router?.push(fullpath)}
         >
-            <img className={styles.image} src={imageLink}/>
+            <img
+                className={styles.image}
+                src={imageLink}
+                alt="album's thumbnail"
+            />
             <p className={styles.text}>{title}</p>
         </div>
     );

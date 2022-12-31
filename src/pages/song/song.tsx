@@ -1,8 +1,8 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonModal} from '@ionic/react';
 import styles from './song.module.scss';
-import {ellipsisVertical, playCircle} from 'ionicons/icons'
+import {ellipsisVertical} from 'ionicons/icons'
 import {useEffect} from "react";
-import SongMoreMenuModal from "../../components/song-more-menu-modal/song-more-menu-modal";
+import MoreMenuModal from "../../components/more-menu-modal/more-menu-modal";
 import {useParams} from "react-router-dom";
 import {fetchTrack, selectById} from '../../store/slices/track-slice/track-slice';
 import {useDispatch, useSelector} from "react-redux";
@@ -27,7 +27,7 @@ const Song: React.FC = () => {
     const cachedTrack = useSelector<MyState, CachedTrack | undefined>(state => selectById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const track = cachedTrack?.track;
-    const [present, dismiss] = useIonModal(SongMoreMenuModal, {
+    const [present, dismiss] = useIonModal(MoreMenuModal, {
         onDismiss: (data: string, role: string) => dismiss(data, role),
         song: {
             thumbnailUrl: track?.thumbnailUrl ?? defaultImage,
@@ -52,6 +52,7 @@ const Song: React.FC = () => {
                 <img
                     className={styles.image}
                     src={track.thumbnailUrl ?? defaultImage}
+                    alt="track's thumbnail"
                 />
             </div>
             <div className={styles.container}>

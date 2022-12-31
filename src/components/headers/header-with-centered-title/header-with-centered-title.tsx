@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./header-with-centered-title.module.scss";
-import {IonIcon, IonToolbar, useIonRouter} from "@ionic/react";
+import {IonToolbar, useIonRouter} from "@ionic/react";
 import {arrowBackOutline} from "ionicons/icons";
 import IconButton, {IconButtonSize} from "../../buttons/icon-button/icon-button";
 

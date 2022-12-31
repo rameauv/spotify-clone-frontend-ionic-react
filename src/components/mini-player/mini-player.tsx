@@ -10,14 +10,18 @@ export interface MiniPlayerProps {
 
 }
 
-const MiniPlayer: React.FC<MiniPlayerProps> = ({}) => {
+const MiniPlayer: React.FC<MiniPlayerProps> = () => {
     const [isCurrentSongLiked, setIsCurrentSongLiked] = useState<boolean>(false);
     const [isCurrentSongPlaying, setIsCurrentSongPlaying] = useState<boolean>(false);
 
     return (
         <div className={styles.player}>
             <div className={styles.playerContainer}>
-                <img className={styles.thumbnail} src={defaultImage}/>
+                <img
+                    className={styles.thumbnail}
+                    src={defaultImage}
+                    alt="track's thumbnail"
+                />
                 <div className={styles.titlesContainer}>
                     <p className={styles.playerTitle}>Je te donne</p>
                     <p className={styles.playerArtist}>Jean-jaques goldman</p>

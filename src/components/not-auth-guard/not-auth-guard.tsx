@@ -12,13 +12,10 @@ interface NotAuthGuardProps {
 }
 
 const NotAuthGuard: React.FC<NotAuthGuardProps> = ({children}) => {
-    console.log('not auth guard render fn')
     const currentUser = useSelector(selectCurrentUser);
     const status = useSelector(selectCurrentUserStatus);
     const dispatch = useDispatch();
-    console.log('current user');
-    console.log(currentUser);
-    console.log('status', status);
+
     useEffect(() => {
         console.log('useEffect')
         if (!currentUser || status === "loading") {
