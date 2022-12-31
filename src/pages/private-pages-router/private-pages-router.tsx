@@ -1,4 +1,4 @@
-import {IonIcon, IonLabel, IonProgressBar, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from '@ionic/react';
+import {IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from '@ionic/react';
 import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -17,8 +17,6 @@ import {Keyboard} from "@capacitor/keyboard";
 import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
 import LibrarySearch from "../library-search/library-search";
-import HeartButton from "../../components/buttons/heart-button/heart-button";
-import PlayButton from "../../components/buttons/play-button/play-button";
 import MiniPlayer from "../../components/mini-player/mini-player";
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
