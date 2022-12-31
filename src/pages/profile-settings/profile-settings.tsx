@@ -24,14 +24,6 @@ function limitOpacity(min: number, max: number, value: number) {
     return value;
 }
 
-const seeButtonProvider = (label: string) => {
-    return (
-        <div className={styles.editButton}>
-            <p>{label}</p>
-        </div>
-    )
-}
-
 const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
     const accentColor = 'brown';
     const history = useHistory();
@@ -86,7 +78,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = (props) => {
                                 className={styles.profileSettingsButton__profileIcon}
                                 onClick={event => setIsOpen(true)}
                             >
-                                <p>V</p>
+                                <p>{profileTitle[0]}</p>
                             </div>
                             <div className={styles.profileSettingsButton__centerSlot}>
                                 <p

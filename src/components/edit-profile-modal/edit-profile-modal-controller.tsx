@@ -127,7 +127,7 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
                 <div
                     className={styles.profileSettingsButton__profileIcon}
                 >
-                    <p>V</p>
+                    <p>{profileTitle[0]}</p>
                 </div>
                 <input
                     className={styles.profileTitleInput}

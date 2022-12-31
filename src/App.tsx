@@ -1,5 +1,5 @@
 import {Route} from 'react-router-dom';
-import {IonApp, IonRouterOutlet, setupIonicReact} from '@ionic/react';
+import {IonApp, IonRouterOutlet, isPlatform, setupIonicReact} from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -23,7 +23,6 @@ import './design-system/styles/style.scss'
 import React, {useEffect} from 'react';
 
 import styles from './App.module.scss';
-import {StatusBar, Style} from '@capacitor/status-bar';
 import {IonReactRouter} from "@ionic/react-router";
 import PrivatePagesRouter from "./pages/private-pages-router/private-pages-router";
 import LoginSignin from "./pages/login-signin/login-signin";
@@ -33,12 +32,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetechCurrentUser, selectCurrentUserStatus} from "./store/slices/current-user/current-user-slice";
 import {useNotAuthGuard} from "./hooks/use-not-auth-guard";
 
-
 setupIonicReact();
 
-StatusBar.setStyle({
-    style: Style.Dark
-}).catch(console.error);
+const loadStatusBarModule = async () => {
+    if (isPlatform('hybrid')) {
+        const {StatusBar, Style} = await import("@capacitor/status-bar")
+        await StatusBar.setStyle({
+            style: Style.Dark
+        })
+    }
+}
+
+loadStatusBarModule();
 
 const App: React.FC = () => {
     console.log('app')

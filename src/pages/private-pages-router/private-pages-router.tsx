@@ -1,4 +1,4 @@
-import {IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs} from '@ionic/react';
+import {IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, isPlatform} from '@ionic/react';
 import React, {useState} from "react";
 import {Redirect, Route} from "react-router-dom";
 import {RouteComponentProps} from "react-router";
@@ -13,11 +13,18 @@ import Search from "../search/search";
 import Tag from "../tag/tag";
 import AdvancedSearch from "../advanced-search/advanced-search";
 import Library from "../library/library";
-import {Keyboard} from "@capacitor/keyboard";
-import {StatusBar, Style} from "@capacitor/status-bar";
 import Settings from '../settings/settings';
 import LibrarySearch from "../library-search/library-search";
 import MiniPlayer from "../../components/mini-player/mini-player";
+
+const loadKeyboardModule = async () => {
+    if (isPlatform('hybrid')) {
+        return import("@capacitor/keyboard")
+    }
+    return undefined
+}
+
+const keyboardModulePromise = loadKeyboardModule();
 
 interface PrivatePagesRouterProps extends RouteComponentProps {
 }
@@ -25,10 +32,6 @@ interface PrivatePagesRouterProps extends RouteComponentProps {
 export interface TabRouteParams {
     tab: string
 }
-
-StatusBar.setStyle({
-    style: Style.Dark
-}).catch(console.error);
 
 
 interface Paths {
@@ -69,16 +72,19 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const [isPlayerHidden, setIsPlayerHidden] = useState(false);
 
     if (!ready) {
-        try {
+        keyboardModulePromise.then((keyboardModule) => {
+            console.log(keyboardModule);
+            if (!keyboardModule) {
+                return;
+            }
+            const {Keyboard} = keyboardModule;
             Keyboard.addListener('keyboardWillShow', () => {
                 setIsPlayerHidden(true);
             });
             Keyboard.addListener('keyboardWillHide', () => {
                 setIsPlayerHidden(false);
             });
-        } catch (e) {
-            console.error(e);
-        }
+        });
     }
     if (!ready) {
         setReady(true);
