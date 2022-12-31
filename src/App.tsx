@@ -46,7 +46,6 @@ const loadStatusBarModule = async () => {
 loadStatusBarModule();
 
 const App: React.FC = () => {
-    console.log('app')
     const status = useSelector(selectCurrentUserStatus);
     const dispatch = useDispatch();
     useEffect(() => {

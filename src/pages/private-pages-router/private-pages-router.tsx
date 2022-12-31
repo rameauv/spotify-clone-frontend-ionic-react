@@ -73,7 +73,6 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
 
     if (!ready) {
         keyboardModulePromise.then((keyboardModule) => {
-            console.log(keyboardModule);
             if (!keyboardModule) {
                 return;
             }

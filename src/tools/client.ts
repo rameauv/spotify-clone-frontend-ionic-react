@@ -9,7 +9,6 @@ client.interceptors.request.use(
     async (config) => {
         config.withCredentials = true;
         const token = await getAccessToken();
-        console.log('access token:' + token);
         if (token) {
             config.headers = {
                 ...config.headers,

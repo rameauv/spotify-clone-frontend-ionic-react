@@ -73,16 +73,15 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
         setProfileTitle(e.target.value);
     }
 
-    const handleSaveButtonEvent = async (event?: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const handleSaveButtonEvent = async () => {
         if (saveDisabled) {
             return;
         }
-        if (!event || !onClose) {
+        if (!onClose) {
             return;
         }
         try {
-            const res = await dispatch<any>(setCurrnetUseProfileTitle({profileTitle: profileTitle})).unwrap();
-            console.log(res);
+            await dispatch(setCurrnetUseProfileTitle({profileTitle: profileTitle})).unwrap();
         } catch (e: any) {
             console.error(e);
             return;
