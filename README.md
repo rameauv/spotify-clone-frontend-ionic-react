@@ -72,3 +72,13 @@ Simply run `yarn test or npm test`.
 
 a `.env` file can be used to setup environment variables.
 a example file `.env.exemple` is present at the root of the repo.
+
+## Todo
+
+- Code comments
+- Documentation
+- More e2e tests
+- Register a new account
+- Being able to create playlists
+- Being able to actulay play tracks
+- Recomendation feed
