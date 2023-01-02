@@ -1,10 +1,18 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi, WeatherForecastApi} from '../api';
+import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi} from '../api';
+
+const throwIfEnvVariableMissing = (envVariableName: string) => {
+    const value = process.env[envVariableName];
+    if (value == null || value.trim() === '') {
+        throw new Error(`please set the env variable ${envVariableName}`)
+    }
+    return value;
+};
 
 const client = axios.create();
 const publicClient = axios.create();
-const basePath = 'http://pc:5103';
+const basePath = throwIfEnvVariableMissing('REACT_APP_API_BASE-PATH');
 
 client.interceptors.request.use(
     async (config) => {
@@ -21,21 +29,6 @@ client.interceptors.request.use(
     error => Promise.reject(error)
 );
 
-publicClient.interceptors.request.use(
-    async (config) => {
-        config.withCredentials = true;
-        const token = localStorage.getItem('jwt');
-        if (token) {
-            config.headers = {
-                ...config.headers,
-                Authorization: `Bearer ${token}`
-            };
-        }
-        return config;
-    },
-    error => Promise.reject(error)
-)
-
 const accountsApi = new AccountsApi(
     undefined,
     basePath,
@@ -45,11 +38,6 @@ const publicAccountsApi = new AccountsApi(
     undefined,
     basePath,
     publicClient
-);
-const weatherForecastApi = new WeatherForecastApi(
-    undefined,
-    basePath,
-    client
 );
 
 const searchApi = new SearchApi(
@@ -90,7 +78,6 @@ const likeApi = new LikeApi(
 
 export {
     accountsApi,
-    weatherForecastApi,
     searchApi,
     publicAccountsApi,
     userApi,
@@ -100,20 +87,16 @@ export {
     likeApi
 };
 
-function refreshToken() {
+async function refreshToken() {
     const jwt = localStorage.getItem('jwt');
 
-    return publicClient.post(`${basePath}/Accounts/RefreshAccessToken`, {
-        accessToken: jwt,
-        refreshToken: 'fffdfd'
-    }, {
+    const response = await publicAccountsApi.accountsRefreshAccessTokenPost({
         withCredentials: true
-    })
-        .then(response => {
-            const token = response.data.accessToken;
-            localStorage.setItem('jwt', token);
-            return token;
-        })
+    });
+
+    const token = response.data.accessToken;
+    localStorage.setItem('jwt', token);
+    return token;
 }
 
 export async function getAccessToken() {
