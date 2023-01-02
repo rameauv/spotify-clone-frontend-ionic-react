@@ -105,8 +105,8 @@ export async function getAccessToken() {
 
     //check if the JWT is close to expiring (e.g. within 5 minutes)
     const jwtExp = jwtDecode<any>(jwt).exp;
-    const fiveMinutesInSeconds = 60 * 1;
-    if (jwtExp - (Date.now() / 1000) < fiveMinutesInSeconds) {
+    const oneMinute = 60 * 1;
+    if (jwtExp - (Date.now() / 1000) < oneMinute) {
         // if it is, try to refresh the token
         return await refreshToken();
     } else {

@@ -15,8 +15,21 @@ export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', 
     if (!arg.q.trim()) {
         return undefined;
     }
-    const response = await searchApi.searchSearchGet(arg.q);
-    return response.data.result;
+    try {
+        const response = await searchApi.searchSearchGet(arg.q);
+        return response.data.result;
+    } catch (e: any) {
+        console.error(e);
+        if (e?.response?.status == '401') {
+            throw new Error("unauthorized")
+        }
+        throw e;
+    }
+}, {
+    condition: (userId, {getState, extra}) => {
+        const {currentUser} = getState() as MyState;
+        return !!currentUser.data;
+    }
 });
 
 

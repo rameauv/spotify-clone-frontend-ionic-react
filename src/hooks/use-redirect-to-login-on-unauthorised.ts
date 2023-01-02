@@ -5,7 +5,11 @@ export const useRedirectToLoginOnUnauthorised = () => {
 
     return <T>(promise: T) => {
         (promise as any).unwrap().catch((e: any) => {
-            authHook.logout();
+            if (e.message == "unauthorized") {
+                authHook.logout();
+                return;
+            }
+            throw e;
         });
         return promise;
     }
