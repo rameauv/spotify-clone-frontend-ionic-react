@@ -83,7 +83,13 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const searchResultRequest = useMemo(() => {
         return debounce((q: string) => {
             searchThunkPromise?.abort()
-            searchThunkPromise = redirectToLoginOnUnauthorised(dispatch(fetchSearchResults({q})))
+            try {
+                searchThunkPromise = redirectToLoginOnUnauthorised(dispatch(fetchSearchResults({q})))
+            } catch (e: any) {
+                if (e?.name != 'AbortError') {
+                    throw e;
+                }
+            }
         }, 500, {
             leading: true,
             trailing: true

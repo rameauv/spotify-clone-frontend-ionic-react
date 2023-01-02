@@ -35,3 +35,11 @@
 //     }
 //   }
 // }
+
+Cypress.Commands.add('login', ({userName, password}: { userName: string, password: string }) => {
+    cy.get('.login-signin_loginButton__HyOJ2').click();
+    cy.get('.login_userNameInput__g71kv > .login_input__xUa-f').type(userName);
+    cy.get('.login_passwordInput__jFaFu > .login_input__xUa-f').type(password);
+    cy.get('.login_loginButton__6JTAa').click();
+    cy.get('ion-tab-bar').should('be.visible');
+});
