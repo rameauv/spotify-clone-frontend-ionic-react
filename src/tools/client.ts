@@ -14,6 +14,13 @@ const client = axios.create();
 const publicClient = axios.create();
 const basePath = throwIfEnvVariableMissing('REACT_APP_API_BASE-PATH');
 
+publicClient.interceptors.request.use(
+    (config) => {
+        config.withCredentials = true;
+        return config;
+    }
+);
+
 client.interceptors.request.use(
     async (config) => {
         config.withCredentials = true;
