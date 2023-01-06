@@ -47,6 +47,9 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const searchResult = useSelector(getSearchResults);
     const redirectToLoginOnUnauthorised = useRedirectToLoginOnUnauthorised();
     useEffect(() => {
+        searchResultRequest(searchQuery);
+    }, [searchQuery]);
+    useEffect(() => {
         if (!searchResult) {
             _setResults([]);
             return;
@@ -103,7 +106,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     };
     const handleSearchQueryChangeEvent = (value: string) => {
         _setSearchQuery(value);
-        searchResultRequest(value);
     };
 
     return (
