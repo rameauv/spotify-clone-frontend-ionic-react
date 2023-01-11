@@ -1,7 +1,7 @@
-import styles from "./search-album.module.scss";
-import {useContext} from "react";
-import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
-import {useHistory, useRouteMatch} from "react-router-dom";
+import styles from './search-album.module.scss';
+import {useContext} from 'react';
+import {PathsContext, TabRouteParams} from '../../../pages/private-pages-router/private-pages-router';
+import {useHistory, useRouteMatch} from 'react-router-dom';
 
 export interface SearchAlbumProps {
     id: string;

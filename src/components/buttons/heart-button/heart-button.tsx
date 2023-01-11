@@ -1,7 +1,7 @@
 import styles from './heart-button.module.scss';
-import React, {MouseEventHandler} from "react";
-import {IonIcon} from "@ionic/react";
-import {heart, heartOutline} from "ionicons/icons";
+import React, {MouseEventHandler} from 'react';
+import {IonIcon} from '@ionic/react';
+import {heart, heartOutline} from 'ionicons/icons';
 
 
 export interface HeartButtonProps {

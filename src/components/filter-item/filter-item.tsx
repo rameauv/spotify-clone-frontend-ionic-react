@@ -1,7 +1,7 @@
-import styles from "./filter-item.module.scss";
-import {IonIcon} from "@ionic/react";
-import {checkmarkOutline} from "ionicons/icons";
-import {MouseEventHandler} from "react";
+import styles from './filter-item.module.scss';
+import {IonIcon} from '@ionic/react';
+import {checkmarkOutline} from 'ionicons/icons';
+import {MouseEventHandler} from 'react';
 
 interface FilterItemProps {
     activated?: boolean;

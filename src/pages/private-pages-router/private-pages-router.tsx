@@ -1,25 +1,25 @@
 import {IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, isPlatform} from '@ionic/react';
-import React, {useState} from "react";
-import {Redirect, Route} from "react-router-dom";
-import {RouteComponentProps} from "react-router";
-import ProfileSettings from "../profile-settings/profile-settings";
+import React, {useState} from 'react';
+import {Redirect, Route} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router';
+import ProfileSettings from '../profile-settings/profile-settings';
 import styles from './private-pages-router.module.scss';
-import {homeSharp, library, searchSharp} from "ionicons/icons";
-import Home from "../home/home";
-import Song from "../song/song";
-import Album from "../album/album";
-import Artist from "../artist/artist";
-import Search from "../search/search";
-import Tag from "../tag/tag";
-import AdvancedSearch from "../advanced-search/advanced-search";
-import Library from "../library/library";
+import {homeSharp, library, searchSharp} from 'ionicons/icons';
+import Home from '../home/home';
+import Song from '../song/song';
+import Album from '../album/album';
+import Artist from '../artist/artist';
+import Search from '../search/search';
+import Tag from '../tag/tag';
+import AdvancedSearch from '../advanced-search/advanced-search';
+import Library from '../library/library';
 import Settings from '../settings/settings';
-import LibrarySearch from "../library-search/library-search";
-import MiniPlayer from "../../components/mini-player/mini-player";
+import LibrarySearch from '../library-search/library-search';
+import MiniPlayer from '../../components/mini-player/mini-player';
 
 const loadKeyboardModule = async () => {
     if (isPlatform('hybrid')) {
-        return import("@capacitor/keyboard")
+        return import('@capacitor/keyboard')
     }
     return undefined
 }
@@ -46,12 +46,12 @@ interface Paths {
 
 export const PathsContext = React.createContext<Paths>({
     feed: '',
-    track: (tab: string) => '',
-    album: (tab: string) => '',
-    artist: (tab: string) => '',
-    settings: (tab: string) => '',
-    'settings-profileSettings': (tab: string) => '',
-    'serach-advanceSearch': (tab: string) => ''
+    track: () => '',
+    album: () => '',
+    artist: () => '',
+    settings: () => '',
+    'settings-profileSettings': () => '',
+    'serach-advanceSearch': () => ''
 });
 
 const createPaths = (basePath: string) => {

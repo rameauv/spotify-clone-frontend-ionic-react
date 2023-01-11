@@ -1,7 +1,7 @@
-import {createAsyncThunk, createSelector, createSlice} from "@reduxjs/toolkit";
-import {searchApi} from "../../../tools/client";
-import {SearchResultDto} from "../../../api";
-import {MyState} from "../../store";
+import {createAsyncThunk, createSelector, createSlice} from '@reduxjs/toolkit';
+import {searchApi} from '../../../tools/client';
+import {SearchResultDto} from '../../../api';
+import {MyState} from '../../store';
 
 
 export interface SearchSliceState {
@@ -11,7 +11,7 @@ export interface SearchSliceState {
 const initialState: SearchSliceState = {}
 
 
-export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }, thunkAPI) => {
+export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }) => {
     if (!arg.q.trim()) {
         return undefined;
     }
@@ -20,13 +20,13 @@ export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', 
         return response.data;
     } catch (e: any) {
         console.error(e);
-        if (e?.response?.status == '401') {
-            throw new Error("unauthorized")
+        if (e?.response?.status === '401') {
+            throw new Error('unauthorized')
         }
         throw e;
     }
 }, {
-    condition: (userId, {getState, extra}) => {
+    condition: (userId, {getState}) => {
         const {currentUser} = getState() as MyState;
         return !!currentUser.data;
     }
@@ -46,7 +46,5 @@ const searchSlice = createSlice({
 
 const selectSelf = (state: MyState) => state;
 export const getSearchResults = createSelector(selectSelf, (state) => state.search.results);
-
-export const {} = searchSlice.actions;
 
 export default searchSlice.reducer;

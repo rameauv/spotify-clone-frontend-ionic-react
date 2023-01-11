@@ -1,6 +1,6 @@
-import React, {MouseEventHandler} from "react";
-import {IonIcon} from "@ionic/react";
-import styles from "./icon-button.module.scss";
+import React, {MouseEventHandler} from 'react';
+import {IonIcon} from '@ionic/react';
+import styles from './icon-button.module.scss';
 
 export enum IconButtonSize {
     S = 20,

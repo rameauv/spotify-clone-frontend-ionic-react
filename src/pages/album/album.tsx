@@ -1,22 +1,22 @@
 import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
 import {ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
-import React, {useContext, useEffect} from "react";
-import MoreMenuModal from "../../components/more-menu-modal/more-menu-modal";
-import {Link, useParams, useRouteMatch} from "react-router-dom";
+import React, {useContext, useEffect} from 'react';
+import MoreMenuModal from '../../components/more-menu-modal/more-menu-modal';
+import {Link, useParams, useRouteMatch} from 'react-router-dom';
 import {PathsContext, TabRouteParams} from '../private-pages-router/private-pages-router';
-import {useDispatch, useSelector} from "react-redux";
-import {MyState} from "../../store/store";
-import {fetchAlbum, selectAlbumById} from "../../store/slices/album-slice/album-slice";
-import {CachedAlbum} from "../../store/slices/album-slice/models/cachedAlbum";
+import {useDispatch, useSelector} from 'react-redux';
+import {MyState} from '../../store/store';
+import {fetchAlbum, selectAlbumById} from '../../store/slices/album-slice/album-slice';
+import {CachedAlbum} from '../../store/slices/album-slice/models/cachedAlbum';
 import {
     addAlbumLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from "../../store/slices/like-slise/like-slice";
-import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
-import HeartButton from "../../components/buttons/heart-button/heart-button";
+} from '../../store/slices/like-slise/like-slice';
+import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
+import HeartButton from '../../components/buttons/heart-button/heart-button';
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
