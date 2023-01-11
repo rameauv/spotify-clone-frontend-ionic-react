@@ -17,7 +17,7 @@ export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', 
     }
     try {
         const response = await searchApi.searchSearchGet(arg.q);
-        return response.data.result;
+        return response.data;
     } catch (e: any) {
         console.error(e);
         if (e?.response?.status == '401') {
