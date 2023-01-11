@@ -43,75 +43,57 @@ export interface AlbumDto {
      * @type {string}
      * @memberof AlbumDto
      */
-    'id'?: string | null;
+    'id': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'title'?: string | null;
+    'title': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'releaseDate'?: string | null;
+    'releaseDate': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'thumbnailUrl'?: string | null;
+    'thumbnailUrl': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'artistId'?: string | null;
+    'artistId': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'artistName'?: string | null;
+    'artistName': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'artistThumbnailUrl'?: string | null;
+    'artistThumbnailUrl': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'albumType'?: string | null;
+    'albumType': string;
     /**
      *
      * @type {string}
      * @memberof AlbumDto
      */
-    'likeId'?: string | null;
+    'likeId': string;
 }
-/**
- *
- * @export
- * @interface AlbumDtoBaseResultDto
- */
-export interface AlbumDtoBaseResultDto {
-    /**
-     *
-     * @type {AlbumDto}
-     * @memberof AlbumDtoBaseResultDto
-     */
-    'result'?: AlbumDto;
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof AlbumDtoBaseResultDto
-     */
-    'error'?: ErrorDto;
-}
+
 /**
  *
  * @export
@@ -123,45 +105,27 @@ export interface AlbumTracksDto {
      * @type {Array<SimpleTrackDto>}
      * @memberof AlbumTracksDto
      */
-    'items'?: Array<SimpleTrackDto> | null;
+    'items': Array<SimpleTrackDto>;
     /**
      *
      * @type {number}
      * @memberof AlbumTracksDto
      */
-    'limit'?: number;
+    'limit': number;
     /**
      *
      * @type {number}
      * @memberof AlbumTracksDto
      */
-    'offset'?: number;
+    'offset': number;
     /**
      *
      * @type {number}
      * @memberof AlbumTracksDto
      */
-    'total'?: number;
+    'total': number;
 }
-/**
- *
- * @export
- * @interface AlbumTracksDtoBaseResultDto
- */
-export interface AlbumTracksDtoBaseResultDto {
-    /**
-     *
-     * @type {AlbumTracksDto}
-     * @memberof AlbumTracksDtoBaseResultDto
-     */
-    'result'?: AlbumTracksDto;
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof AlbumTracksDtoBaseResultDto
-     */
-    'error'?: ErrorDto;
-}
+
 /**
  *
  * @export
@@ -179,70 +143,53 @@ export interface ArtistDto {
      * @type {string}
      * @memberof ArtistDto
      */
-    'name'?: string | null;
+    'name': string;
     /**
      *
      * @type {string}
      * @memberof ArtistDto
      */
-    'thumbnailUrl'?: string | null;
+    'thumbnailUrl': string;
     /**
      *
      * @type {string}
      * @memberof ArtistDto
      */
-    'likeId'?: string | null;
+    'likeId': string;
     /**
      *
      * @type {number}
      * @memberof ArtistDto
      */
-    'monthlyListeners'?: number;
+    'monthlyListeners': number;
 }
+
 /**
  *
  * @export
- * @interface ArtistDtoBaseResultDto
+ * @interface ArtistSearchResultDto
  */
-export interface ArtistDtoBaseResultDto {
+export interface ArtistSearchResultDto {
     /**
      *
-     * @type {ArtistDto}
-     * @memberof ArtistDtoBaseResultDto
+     * @type {string}
+     * @memberof ArtistSearchResultDto
      */
-    'result'?: ArtistDto;
+    'id': string;
     /**
      *
-     * @type {ErrorDto}
-     * @memberof ArtistDtoBaseResultDto
+     * @type {string}
+     * @memberof ArtistSearchResultDto
      */
-    'error'?: ErrorDto;
+    'thumbnailUrl': string;
+    /**
+     *
+     * @type {string}
+     * @memberof ArtistSearchResultDto
+     */
+    'name': string;
 }
-/**
- *
- * @export
- * @interface ArtistResultDto
- */
-export interface ArtistResultDto {
-    /**
-     *
-     * @type {string}
-     * @memberof ArtistResultDto
-     */
-    'id'?: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof ArtistResultDto
-     */
-    'thumbnailUrl'?: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof ArtistResultDto
-     */
-    'name'?: string | null;
-}
+
 /**
  *
  * @export
@@ -268,6 +215,7 @@ export interface CreateUserDto {
      */
     'data'?: string | null;
 }
+
 /**
  *
  * @export
@@ -293,32 +241,7 @@ export interface CurrentUserDto {
      */
     'name': string;
 }
-/**
- *
- * @export
- * @interface CurrentUserDtoErrorResultDto
- */
-export interface CurrentUserDtoErrorResultDto {
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof CurrentUserDtoErrorResultDto
-     */
-    'error': ErrorDto;
-}
-/**
- *
- * @export
- * @interface CurrentUserDtoSuccessResultDto
- */
-export interface CurrentUserDtoSuccessResultDto {
-    /**
-     *
-     * @type {CurrentUserDto}
-     * @memberof CurrentUserDtoSuccessResultDto
-     */
-    'result': CurrentUserDto;
-}
+
 /**
  *
  * @export
@@ -332,6 +255,7 @@ export interface DeleteLikeDto {
      */
     'id'?: string | null;
 }
+
 /**
  *
  * @export
@@ -340,89 +264,49 @@ export interface DeleteLikeDto {
 export interface ErrorDto {
     /**
      *
-     * @type {HttpStatusCode}
+     * @type {string}
      * @memberof ErrorDto
      */
-    'code'?: HttpStatusCode;
+    'type': string;
     /**
      *
      * @type {string}
      * @memberof ErrorDto
      */
-    'message'?: string | null;
+    'title': string;
+    /**
+     *
+     * @type {number}
+     * @memberof ErrorDto
+     */
+    'status': number;
+    /**
+     *
+     * @type {string}
+     * @memberof ErrorDto
+     */
+    'details': string;
+    /**
+     *
+     * @type {string}
+     * @memberof ErrorDto
+     */
+    'instance': string;
 }
+
 /**
  *
  * @export
- * @enum {string}
+ * @interface ErrorsDto
  */
-
-export const HttpStatusCode = {
-    NUMBER_100: 100,
-    NUMBER_101: 101,
-    NUMBER_102: 102,
-    NUMBER_103: 103,
-    NUMBER_200: 200,
-    NUMBER_201: 201,
-    NUMBER_202: 202,
-    NUMBER_203: 203,
-    NUMBER_204: 204,
-    NUMBER_205: 205,
-    NUMBER_206: 206,
-    NUMBER_207: 207,
-    NUMBER_208: 208,
-    NUMBER_226: 226,
-    NUMBER_300: 300,
-    NUMBER_301: 301,
-    NUMBER_302: 302,
-    NUMBER_303: 303,
-    NUMBER_304: 304,
-    NUMBER_305: 305,
-    NUMBER_306: 306,
-    NUMBER_307: 307,
-    NUMBER_308: 308,
-    NUMBER_400: 400,
-    NUMBER_401: 401,
-    NUMBER_402: 402,
-    NUMBER_403: 403,
-    NUMBER_404: 404,
-    NUMBER_405: 405,
-    NUMBER_406: 406,
-    NUMBER_407: 407,
-    NUMBER_408: 408,
-    NUMBER_409: 409,
-    NUMBER_410: 410,
-    NUMBER_411: 411,
-    NUMBER_412: 412,
-    NUMBER_413: 413,
-    NUMBER_414: 414,
-    NUMBER_415: 415,
-    NUMBER_416: 416,
-    NUMBER_417: 417,
-    NUMBER_421: 421,
-    NUMBER_422: 422,
-    NUMBER_423: 423,
-    NUMBER_424: 424,
-    NUMBER_426: 426,
-    NUMBER_428: 428,
-    NUMBER_429: 429,
-    NUMBER_431: 431,
-    NUMBER_451: 451,
-    NUMBER_500: 500,
-    NUMBER_501: 501,
-    NUMBER_502: 502,
-    NUMBER_503: 503,
-    NUMBER_504: 504,
-    NUMBER_505: 505,
-    NUMBER_506: 506,
-    NUMBER_507: 507,
-    NUMBER_508: 508,
-    NUMBER_510: 510,
-    NUMBER_511: 511
-} as const;
-
-export type HttpStatusCode = typeof HttpStatusCode[keyof typeof HttpStatusCode];
-
+export interface ErrorsDto {
+    /**
+     *
+     * @type {Array<ErrorDto>}
+     * @memberof ErrorsDto
+     */
+    'errors': Array<ErrorDto>;
+}
 
 /**
  *
@@ -435,34 +319,9 @@ export interface LikeDto {
      * @type {string}
      * @memberof LikeDto
      */
-    'id'?: string | null;
+    'id': string;
 }
-/**
- *
- * @export
- * @interface LikeDtoErrorResultDto
- */
-export interface LikeDtoErrorResultDto {
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof LikeDtoErrorResultDto
-     */
-    'error': ErrorDto;
-}
-/**
- *
- * @export
- * @interface LikeDtoSuccessResultDto
- */
-export interface LikeDtoSuccessResultDto {
-    /**
-     *
-     * @type {LikeDto}
-     * @memberof LikeDtoSuccessResultDto
-     */
-    'result': LikeDto;
-}
+
 /**
  *
  * @export
@@ -482,6 +341,7 @@ export interface LoginCredentialsDto {
      */
     'password'?: string | null;
 }
+
 /**
  *
  * @export
@@ -495,76 +355,39 @@ export interface NewAccessTokenDto {
      */
     'accessToken': string;
 }
-/**
- *
- * @export
- * @interface ProblemDetails
- */
-export interface ProblemDetails {
-    [key: string]: any;
 
-    /**
-     *
-     * @type {string}
-     * @memberof ProblemDetails
-     */
-    'type'?: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof ProblemDetails
-     */
-    'title'?: string | null;
-    /**
-     *
-     * @type {number}
-     * @memberof ProblemDetails
-     */
-    'status'?: number | null;
-    /**
-     *
-     * @type {string}
-     * @memberof ProblemDetails
-     */
-    'detail'?: string | null;
-    /**
-     *
-     * @type {string}
-     * @memberof ProblemDetails
-     */
-    'instance'?: string | null;
-}
 /**
  *
  * @export
- * @interface ReleaseResultDto
+ * @interface ReleaseSearchResultDto
  */
-export interface ReleaseResultDto {
+export interface ReleaseSearchResultDto {
     /**
      *
      * @type {string}
-     * @memberof ReleaseResultDto
+     * @memberof ReleaseSearchResultDto
      */
-    'id'?: string | null;
+    'id': string;
     /**
      *
      * @type {string}
-     * @memberof ReleaseResultDto
+     * @memberof ReleaseSearchResultDto
      */
-    'thumbnailUrl'?: string | null;
+    'thumbnailUrl': string;
     /**
      *
      * @type {string}
-     * @memberof ReleaseResultDto
+     * @memberof ReleaseSearchResultDto
      */
-    'title'?: string | null;
+    'title': string;
     /**
      *
      * @type {string}
-     * @memberof ReleaseResultDto
+     * @memberof ReleaseSearchResultDto
      */
-    'artistName'?: string | null;
+    'artistName': string;
 }
+
 /**
  *
  * @export
@@ -573,42 +396,24 @@ export interface ReleaseResultDto {
 export interface SearchResultDto {
     /**
      *
-     * @type {Array<ReleaseResultDto>}
+     * @type {Array<ReleaseSearchResultDto>}
      * @memberof SearchResultDto
      */
-    'releaseResults'?: Array<ReleaseResultDto> | null;
+    'releaseResults': Array<ReleaseSearchResultDto>;
     /**
      *
-     * @type {Array<SongResultDto>}
+     * @type {Array<SongSearchResultDto>}
      * @memberof SearchResultDto
      */
-    'songResult'?: Array<SongResultDto> | null;
+    'songResult': Array<SongSearchResultDto>;
     /**
      *
-     * @type {Array<ArtistResultDto>}
+     * @type {Array<ArtistSearchResultDto>}
      * @memberof SearchResultDto
      */
-    'artistResult'?: Array<ArtistResultDto> | null;
+    'artistResult': Array<ArtistSearchResultDto>;
 }
-/**
- *
- * @export
- * @interface SearchResultDtoBaseResultDto
- */
-export interface SearchResultDtoBaseResultDto {
-    /**
-     *
-     * @type {SearchResultDto}
-     * @memberof SearchResultDtoBaseResultDto
-     */
-    'result'?: SearchResultDto;
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof SearchResultDtoBaseResultDto
-     */
-    'error'?: ErrorDto;
-}
+
 /**
  *
  * @export
@@ -620,8 +425,9 @@ export interface SetLikeRequest {
      * @type {string}
      * @memberof SetLikeRequest
      */
-    'associatedId': string;
+    'associatedId'?: string | null;
 }
+
 /**
  *
  * @export
@@ -633,8 +439,9 @@ export interface SetNameRequestDto {
      * @type {string}
      * @memberof SetNameRequestDto
      */
-    'name': string;
+    'name'?: string | null;
 }
+
 /**
  *
  * @export
@@ -646,51 +453,53 @@ export interface SimpleTrackDto {
      * @type {string}
      * @memberof SimpleTrackDto
      */
-    'id'?: string | null;
+    'id': string;
     /**
      *
      * @type {string}
      * @memberof SimpleTrackDto
      */
-    'title'?: string | null;
+    'title': string;
     /**
      *
      * @type {string}
      * @memberof SimpleTrackDto
      */
-    'artistName'?: string | null;
+    'artistName': string;
 }
+
 /**
  *
  * @export
- * @interface SongResultDto
+ * @interface SongSearchResultDto
  */
-export interface SongResultDto {
+export interface SongSearchResultDto {
     /**
      *
      * @type {string}
-     * @memberof SongResultDto
+     * @memberof SongSearchResultDto
      */
-    'id'?: string | null;
+    'id': string;
     /**
      *
      * @type {string}
-     * @memberof SongResultDto
+     * @memberof SongSearchResultDto
      */
-    'thumbnailUrl'?: string | null;
+    'thumbnailUrl': string;
     /**
      *
      * @type {string}
-     * @memberof SongResultDto
+     * @memberof SongSearchResultDto
      */
-    'title'?: string | null;
+    'title': string;
     /**
      *
      * @type {string}
-     * @memberof SongResultDto
+     * @memberof SongSearchResultDto
      */
-    'artistName'?: string | null;
+    'artistName': string;
 }
+
 /**
  *
  * @export
@@ -702,50 +511,31 @@ export interface TrackDto {
      * @type {string}
      * @memberof TrackDto
      */
-    'id'?: string | null;
+    'id': string;
     /**
      *
      * @type {string}
      * @memberof TrackDto
      */
-    'title'?: string | null;
+    'title': string;
     /**
      *
      * @type {string}
      * @memberof TrackDto
      */
-    'artistName'?: string | null;
+    'artistName': string;
     /**
      *
      * @type {string}
      * @memberof TrackDto
      */
-    'thumbnailUrl'?: string | null;
+    'thumbnailUrl': string;
     /**
      *
      * @type {string}
      * @memberof TrackDto
      */
-    'likeId'?: string | null;
-}
-/**
- *
- * @export
- * @interface TrackDtoBaseResultDto
- */
-export interface TrackDtoBaseResultDto {
-    /**
-     *
-     * @type {TrackDto}
-     * @memberof TrackDtoBaseResultDto
-     */
-    'result'?: TrackDto;
-    /**
-     *
-     * @type {ErrorDto}
-     * @memberof TrackDtoBaseResultDto
-     */
-    'error'?: ErrorDto;
+    'likeId': string;
 }
 
 /**
@@ -776,7 +566,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -814,7 +603,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -845,7 +633,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -879,7 +666,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
             // authentication JWT required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
 
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -1073,7 +859,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1120,7 +905,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             }
 
 
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1154,7 +938,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -1183,7 +966,7 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async albumIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumDtoBaseResultDto>> {
+        async albumIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1195,7 +978,7 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDtoBaseResultDto>> {
+        async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdTracksGet(id, limit, offset, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1205,7 +988,7 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+        async albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1225,7 +1008,7 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        albumIdGet(id: string, options?: any): AxiosPromise<AlbumDtoBaseResultDto> {
+        albumIdGet(id: string, options?: any): AxiosPromise<AlbumDto> {
             return localVarFp.albumIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1236,7 +1019,7 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDtoBaseResultDto> {
+        albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDto> {
             return localVarFp.albumIdTracksGet(id, limit, offset, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1245,7 +1028,7 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        albumLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+        albumLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
             return localVarFp.albumLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -1328,7 +1111,6 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -1362,7 +1144,6 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -1391,7 +1172,7 @@ export const ArtistApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtistDtoBaseResultDto>> {
+        async artistIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArtistDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.artistIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1401,7 +1182,7 @@ export const ArtistApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+        async artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.artistLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1421,7 +1202,7 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        artistIdGet(id: string, options?: any): AxiosPromise<ArtistDtoBaseResultDto> {
+        artistIdGet(id: string, options?: any): AxiosPromise<ArtistDto> {
             return localVarFp.artistIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1430,7 +1211,7 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        artistLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+        artistLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
             return localVarFp.artistLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -1644,7 +1425,7 @@ export const SearchApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDtoBaseResultDto>> {
+        async searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1666,7 +1447,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet(q: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDtoBaseResultDto> {
+        searchSearchGet(q: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDto> {
             return localVarFp.searchSearchGet(q, offset, limit, options).then((request) => request(axios, basePath));
         },
     };
@@ -1788,7 +1569,7 @@ export const TrackApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDtoBaseResultDto>> {
+        async trackIdGet(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TrackDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trackIdGet(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1798,7 +1579,7 @@ export const TrackApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDtoSuccessResultDto>> {
+        async trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.trackLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1818,7 +1599,7 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trackIdGet(id: string, options?: any): AxiosPromise<TrackDtoBaseResultDto> {
+        trackIdGet(id: string, options?: any): AxiosPromise<TrackDto> {
             return localVarFp.trackIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1827,7 +1608,7 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trackLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDtoSuccessResultDto> {
+        trackLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
             return localVarFp.trackLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
         },
     };
@@ -1953,7 +1734,7 @@ export const UserApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async userCurrentUserGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CurrentUserDtoSuccessResultDto>> {
+        async userCurrentUserGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CurrentUserDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.userCurrentUserGet(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1982,7 +1763,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        userCurrentUserGet(options?: any): AxiosPromise<CurrentUserDtoSuccessResultDto> {
+        userCurrentUserGet(options?: any): AxiosPromise<CurrentUserDto> {
             return localVarFp.userCurrentUserGet(options).then((request) => request(axios, basePath));
         },
         /**

@@ -15,11 +15,11 @@ const initialState: TrackSliceState = trackAdapter.getInitialState({});
 export const fetchTrack = createAsyncThunk<Track, { id: string }>('track/fetch', async (arg, thunkAPI) => {
     const {id} = arg;
     const response = await trackApi.trackIdGet(id);
-    const track = response.data.result!;
+    const track = response.data;
     const mappedTrack: Track = {
-        id: track.id!,
-        title: track.title!,
-        artistName: track.artistName!,
+        id: track.id,
+        title: track.title,
+        artistName: track.artistName,
         thumbnailUrl: track.thumbnailUrl ?? undefined,
         likeId: track.likeId ?? undefined
     }

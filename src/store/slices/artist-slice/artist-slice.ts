@@ -15,11 +15,11 @@ const initialState: ArtistSliceState = artistAdapter.getInitialState({});
 export const fetchArtist = createAsyncThunk('artist/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
     const response = await artistApi.artistIdGet(id);
-    const artistDto = response.data.result!;
+    const artistDto = response.data;
     const mappedArtist: Artist = {
-        id: artistDto.id!,
-        monthlyListeners: artistDto.monthlyListeners!,
-        name: artistDto.name!,
+        id: artistDto.id,
+        monthlyListeners: artistDto.monthlyListeners,
+        name: artistDto.name,
         thumbnailUrl: artistDto.thumbnailUrl ?? undefined,
         likeId: artistDto.likeId ?? undefined
     }

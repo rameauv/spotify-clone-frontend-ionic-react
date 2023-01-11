@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from "@reduxjs/toolkit";
 import {albumkApi, artistApi, likeApi, trackApi} from "../../../tools/client";
 import {MyState} from "../../store";
-import {LikeDtoSuccessResultDto, SetLikeRequest} from "../../../api";
+import {LikeDto, SetLikeRequest} from "../../../api";
 
 export interface CachedLike {
     id: string;
@@ -17,13 +17,13 @@ const likeAdapter = createEntityAdapter<CachedLike>({
 
 const initialState: LikeSlideState = likeAdapter.getInitialState({});
 
-const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<LikeDtoSuccessResultDto>) => {
+const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<LikeDto>) => {
     return createAsyncThunk<string, { id: string }>('like/add', async (arg, thunkAPI) => {
         const {id} = arg;
         const res = await request({
             associatedId: id
         });
-        return res.result.id!;
+        return res.id!;
     });
 };
 
