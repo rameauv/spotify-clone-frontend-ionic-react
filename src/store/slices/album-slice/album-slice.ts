@@ -15,16 +15,16 @@ const initialState: AlbumSliceState = albumAdapter.getInitialState({});
 export const fetchAlbum = createAsyncThunk('album/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
     const response = await albumkApi.albumIdGet(id);
-    const albumDto = response.data.result!;
+    const albumDto = response.data;
     const mappedAlbum: Album = {
-        id: albumDto.id!,
-        title: albumDto.title!,
-        artistName: albumDto.artistName!,
+        id: albumDto.id,
+        title: albumDto.title,
+        artistName: albumDto.artistName,
         thumbnailUrl: albumDto.thumbnailUrl ?? undefined,
-        albumType: albumDto.albumType!,
-        artistId: albumDto.artistId!,
-        artistThumbnailUrl: albumDto.artistThumbnailUrl!,
-        releaseDate: albumDto.releaseDate!,
+        albumType: albumDto.albumType,
+        artistId: albumDto.artistId,
+        artistThumbnailUrl: albumDto.artistThumbnailUrl,
+        releaseDate: albumDto.releaseDate,
         likeId: albumDto.likeId ?? undefined
     }
     if (mappedAlbum.likeId) {

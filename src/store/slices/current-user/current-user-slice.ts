@@ -1,4 +1,4 @@
-import {createAsyncThunk, createEntityAdapter, createSlice, EntityState} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {userApi} from "../../../tools/client";
 import {MyState} from "../../store";
 import {AxiosError} from "axios";
@@ -26,7 +26,7 @@ const initialState: CurrentUserSliiceState = {
 export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, thunkAPI) => {
     try {
         const response = await userApi.userCurrentUserGet();
-        return response.data.result;
+        return response.data;
     } catch (e: unknown) {
         if (e instanceof AxiosError && e.response?.status === 401) {
             return undefined;
