@@ -1,7 +1,7 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {userApi} from "../../../tools/client";
-import {MyState} from "../../store";
-import {AxiosError} from "axios";
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {userApi} from '../../../tools/client';
+import {MyState} from '../../store';
+import {AxiosError} from 'axios';
 
 
 export interface CurrentUser {
@@ -19,11 +19,11 @@ export interface CurrentUserSliiceState {
 
 const initialState: CurrentUserSliiceState = {
     data: undefined,
-    status: "idle",
+    status: 'idle',
     error: undefined
 };
 
-export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, thunkAPI) => {
+export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async () => {
     try {
         const response = await userApi.userCurrentUserGet();
         return response.data;
@@ -35,7 +35,7 @@ export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (a
     }
 });
 
-export const setCurrnetUseProfileTitle = createAsyncThunk('currentUser/setName', async (arg: { profileTitle: string }, thunkAPI) => {
+export const setCurrnetUseProfileTitle = createAsyncThunk('currentUser/setName', async (arg: { profileTitle: string }) => {
     await userApi.userNamePatch({
         name: arg.profileTitle
     });
@@ -70,7 +70,7 @@ const currentUserSlide = createSlice({
             state.error = action.error.message;
             state.status = 'failed';
         });
-        builder.addCase(fetechCurrentUser.pending, (state, action) => {
+        builder.addCase(fetechCurrentUser.pending, (state) => {
             state.status = 'loading';
         });
         builder.addCase(setCurrnetUseProfileTitle.fulfilled, (state, action) => {

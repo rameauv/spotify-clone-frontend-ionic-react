@@ -1,8 +1,8 @@
-import React from "react";
-import styles from "./header-with-centered-title.module.scss";
-import {IonToolbar, useIonRouter} from "@ionic/react";
-import {arrowBackOutline} from "ionicons/icons";
-import IconButton, {IconButtonSize} from "../../buttons/icon-button/icon-button";
+import React from 'react';
+import styles from './header-with-centered-title.module.scss';
+import {IonToolbar, useIonRouter} from '@ionic/react';
+import {arrowBackOutline} from 'ionicons/icons';
+import IconButton, {IconButtonSize} from '../../buttons/icon-button/icon-button';
 
 export interface HeaderWithCenterdTitleProps {
     title: string

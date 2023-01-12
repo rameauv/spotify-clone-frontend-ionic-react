@@ -32,26 +32,21 @@ import './design-system/styles/style.scss'
 import React, {useEffect} from 'react';
 
 import styles from './App.module.scss';
-import {IonReactRouter} from "@ionic/react-router";
-import PrivatePagesRouter from "./pages/private-pages-router/private-pages-router";
-import LoginSignin from "./pages/login-signin/login-signin";
-import Login from "./pages/login/login";
-import AuthGuard from "./components/auth-guard/auth-guard";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    fetechCurrentUser,
-    selectCurrentUser,
-    selectCurrentUserStatus
-} from "./store/slices/current-user/current-user-slice";
-import {useNotAuthGuard} from "./hooks/use-not-auth-guard";
-import TextButton from "./components/buttons/text-button/text-button";
-import NotAuthGuard from "./components/not-auth-guard/not-auth-guard";
+import {IonReactRouter} from '@ionic/react-router';
+import PrivatePagesRouter from './pages/private-pages-router/private-pages-router';
+import LoginSignin from './pages/login-signin/login-signin';
+import Login from './pages/login/login';
+import AuthGuard from './components/auth-guard/auth-guard';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetechCurrentUser, selectCurrentUserStatus} from './store/slices/current-user/current-user-slice';
+import TextButton from './components/buttons/text-button/text-button';
+import NotAuthGuard from './components/not-auth-guard/not-auth-guard';
 
 setupIonicReact();
 
 const loadStatusBarModule = async () => {
     if (isPlatform('hybrid')) {
-        const {StatusBar, Style} = await import("@capacitor/status-bar")
+        const {StatusBar, Style} = await import('@capacitor/status-bar')
         await StatusBar.setStyle({
             style: Style.Dark
         })
@@ -62,7 +57,6 @@ loadStatusBarModule();
 
 const App: React.FC = () => {
     const status = useSelector(selectCurrentUserStatus);
-    const currentUser = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('use effect')
@@ -70,7 +64,6 @@ const App: React.FC = () => {
             dispatch(fetechCurrentUser());
         }
     }, [status, dispatch])
-    const notAuthGuard = useNotAuthGuard();
     const retry = () => {
         console.log('retry');
         dispatch(fetechCurrentUser());
@@ -96,12 +89,12 @@ const App: React.FC = () => {
             <IonReactRouter>
                 <IonRouterOutlet>
                     <Route exact path="/">
-                        <NotAuthGuard debug="/">
+                        <NotAuthGuard>
                             <LoginSignin/>
                         </NotAuthGuard>
                     </Route>
                     <Route exact path="/login">
-                        <NotAuthGuard debug="/login">
+                        <NotAuthGuard>
                             <Login/>
                         </NotAuthGuard>
                     </Route>

@@ -56,12 +56,6 @@
     "eject": "react-scripts eject",
     "genClient": "openapi-generator-cli generate -i http://localhost:5103/swagger/v1/swagger.json -g typescript-axios -o ./src/api"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -79,6 +73,8 @@
     "@openapitools/openapi-generator-cli": "^2.5.2",
     "@types/lodash": "^4.14.191",
     "@types/pg": "^8.6.6",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "cypress": "^12.2.0",
     "dotenv": "^16.0.3",
     "eslint-plugin-chai-friendly": "^0.7.2",

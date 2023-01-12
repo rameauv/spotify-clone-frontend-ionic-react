@@ -1,8 +1,8 @@
-import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
-import {trackApi} from "../../../tools/client";
-import {CachedTrack, Track} from "./models/cachedTrack";
-import {MyState} from "../../store";
-import {addLike, deleteLike} from "../like-slise/like-slice";
+import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from '@reduxjs/toolkit';
+import {trackApi} from '../../../tools/client';
+import {CachedTrack, Track} from './models/cachedTrack';
+import {MyState} from '../../store';
+import {addLike, deleteLike} from '../like-slise/like-slice';
 
 export interface TrackSliceState extends EntityState<any> {
 }
@@ -81,9 +81,7 @@ export const {
 
 export const getTrackStatus = createSelector(
     [selectById, (state, trackId) => trackId],
-    (track, trackId) => track?.status
+    (track) => track?.status
 )
-
-export const {} = trackSlice.actions;
 
 export default trackSlice.reducer;
