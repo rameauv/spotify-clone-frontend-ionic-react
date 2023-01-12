@@ -1,4 +1,4 @@
-import styles from './playlist.module.scss';
+import styles from "./playlist.module.scss";
 
 interface ContainerProps {
     imageLink?: string;

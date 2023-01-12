@@ -1,9 +1,9 @@
 import {IonContent, IonHeader, IonPage} from '@ionic/react';
-import styles from './login.module.scss';
-import React, {useState} from 'react';
-import {useAuth} from '../../hooks/use-auth';
-import RegularButton from '../../components/buttons/regular-button/regular-button';
-import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
+import styles from "./login.module.scss";
+import React, {useState} from "react";
+import {useAuth} from "../../hooks/use-auth";
+import RegularButton from "../../components/buttons/regular-button/regular-button";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
 
 interface LoginProps {
 }
@@ -13,7 +13,7 @@ interface State {
     password: string;
 }
 
-const Login: React.FC<LoginProps> = () => {
+const Login: React.FC<LoginProps> = (props) => {
     const authHook = useAuth();
 
     const [state, setState] = useState<State>({

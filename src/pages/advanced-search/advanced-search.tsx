@@ -1,16 +1,16 @@
-import styles from './advanced-search.module.scss';
-import React, {useEffect, useMemo, useState} from 'react';
-import {IonContent, IonPage} from '@ionic/react';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
-import {useHistory} from 'react-router-dom';
-import FilteringTag from '../../components/filtering-tag/filtering-tag';
+import styles from "./advanced-search.module.scss";
+import React, {useEffect, useMemo, useState} from "react";
+import {IonContent, IonPage} from "@ionic/react";
+import SearchSong from "../../components/thumbnails/search-song/search-song";
+import {useHistory} from "react-router-dom";
+import FilteringTag from "../../components/filtering-tag/filtering-tag";
 import {debounce} from 'lodash';
-import SearchInput from '../../components/search-input/search-input';
-import {SearchAlbum} from '../../components/thumbnails/search-album/search-album';
-import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
-import {useDispatch, useSelector} from 'react-redux';
-import {fetchSearchResults, getSearchResults} from '../../store/slices/search-feature/search-slice';
-import {useRedirectToLoginOnUnauthorised} from '../../hooks/use-redirect-to-login-on-unauthorised';
+import SearchInput from "../../components/search-input/search-input";
+import {SearchAlbum} from "../../components/thumbnails/search-album/search-album";
+import {SearchArtist} from "../../components/thumbnails/search-artist/search-artist";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchSearchResults, getSearchResults} from "../../store/slices/search-feature/search-slice";
+import {useRedirectToLoginOnUnauthorised} from "../../hooks/use-redirect-to-login-on-unauthorised";
 
 interface AdvancedSearchProps {
 }
@@ -42,7 +42,7 @@ let searchThunkPromise: any;
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const dispatch = useDispatch();
     const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
-    const [searchQuery, _setSearchQuery] = useState<string>('');
+    const [searchQuery, _setSearchQuery] = useState<string>("");
     const [results, _setResults] = useState<JSX.Element[]>([]);
     const searchResult = useSelector(getSearchResults);
     const redirectToLoginOnUnauthorised = useRedirectToLoginOnUnauthorised();
@@ -56,22 +56,22 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         }
         const mappedTracks = searchResult.songResult?.map(track => (<SearchSong
             key={track.id}
-            id={track.id}
+            id={track.id!}
             title={track.title ?? 'unknown'}
-            artistName={track.artistName}
+            artistName={track.artistName!}
             imageLink={track.thumbnailUrl ?? undefined}
         ></SearchSong>)) ?? [];
         const mappedAlbums = searchResult.releaseResults?.map(album => (<SearchAlbum
             key={album.id}
-            id={album.id}
+            id={album.id!}
             title={album.title ?? 'unknown'}
-            artistName={album.artistName}
+            artistName={album.artistName!}
             imageLink={album.thumbnailUrl ?? undefined}
             type="Album"
         ></SearchAlbum>)) ?? [];
         const mappedArtists = searchResult.artistResult?.map(artist => (<SearchArtist
             key={artist.id}
-            id={artist.id}
+            id={artist.id!}
             name={artist.name ?? 'unknown'}
             imageLink={artist.thumbnailUrl ?? undefined}
         ></SearchArtist>)) ?? [];
@@ -91,7 +91,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             redirectToLoginOnUnauthorised(searchThunkPromise.unwrap())
                 .catch(e => {
                     console.log(e);
-                    if (e?.name !== 'AbortError') {
+                    if (e?.name != 'AbortError') {
                         throw e;
                     }
                 });

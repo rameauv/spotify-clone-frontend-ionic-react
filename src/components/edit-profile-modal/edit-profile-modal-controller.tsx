@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import {Animation, createAnimation, IonContent, IonHeader, IonModal} from '@ionic/react';
-import styles from './edit-profile-modal.module.scss';
-import DiscardModalController from '../discard-modal/discard-modal-controller';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useState} from "react";
+import {Animation, createAnimation, IonContent, IonHeader, IonModal} from "@ionic/react";
+import styles from "./edit-profile-modal.module.scss";
+import DiscardModalController from "../discard-modal/discard-modal-controller";
+import {useDispatch, useSelector} from "react-redux";
 import {
     CurrentUser,
     selectCurrentUser,
     setCurrnetUseProfileTitle
-} from '../../store/slices/current-user/current-user-slice';
-import {MyState} from '../../store/store';
-import ModalHeader from '../headers/modal-header/modal-header';
-import TextButton from '../buttons/text-button/text-button';
+} from "../../store/slices/current-user/current-user-slice";
+import {MyState} from "../../store/store";
+import ModalHeader from "../headers/modal-header/modal-header";
+import TextButton from "../buttons/text-button/text-button";
 
 interface EditProfileModalControllerProps {
     isOpen?: boolean;

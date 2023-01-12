@@ -1,5 +1,5 @@
-import styles from './round-outline-button.module.scss';
-import React, {MouseEventHandler} from 'react';
+import styles from "./round-outline-button.module.scss";
+import React, {MouseEventHandler} from "react";
 
 export interface RoundOutlineButtonProps {
     onClick?: MouseEventHandler | undefined;

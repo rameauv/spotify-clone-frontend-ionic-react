@@ -1,5 +1,5 @@
-import styles from './filtering-tag.module.scss';
-import {ElementType, MouseEventHandler} from 'react';
+import styles from "./filtering-tag.module.scss";
+import {ElementType, MouseEventHandler} from "react";
 
 interface ContainerProps {
     activated?: boolean
@@ -10,7 +10,7 @@ interface ContainerProps {
 
 const FilteringTag: React.FC<ContainerProps> = ({children, activated, onClick}) => {
     return (
-        <p onClick={onClick} className={`${styles.container} ${activated ? styles.activated : ''}`}>
+        <p onClick={onClick} className={`${styles.container} ${activated ? styles.activated : ""}`}>
             {children}
         </p>
     );

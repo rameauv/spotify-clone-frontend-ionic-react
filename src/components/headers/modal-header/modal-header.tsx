@@ -1,7 +1,7 @@
-import React from 'react';
-import styles from './modal-header.module.scss';
-import {IonIcon, IonToolbar} from '@ionic/react';
-import {closeSharp} from 'ionicons/icons';
+import React from "react";
+import styles from "./modal-header.module.scss";
+import {IonIcon, IonToolbar} from "@ionic/react";
+import {closeSharp} from "ionicons/icons";
 
 export interface ModalHeaderProps {
     title: string;
@@ -9,7 +9,7 @@ export interface ModalHeaderProps {
     children?: JSX.Element;
 }
 
-const ModalHeader: React.FC<ModalHeaderProps> = ({onClose, children}) => {
+const ModalHeader: React.FC<ModalHeaderProps> = ({title, onClose, children}) => {
     return (
         <IonToolbar>
             <div className={styles.ionToolbar__header}>

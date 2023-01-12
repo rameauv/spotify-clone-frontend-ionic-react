@@ -1,7 +1,7 @@
-import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from '@reduxjs/toolkit';
-import {albumkApi, artistApi, likeApi, trackApi} from '../../../tools/client';
-import {MyState} from '../../store';
-import {LikeDto, SetLikeRequest} from '../../../api';
+import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from "@reduxjs/toolkit";
+import {albumkApi, artistApi, likeApi, trackApi} from "../../../tools/client";
+import {MyState} from "../../store";
+import {LikeDto, SetLikeRequest} from "../../../api";
 
 export interface CachedLike {
     id: string;
@@ -18,19 +18,19 @@ const likeAdapter = createEntityAdapter<CachedLike>({
 const initialState: LikeSlideState = likeAdapter.getInitialState({});
 
 const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<LikeDto>) => {
-    return createAsyncThunk<string, { id: string }>('like/add', async (arg) => {
+    return createAsyncThunk<string, { id: string }>('like/add', async (arg, thunkAPI) => {
         const {id} = arg;
         const res = await request({
             associatedId: id
         });
-        return res.id;
+        return res.id!;
     });
 };
 
 export const addTrackLikeThunk = createAddLike((setLikeRequest => trackApi.trackLikePatch(setLikeRequest).then(res => res.data)));
 export const addAlbumLikeThunk = createAddLike((setLikeRequest => albumkApi.albumLikePatch(setLikeRequest).then(res => res.data)));
 export const addArtistLikeThunk = createAddLike((setLikeRequest => artistApi.artistLikePatch(setLikeRequest).then(res => res.data)));
-export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }) => {
+export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }, thunkAPI) => {
     await likeApi.likeDeleteDelete({
         id: arg.id
     })

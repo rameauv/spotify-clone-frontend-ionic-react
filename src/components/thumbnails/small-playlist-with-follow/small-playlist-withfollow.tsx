@@ -1,4 +1,4 @@
-import styles from './small-playlist-with-follow.module.scss';
+import styles from "./small-playlist-with-follow.module.scss";
 
 interface SmallPlaylistWithfollowProps {
     imageLink?: string;

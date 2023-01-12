@@ -1,5 +1,5 @@
 import styles from './text-button.module.scss';
-import React, {MouseEventHandler} from 'react';
+import React, {MouseEventHandler} from "react";
 import {classNames} from '../../../tools/class-names';
 
 export interface TextButtonProps {

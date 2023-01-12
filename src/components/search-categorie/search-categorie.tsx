@@ -1,5 +1,5 @@
-import styles from './search-categorie.module.scss';
-import {MouseEventHandler} from 'react';
+import styles from "./search-categorie.module.scss";
+import {MouseEventHandler} from "react";
 
 interface ContainerProps {
     onClick?: MouseEventHandler<Element> | undefined;

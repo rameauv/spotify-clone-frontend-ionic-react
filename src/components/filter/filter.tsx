@@ -1,7 +1,7 @@
-import FilteringTag from '../filtering-tag/filtering-tag';
-import styles from './filter.module.scss';
-import {IonIcon} from '@ionic/react';
-import {closeOutline} from 'ionicons/icons';
+import FilteringTag from "../filtering-tag/filtering-tag";
+import styles from "./filter.module.scss";
+import {IonIcon} from "@ionic/react";
+import {closeOutline} from "ionicons/icons";
 
 export interface Tag {
     id: string;

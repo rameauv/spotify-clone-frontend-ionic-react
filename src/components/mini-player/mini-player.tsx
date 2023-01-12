@@ -1,8 +1,8 @@
 import styles from './mini-player.module.scss';
-import HeartButton from '../buttons/heart-button/heart-button';
-import PlayButton from '../buttons/play-button/play-button';
-import {IonProgressBar} from '@ionic/react';
-import React, {useState} from 'react';
+import HeartButton from "../buttons/heart-button/heart-button";
+import PlayButton from "../buttons/play-button/play-button";
+import {IonProgressBar} from "@ionic/react";
+import React, {useState} from "react";
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 

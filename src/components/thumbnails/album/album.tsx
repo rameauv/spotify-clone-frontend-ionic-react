@@ -1,7 +1,7 @@
-import styles from './album.module.scss';
-import {useContext} from 'react';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-import {PathsContext, TabRouteParams} from '../../../pages/private-pages-router/private-pages-router';
+import styles from "./album.module.scss";
+import {useContext} from "react";
+import {useHistory, useRouteMatch} from "react-router-dom";
+import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
 
 interface ContainerProps {
     id: string;
@@ -24,7 +24,6 @@ const Album: React.FC<ContainerProps> = ({id, title, subtitle, imageLink = defau
             onClick={() => history?.push(fullpath)}
         >
             <img
-                alt="album's thumbnail"
                 className={styles.image}
                 src={imageLink}
             />

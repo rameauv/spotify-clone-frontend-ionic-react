@@ -1,23 +1,23 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonRouter} from '@ionic/react';
 import styles from './artist.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons'
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
-import {useDispatch, useSelector} from 'react-redux';
-import {MyState} from '../../store/store';
-import {CachedArtist} from '../../store/slices/artist-slice/models/cachedArtist';
-import {fetchArtist, selectArtistById} from '../../store/slices/artist-slice/artist-slice';
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+import SearchSong from "../../components/thumbnails/search-song/search-song";
+import {useDispatch, useSelector} from "react-redux";
+import {MyState} from "../../store/store";
+import {CachedArtist} from "../../store/slices/artist-slice/models/cachedArtist";
+import {fetchArtist, selectArtistById} from "../../store/slices/artist-slice/artist-slice";
 import {
     addArtistLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
-import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
-import FollowButton from '../../components/buttons/follow-button/follow-button';
-import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
-import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
+} from "../../store/slices/like-slise/like-slice";
+import BigPlayButton from "../../components/buttons/big-play-button/big-play-button";
+import FollowButton from "../../components/buttons/follow-button/follow-button";
+import RoundOutlineButton from "../../components/buttons/round-outline-button/round-outline-button";
+import IconButton, {IconButtonSize} from "../../components/buttons/icon-button/icon-button";
 
 const sectionProvider = (title: string, content: any) => {
     return (
@@ -87,11 +87,11 @@ const Artist: React.FC = () => {
             <IonContent
                 className={styles.ionContent}
                 style={{
-                    '--backgroundOpacity': bgOpacity,
-                    '--headerTitleOpacity': headerTitleOpacity,
-                    '--headerBg': headerBg,
-                    '--titleBg': titleBg,
-                    '--artistImage': `url("${artist.thumbnailUrl}")`,
+                    "--backgroundOpacity": bgOpacity,
+                    "--headerTitleOpacity": headerTitleOpacity,
+                    "--headerBg": headerBg,
+                    "--titleBg": titleBg,
+                    "--artistImage": `url("${artist.thumbnailUrl}")`,
                 }}
                 scrollEvents
                 onIonScroll={(e) => handleScrollEvent(e)}

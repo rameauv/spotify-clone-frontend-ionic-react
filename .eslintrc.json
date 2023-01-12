@@ -1,33 +1,13 @@
 {
   "plugins": [
     "cypress",
-    "chai-friendly",
-    "@typescript-eslint"
+    "chai-friendly"
   ],
   "env": {
     "cypress/globals": true
   },
   "extends": [
-    "react-app/jest",
     "plugin:cypress/recommended",
-    "plugin:chai-friendly/recommended",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "rules": {
-    "quotes": [
-      2,
-      "single",
-      {
-        "avoidEscape": true
-      }
-    ],
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-empty-interface": 0
-  },
-  "globals": {
-    "React": true,
-    "JSX": true
-  }
+    "plugin:chai-friendly/recommended"
+  ]
 }

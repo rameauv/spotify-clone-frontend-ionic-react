@@ -1,13 +1,13 @@
 import {IonContent, IonHeader, IonIcon, IonPage} from '@ionic/react';
 import styles from './settings.module.scss';
-import React from 'react';
+import React from "react";
 import {chevronForward} from 'ionicons/icons';
-import {useHistory} from 'react-router-dom';
-import {RouteComponentProps} from 'react-router';
-import {useAuth} from '../../hooks/use-auth';
-import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
-import {useSelector} from 'react-redux';
-import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
+import {useHistory} from "react-router-dom";
+import {RouteComponentProps} from "react-router";
+import {useAuth} from "../../hooks/use-auth";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
+import {useSelector} from "react-redux";
+import {selectCurrentUser} from "../../store/slices/current-user/current-user-slice";
 
 interface SettingsProps extends RouteComponentProps {
 }

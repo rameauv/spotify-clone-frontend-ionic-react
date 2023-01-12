@@ -1,8 +1,8 @@
-import styles from './library-sort-button.module.scss';
-import React from 'react';
-import {IonIcon, useIonModal} from '@ionic/react';
-import {swapVertical} from 'ionicons/icons';
-import FilterItem from '../filter-item/filter-item';
+import styles from "./library-sort-button.module.scss";
+import React from "react";
+import {IonIcon, useIonModal} from "@ionic/react";
+import {swapVertical} from "ionicons/icons";
+import FilterItem from "../filter-item/filter-item";
 
 export interface LibrarySortButtonProps {
     onSelected: (id: string) => void;
@@ -71,7 +71,7 @@ const SortModal: React.FC<SortModalProps> = ({selectedItem, onDismiss}) => {
 const LibrarySortButton: React.FC<LibrarySortButtonProps> = ({onSelected, selectedId}) => {
     const [_present, dismiss] = useIonModal(SortModal, {
         selectedItem: selectedId,
-        onDismiss: (data?: string) => {
+        onDismiss: (data?: string, role?: string) => {
             dismiss();
             if (data) {
                 onSelected(data);

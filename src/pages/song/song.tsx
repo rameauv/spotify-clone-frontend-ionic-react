@@ -1,23 +1,23 @@
 import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './song.module.scss';
 import {ellipsisVertical} from 'ionicons/icons'
-import {useEffect} from 'react';
-import MoreMenuModal from '../../components/more-menu-modal/more-menu-modal';
-import {useParams} from 'react-router-dom';
+import {useEffect} from "react";
+import MoreMenuModal from "../../components/more-menu-modal/more-menu-modal";
+import {useParams} from "react-router-dom";
 import {fetchTrack, selectById} from '../../store/slices/track-slice/track-slice';
-import {useDispatch, useSelector} from 'react-redux';
-import {MyState} from '../../store/store';
-import {CachedTrack} from '../../store/slices/track-slice/models/cachedTrack';
+import {useDispatch, useSelector} from "react-redux";
+import {MyState} from "../../store/store";
+import {CachedTrack} from "../../store/slices/track-slice/models/cachedTrack";
 import {
     addTrackLikeThunk,
     CachedLike,
     deleteLikeThunk,
     selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
-import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
-import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
-import HeartButton from '../../components/buttons/heart-button/heart-button';
-import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
+} from "../../store/slices/like-slise/like-slice";
+import HeaderWithCenteredTitle from "../../components/headers/header-with-centered-title/header-with-centered-title";
+import RoundOutlineButton from "../../components/buttons/round-outline-button/round-outline-button";
+import HeartButton from "../../components/buttons/heart-button/heart-button";
+import BigPlayButton from "../../components/buttons/big-play-button/big-play-button";
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 

@@ -1,10 +1,10 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import currentUserSliice, {CurrentUserSliiceState} from './slices/current-user/current-user-slice';
-import trackSlice, {TrackSliceState} from './slices/track-slice/track-slice';
-import albumSlice, {AlbumSliceState} from './slices/album-slice/album-slice';
-import artistSlice, {ArtistSliceState} from './slices/artist-slice/artist-slice';
-import likeSlice, {LikeSlideState} from './slices/like-slise/like-slice';
-import searchSlice, {SearchSliceState} from './slices/search-feature/search-slice';
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
+import currentUserSliice, {CurrentUserSliiceState} from "./slices/current-user/current-user-slice";
+import trackSlice, {TrackSliceState} from "./slices/track-slice/track-slice";
+import albumSlice, {AlbumSliceState} from "./slices/album-slice/album-slice";
+import artistSlice, {ArtistSliceState} from "./slices/artist-slice/artist-slice";
+import likeSlice, {LikeSlideState} from "./slices/like-slise/like-slice";
+import searchSlice, {SearchSliceState} from "./slices/search-feature/search-slice";
 
 export interface MyState {
     search: SearchSliceState,

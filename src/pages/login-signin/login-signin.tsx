@@ -1,12 +1,12 @@
 import {IonContent, IonPage, useIonRouter} from '@ionic/react';
-import styles from './login-signin.module.scss';
-import React from 'react';
-import {useRouteMatch} from 'react-router-dom';
+import styles from "./login-signin.module.scss";
+import React from "react";
+import {useRouteMatch} from "react-router-dom";
 
 interface LoginSigninProps {
 }
 
-const LoginSignin: React.FC<LoginSigninProps> = () => {
+const LoginSignin: React.FC<LoginSigninProps> = (props) => {
     const router = useIonRouter();
     const match = useRouteMatch();
 
