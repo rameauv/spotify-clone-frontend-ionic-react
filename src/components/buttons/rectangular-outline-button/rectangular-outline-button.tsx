@@ -1,5 +1,5 @@
 import styles from './rectangular-outline-button.module.scss'
-import React, {MouseEventHandler} from "react";
+import React, {MouseEventHandler} from 'react';
 
 interface RectangularOutlineButtonProps {
     title: string;

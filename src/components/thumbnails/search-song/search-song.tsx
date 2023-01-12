@@ -1,7 +1,7 @@
-import styles from "./search-song.module.scss";
-import {useHistory, useRouteMatch} from "react-router-dom";
-import {useContext} from "react";
-import {PathsContext, TabRouteParams} from "../../../pages/private-pages-router/private-pages-router";
+import styles from './search-song.module.scss';
+import {useHistory, useRouteMatch} from 'react-router-dom';
+import {useContext} from 'react';
+import {PathsContext, TabRouteParams} from '../../../pages/private-pages-router/private-pages-router';
 
 interface ContainerProps {
     id: string;

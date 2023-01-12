@@ -1,6 +1,6 @@
 import styles from './play-button.module.scss';
-import React, {MouseEventHandler} from "react";
-import {pause, play} from "ionicons/icons";
+import React, {MouseEventHandler} from 'react';
+import {pause, play} from 'ionicons/icons';
 import {IonIcon} from '@ionic/react';
 
 interface PlayButtonProps {

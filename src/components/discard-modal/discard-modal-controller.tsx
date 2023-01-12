@@ -1,8 +1,8 @@
-import React from "react";
-import {Animation, createAnimation, IonModal} from "@ionic/react";
-import styles from "./discard-modal.module.scss";
-import TextButton from "../buttons/text-button/text-button";
-import RegularButton from "../buttons/regular-button/regular-button";
+import React from 'react';
+import {Animation, createAnimation, IonModal} from '@ionic/react';
+import styles from './discard-modal.module.scss';
+import TextButton from '../buttons/text-button/text-button';
+import RegularButton from '../buttons/regular-button/regular-button';
 
 const leaveAnimation = (baseEl: HTMLElement): Animation => {
     const baseAnimation = createAnimation();
