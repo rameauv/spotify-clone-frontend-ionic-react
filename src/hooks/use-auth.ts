@@ -1,6 +1,7 @@
-import {accountsApi, publicAccountsApi} from '../tools/client';
+import {publicAccountsApi} from '../tools/client';
 import {useDispatch} from 'react-redux';
 import {fetechCurrentUser} from '../store/slices/current-user/current-user-slice';
+import {performLogout} from '../store/logout';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
@@ -18,13 +19,7 @@ export const useAuth = () => {
             await dispatch(fetechCurrentUser());
         },
         logout: async () => {
-            try {
-                await accountsApi.accountsLogoutPost();
-            } catch (e) {
-                console.error(e);
-            }
-            localStorage.clear();
-            await dispatch({name: '', type: 'USER_LOGOUT'});
+            await dispatch(performLogout());
         }
     };
 }

@@ -3,6 +3,8 @@ import {artistApi} from '../../../tools/client';
 import {Artist, CachedArtist} from './models/cachedArtist';
 import {MyState} from '../../store';
 import {addLike, deleteLike} from '../like-slise/like-slice';
+import {AxiosError} from 'axios';
+import {performLogout} from '../../logout';
 
 export interface ArtistSliceState extends EntityState<any> {
 }
@@ -14,26 +16,33 @@ const initialState: ArtistSliceState = artistAdapter.getInitialState({});
 
 export const fetchArtist = createAsyncThunk('artist/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
-    const response = await artistApi.artistIdGet(id);
-    const artistDto = response.data;
-    const mappedArtist: Artist = {
-        id: artistDto.id,
-        monthlyListeners: artistDto.monthlyListeners,
-        name: artistDto.name,
-        thumbnailUrl: artistDto.thumbnailUrl ?? undefined,
-        likeId: artistDto.likeId ?? undefined
+    try {
+        const response = await artistApi.artistIdGet(id);
+        const artistDto = response.data;
+        const mappedArtist: Artist = {
+            id: artistDto.id,
+            monthlyListeners: artistDto.monthlyListeners,
+            name: artistDto.name,
+            thumbnailUrl: artistDto.thumbnailUrl ?? undefined,
+            likeId: artistDto.likeId ?? undefined
+        }
+        if (artistDto.likeId) {
+            thunkAPI.dispatch(addLike({
+                id: artistDto.likeId,
+                associatedId: id
+            }));
+        } else {
+            thunkAPI.dispatch(deleteLike({
+                associatedId: id
+            }));
+        }
+        return mappedArtist;
+    } catch (e: unknown) {
+        if (e instanceof AxiosError && e.response?.status === 401) {
+            thunkAPI.dispatch(performLogout());
+        }
+        throw e;
     }
-    if (artistDto.likeId) {
-        thunkAPI.dispatch(addLike({
-            id: artistDto.likeId,
-            associatedId: id
-        }));
-    } else {
-        thunkAPI.dispatch(deleteLike({
-            associatedId: id
-        }));
-    }
-    return mappedArtist;
 });
 
 const artistSlice = createSlice({

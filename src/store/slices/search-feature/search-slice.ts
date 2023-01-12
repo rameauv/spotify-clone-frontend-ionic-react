@@ -2,6 +2,8 @@ import {createAsyncThunk, createSelector, createSlice} from '@reduxjs/toolkit';
 import {searchApi} from '../../../tools/client';
 import {SearchResultDto} from '../../../api';
 import {MyState} from '../../store';
+import {AxiosError} from 'axios';
+import {performLogout} from '../../logout';
 
 
 export interface SearchSliceState {
@@ -11,17 +13,19 @@ export interface SearchSliceState {
 const initialState: SearchSliceState = {}
 
 
-export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }) => {
+export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }, {dispatch}) => {
     if (!arg.q.trim()) {
         return undefined;
     }
     try {
         const response = await searchApi.searchSearchGet(arg.q);
         return response.data;
-    } catch (e: any) {
-        console.error(e);
-        if (e?.response?.status === '401') {
-            throw new Error('unauthorized')
+    } catch (e: unknown) {
+        if (e instanceof AxiosError) {
+            console.log(e.response);
+            if (e.response?.status === 401) {
+                dispatch(performLogout());
+            }
         }
         throw e;
     }

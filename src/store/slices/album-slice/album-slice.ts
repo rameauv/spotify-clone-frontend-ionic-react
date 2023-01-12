@@ -3,6 +3,8 @@ import {albumkApi} from '../../../tools/client';
 import {Album, CachedAlbum} from './models/cachedAlbum';
 import {MyState} from '../../store';
 import {addLike, deleteLike} from '../like-slise/like-slice';
+import {AxiosError} from 'axios';
+import {performLogout} from '../../logout';
 
 export interface AlbumSliceState extends EntityState<any> {
 }
@@ -14,30 +16,37 @@ const initialState: AlbumSliceState = albumAdapter.getInitialState({});
 
 export const fetchAlbum = createAsyncThunk('album/fetch', async (arg: { id: string }, thunkAPI) => {
     const {id} = arg;
-    const response = await albumkApi.albumIdGet(id);
-    const albumDto = response.data;
-    const mappedAlbum: Album = {
-        id: albumDto.id,
-        title: albumDto.title,
-        artistName: albumDto.artistName,
-        thumbnailUrl: albumDto.thumbnailUrl ?? undefined,
-        albumType: albumDto.albumType,
-        artistId: albumDto.artistId,
-        artistThumbnailUrl: albumDto.artistThumbnailUrl,
-        releaseDate: albumDto.releaseDate,
-        likeId: albumDto.likeId ?? undefined
+    try {
+        const response = await albumkApi.albumIdGet(id);
+        const albumDto = response.data;
+        const mappedAlbum: Album = {
+            id: albumDto.id,
+            title: albumDto.title,
+            artistName: albumDto.artistName,
+            thumbnailUrl: albumDto.thumbnailUrl ?? undefined,
+            albumType: albumDto.albumType,
+            artistId: albumDto.artistId,
+            artistThumbnailUrl: albumDto.artistThumbnailUrl,
+            releaseDate: albumDto.releaseDate,
+            likeId: albumDto.likeId ?? undefined
+        }
+        if (mappedAlbum.likeId) {
+            thunkAPI.dispatch(addLike({
+                id: mappedAlbum.likeId,
+                associatedId: id
+            }));
+        } else {
+            thunkAPI.dispatch(deleteLike({
+                associatedId: id
+            }));
+        }
+        return mappedAlbum;
+    } catch (e: unknown) {
+        if (e instanceof AxiosError && e.response?.status === 401) {
+            thunkAPI.dispatch(performLogout());
+        }
+        throw e;
     }
-    if (mappedAlbum.likeId) {
-        thunkAPI.dispatch(addLike({
-            id: mappedAlbum.likeId,
-            associatedId: id
-        }));
-    } else {
-        thunkAPI.dispatch(deleteLike({
-            associatedId: id
-        }));
-    }
-    return mappedAlbum;
 });
 
 const albumSlice = createSlice({
