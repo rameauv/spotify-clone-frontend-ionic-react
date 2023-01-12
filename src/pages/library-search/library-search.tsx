@@ -1,9 +1,9 @@
 import {IonContent, IonHeader, IonIcon, IonInput, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library-search.module.scss';
-import React, {useState} from "react";
+import React, {useState} from 'react';
 import {chevronBackOutline} from 'ionicons/icons';
-import {useHistory} from "react-router-dom";
-import SearchSong from "../../components/thumbnails/search-song/search-song";
+import {useHistory} from 'react-router-dom';
+import SearchSong from '../../components/thumbnails/search-song/search-song';
 
 enum Status {
     NO_INPUT,
@@ -82,7 +82,7 @@ const noInputProvider = () => {
     )
 };
 
-const LibrarySearch: React.FC = (props) => {
+const LibrarySearch: React.FC = () => {
     const [_input, _setInput] = useState('');
     const _history = useHistory();
     const handleBackButtonEvent = () => {

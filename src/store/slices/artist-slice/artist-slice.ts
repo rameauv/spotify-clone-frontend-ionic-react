@@ -1,8 +1,8 @@
-import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
-import {artistApi} from "../../../tools/client";
-import {Artist, CachedArtist} from "./models/cachedArtist";
-import {MyState} from "../../store";
-import {addLike, deleteLike} from "../like-slise/like-slice";
+import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from '@reduxjs/toolkit';
+import {artistApi} from '../../../tools/client';
+import {Artist, CachedArtist} from './models/cachedArtist';
+import {MyState} from '../../store';
+import {addLike, deleteLike} from '../like-slise/like-slice';
 
 export interface ArtistSliceState extends EntityState<any> {
 }
@@ -44,7 +44,7 @@ const artistSlice = createSlice({
         builder.addCase(fetchArtist.fulfilled, (state, action) => {
             const artist = action.payload;
             artistAdapter.setOne(state, {
-                id: artist.id!,
+                id: artist.id,
                 artist: artist,
                 status: 'succeeded',
                 error: undefined
@@ -77,9 +77,7 @@ export const {
 
 export const getArtistStatus = createSelector(
     [selectArtistById, (state, artistId) => artistId],
-    (artist, artistId) => artist?.status
+    (artist) => artist?.status
 )
-
-export const {} = artistSlice.actions;
 
 export default artistSlice.reducer;

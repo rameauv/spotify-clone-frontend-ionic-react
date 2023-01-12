@@ -1,7 +1,7 @@
-import React from "react";
-import {IonContent, IonIcon, IonPage} from "@ionic/react";
+import React from 'react';
+import {IonContent, IonIcon, IonPage} from '@ionic/react';
 import styles from './more-menu-modal.module.scss';
-import {banOutline, heartOutline, musicalNoteOutline, personOutline, shareSocialOutline} from "ionicons/icons";
+import {banOutline, heartOutline, musicalNoteOutline, personOutline, shareSocialOutline} from 'ionicons/icons';
 
 export interface MoreMenuModalItem {
     thumbnailUrl: string;

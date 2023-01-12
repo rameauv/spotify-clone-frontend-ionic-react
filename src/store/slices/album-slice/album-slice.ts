@@ -1,8 +1,8 @@
-import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from "@reduxjs/toolkit";
-import {albumkApi} from "../../../tools/client";
-import {Album, CachedAlbum} from "./models/cachedAlbum";
-import {MyState} from "../../store";
-import {addLike, deleteLike} from "../like-slise/like-slice";
+import {createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityState} from '@reduxjs/toolkit';
+import {albumkApi} from '../../../tools/client';
+import {Album, CachedAlbum} from './models/cachedAlbum';
+import {MyState} from '../../store';
+import {addLike, deleteLike} from '../like-slise/like-slice';
 
 export interface AlbumSliceState extends EntityState<any> {
 }
@@ -48,7 +48,7 @@ const albumSlice = createSlice({
         builder.addCase(fetchAlbum.fulfilled, (state, action) => {
             const album = action.payload;
             albumAdapter.setOne(state, {
-                id: album.id!,
+                id: album.id,
                 album: album,
                 status: 'succeeded',
                 error: undefined
@@ -81,9 +81,7 @@ export const {
 
 export const getAlbumStatus = createSelector(
     [selectAlbumById, (state, albumId) => albumId],
-    (album, albumId) => album?.status
+    (album) => album?.status
 )
-
-export const {} = albumSlice.actions;
 
 export default albumSlice.reducer;

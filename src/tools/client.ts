@@ -95,8 +95,6 @@ export {
 };
 
 async function refreshToken() {
-    const jwt = localStorage.getItem('jwt');
-
     const response = await publicAccountsApi.accountsRefreshAccessTokenPost({
         withCredentials: true
     });

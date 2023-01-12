@@ -1,7 +1,7 @@
-import styles from "./search-input.module.scss";
-import React, {MouseEventHandler, useState} from "react";
-import {IonIcon} from "@ionic/react";
-import {arrowBackOutline} from "ionicons/icons";
+import styles from './search-input.module.scss';
+import React, {MouseEventHandler, useState} from 'react';
+import {IonIcon} from '@ionic/react';
+import {arrowBackOutline} from 'ionicons/icons';
 
 interface ContainerProps {
     onBack?: MouseEventHandler<Element> | undefined;
@@ -10,7 +10,7 @@ interface ContainerProps {
 }
 
 const SearchInput: React.FC<ContainerProps> = ({onBack, onChange, value}) => {
-    const [searchQuery, setSearchQuery] = useState<string>(value ?? "");
+    const [searchQuery, setSearchQuery] = useState<string>(value ?? '');
     const handleChange = (event: any) => {
         const {value: newValue} = event.target;
         setSearchQuery(newValue);
