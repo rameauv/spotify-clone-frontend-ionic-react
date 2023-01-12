@@ -2,6 +2,8 @@ import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, Payload
 import {albumkApi, artistApi, likeApi, trackApi} from '../../../tools/client';
 import {MyState} from '../../store';
 import {LikeDto, SetLikeRequest} from '../../../api';
+import {AxiosError} from 'axios';
+import {performLogout} from '../../logout';
 
 export interface CachedLike {
     id: string;
@@ -18,22 +20,36 @@ const likeAdapter = createEntityAdapter<CachedLike>({
 const initialState: LikeSlideState = likeAdapter.getInitialState({});
 
 const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<LikeDto>) => {
-    return createAsyncThunk<string, { id: string }>('like/add', async (arg) => {
+    return createAsyncThunk<string, { id: string }>('like/add', async (arg, {dispatch}) => {
         const {id} = arg;
-        const res = await request({
-            associatedId: id
-        });
-        return res.id;
+        try {
+            const res = await request({
+                associatedId: id
+            });
+            return res.id;
+        } catch (e: unknown) {
+            if (e instanceof AxiosError && e.response?.status === 401) {
+                dispatch(performLogout());
+            }
+            throw e;
+        }
     });
 };
 
 export const addTrackLikeThunk = createAddLike((setLikeRequest => trackApi.trackLikePatch(setLikeRequest).then(res => res.data)));
 export const addAlbumLikeThunk = createAddLike((setLikeRequest => albumkApi.albumLikePatch(setLikeRequest).then(res => res.data)));
 export const addArtistLikeThunk = createAddLike((setLikeRequest => artistApi.artistLikePatch(setLikeRequest).then(res => res.data)));
-export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }) => {
-    await likeApi.likeDeleteDelete({
-        id: arg.id
-    })
+export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }, {dispatch}) => {
+    try {
+        await likeApi.likeDeleteDelete({
+            id: arg.id
+        })
+    } catch (e: unknown) {
+        if (e instanceof AxiosError && e.response?.status === 401) {
+            dispatch(performLogout());
+        }
+        throw e;
+    }
 });
 
 const likeSlice = createSlice({
