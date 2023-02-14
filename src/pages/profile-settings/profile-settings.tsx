@@ -36,7 +36,7 @@ const ProfileSettings: React.FC<ProfileSettingsProps> = () => {
         const tempTitleOpacity = (((scrollTop - 37) / 80));
         setBgOpacity(limitOpacity(0, 1, tempBgOpacity));
         setTitleOpacity(limitOpacity(0, 1, tempTitleOpacity));
-    }
+    };
     const profileTitle = useSelector<MyState, CurrentUser | undefined>(selectCurrentUser)?.name ?? '';
     return (
         <IonPage

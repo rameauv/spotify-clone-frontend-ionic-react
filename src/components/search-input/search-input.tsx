@@ -17,13 +17,13 @@ const SearchInput: React.FC<ContainerProps> = ({onBack, onChange, value}) => {
         if (onChange) {
             onChange(newValue);
         }
-    }
+    };
     const handleClearEvent = () => {
         setSearchQuery('');
         if (onChange) {
             onChange('');
         }
-    }
+    };
 
     return (
         <div className={styles.container}>

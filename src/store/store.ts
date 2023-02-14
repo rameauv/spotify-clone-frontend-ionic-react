@@ -31,7 +31,7 @@ const rootReducer: (state: any, action: any) => MyState = (state: any, action: a
             ...state, currentUser: {
                 status: 'succeeded'
             }
-        }
+        };
     }
     return combinedReducer(state, action);
 };

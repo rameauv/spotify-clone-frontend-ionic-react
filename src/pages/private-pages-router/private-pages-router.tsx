@@ -19,10 +19,10 @@ import MiniPlayer from '../../components/mini-player/mini-player';
 
 const loadKeyboardModule = async () => {
     if (isPlatform('hybrid')) {
-        return import('@capacitor/keyboard')
+        return import('@capacitor/keyboard');
     }
-    return undefined
-}
+    return undefined;
+};
 
 const keyboardModulePromise = loadKeyboardModule();
 
@@ -65,7 +65,7 @@ const createPaths = (basePath: string) => {
         'serach-advanceSearch': (tab: string) => `${basePath}/${tab}/advanced`
     };
     return paths;
-}
+};
 
 const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
     const [ready, setReady] = useState<boolean>(false);

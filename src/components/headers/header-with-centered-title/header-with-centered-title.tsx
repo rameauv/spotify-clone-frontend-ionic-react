@@ -27,6 +27,6 @@ const HeaderWithCenteredTitle: React.FC<HeaderWithCenterdTitleProps> = ({title})
             </div>
         </IonToolbar>
     );
-}
+};
 
 export default HeaderWithCenteredTitle;

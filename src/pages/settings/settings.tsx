@@ -22,7 +22,7 @@ const Settings: React.FC<SettingsProps> = (props) => {
     };
     const handleLogoutEvent = () => {
         authHook.logout();
-    }
+    };
     const profileTitle = currentUser?.name ?? '';
     return (
         <IonPage>

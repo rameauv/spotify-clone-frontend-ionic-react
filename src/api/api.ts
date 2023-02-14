@@ -245,20 +245,6 @@ export interface CurrentUserDto {
 /**
  *
  * @export
- * @interface DeleteLikeDto
- */
-export interface DeleteLikeDto {
-    /**
-     *
-     * @type {string}
-     * @memberof DeleteLikeDto
-     */
-    'id'?: string | null;
-}
-
-/**
- *
- * @export
  * @interface ErrorDto
  */
 export interface ErrorDto {
@@ -412,20 +398,6 @@ export interface SearchResultDto {
      * @memberof SearchResultDto
      */
     'artistResult': Array<ArtistSearchResultDto>;
-}
-
-/**
- *
- * @export
- * @interface SetLikeRequest
- */
-export interface SetLikeRequest {
-    /**
-     *
-     * @type {string}
-     * @memberof SetLikeRequest
-     */
-    'associatedId'?: string | null;
 }
 
 /**
@@ -705,7 +677,7 @@ export const AccountsApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async accountsLogoutPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NewAccessTokenDto>> {
+        async accountsLogoutPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.accountsLogoutPost(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -752,7 +724,7 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        accountsLogoutPost(options?: any): AxiosPromise<NewAccessTokenDto> {
+        accountsLogoutPost(options?: any): AxiosPromise<void> {
             return localVarFp.accountsLogoutPost(options).then((request) => request(axios, basePath));
         },
         /**
@@ -871,6 +843,42 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
         /**
          *
          * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdLikePatch: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('albumIdLikePatch', 'id', id)
+            const localVarPath = `/Album/{id}/Like`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
          * @param {*} [options] Override http request option.
@@ -914,42 +922,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
-        /**
-         *
-         * @param {SetLikeRequest} [setLikeRequest]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        albumLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Album/Like`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = {method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication JWT required
-            // http bearer authentication required
-            await setBearerAuthToObject(localVarHeaderParameter, configuration)
-
-
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -973,6 +945,16 @@ export const AlbumApiFp = function (configuration?: Configuration) {
         /**
          *
          * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async albumIdLikePatch(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdLikePatch(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
          * @param {*} [options] Override http request option.
@@ -980,16 +962,6 @@ export const AlbumApiFp = function (configuration?: Configuration) {
          */
         async albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AlbumTracksDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.albumIdTracksGet(id, limit, offset, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         *
-         * @param {SetLikeRequest} [setLikeRequest]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.albumLikePatch(setLikeRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1014,6 +986,15 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
         /**
          *
          * @param {string} id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        albumIdLikePatch(id: string, options?: any): AxiosPromise<LikeDto> {
+            return localVarFp.albumIdLikePatch(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
          * @param {*} [options] Override http request option.
@@ -1021,15 +1002,6 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
          */
         albumIdTracksGet(id: string, limit?: number, offset?: number, options?: any): AxiosPromise<AlbumTracksDto> {
             return localVarFp.albumIdTracksGet(id, limit, offset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         *
-         * @param {SetLikeRequest} [setLikeRequest]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        albumLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
-            return localVarFp.albumLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1055,6 +1027,17 @@ export class AlbumApi extends BaseAPI {
     /**
      *
      * @param {string} id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AlbumApi
+     */
+    public albumIdLikePatch(id: string, options?: AxiosRequestConfig) {
+        return AlbumApiFp(this.configuration).albumIdLikePatch(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {string} id
      * @param {number} [limit]
      * @param {number} [offset]
      * @param {*} [options] Override http request option.
@@ -1063,17 +1046,6 @@ export class AlbumApi extends BaseAPI {
      */
     public albumIdTracksGet(id: string, limit?: number, offset?: number, options?: AxiosRequestConfig) {
         return AlbumApiFp(this.configuration).albumIdTracksGet(id, limit, offset, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     *
-     * @param {SetLikeRequest} [setLikeRequest]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AlbumApi
-     */
-    public albumLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
-        return AlbumApiFp(this.configuration).albumLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1122,12 +1094,15 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        artistLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Artist/Like`;
+        artistIdLikePatch: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('artistIdLikePatch', 'id', id)
+            const localVarPath = `/Artist/{id}/Like`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1144,12 +1119,9 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1178,12 +1150,12 @@ export const ArtistApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.artistLikePatch(setLikeRequest, options);
+        async artistIdLikePatch(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.artistIdLikePatch(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1207,12 +1179,12 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        artistLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
-            return localVarFp.artistLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
+        artistIdLikePatch(id: string, options?: any): AxiosPromise<LikeDto> {
+            return localVarFp.artistIdLikePatch(id, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1237,13 +1209,13 @@ export class ArtistApi extends BaseAPI {
 
     /**
      *
-     * @param {SetLikeRequest} [setLikeRequest]
+     * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ArtistApi
      */
-    public artistLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
-        return ArtistApiFp(this.configuration).artistLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
+    public artistIdLikePatch(id: string, options?: AxiosRequestConfig) {
+        return ArtistApiFp(this.configuration).artistIdLikePatch(id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1256,12 +1228,15 @@ export const LikeApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          *
-         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        likeDeleteDelete: async (deleteLikeDto?: DeleteLikeDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Like/Delete`;
+        likeIdDeleteDelete: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('likeIdDeleteDelete', 'id', id)
+            const localVarPath = `/Like/{id}/Delete`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1278,12 +1253,9 @@ export const LikeApiAxiosParamCreator = function (configuration?: Configuration)
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(deleteLikeDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1302,12 +1274,12 @@ export const LikeApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.likeDeleteDelete(deleteLikeDto, options);
+        async likeIdDeleteDelete(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.likeIdDeleteDelete(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1322,12 +1294,12 @@ export const LikeApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          *
-         * @param {DeleteLikeDto} [deleteLikeDto]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: any): AxiosPromise<void> {
-            return localVarFp.likeDeleteDelete(deleteLikeDto, options).then((request) => request(axios, basePath));
+        likeIdDeleteDelete(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.likeIdDeleteDelete(id, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1341,13 +1313,13 @@ export const LikeApiFactory = function (configuration?: Configuration, basePath?
 export class LikeApi extends BaseAPI {
     /**
      *
-     * @param {DeleteLikeDto} [deleteLikeDto]
+     * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LikeApi
      */
-    public likeDeleteDelete(deleteLikeDto?: DeleteLikeDto, options?: AxiosRequestConfig) {
-        return LikeApiFp(this.configuration).likeDeleteDelete(deleteLikeDto, options).then((request) => request(this.axios, this.basePath));
+    public likeIdDeleteDelete(id: string, options?: AxiosRequestConfig) {
+        return LikeApiFp(this.configuration).likeIdDeleteDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1519,12 +1491,15 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trackLikePatch: async (setLikeRequest?: SetLikeRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/Track/Like`;
+        trackIdLikePatch: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('trackIdLikePatch', 'id', id)
+            const localVarPath = `/Track/{id}/Like`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1541,12 +1516,9 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
 
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setLikeRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1575,12 +1547,12 @@ export const TrackApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.trackLikePatch(setLikeRequest, options);
+        async trackIdLikePatch(id: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LikeDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.trackIdLikePatch(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1604,12 +1576,12 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          *
-         * @param {SetLikeRequest} [setLikeRequest]
+         * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        trackLikePatch(setLikeRequest?: SetLikeRequest, options?: any): AxiosPromise<LikeDto> {
-            return localVarFp.trackLikePatch(setLikeRequest, options).then((request) => request(axios, basePath));
+        trackIdLikePatch(id: string, options?: any): AxiosPromise<LikeDto> {
+            return localVarFp.trackIdLikePatch(id, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1634,13 +1606,13 @@ export class TrackApi extends BaseAPI {
 
     /**
      *
-     * @param {SetLikeRequest} [setLikeRequest]
+     * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TrackApi
      */
-    public trackLikePatch(setLikeRequest?: SetLikeRequest, options?: AxiosRequestConfig) {
-        return TrackApiFp(this.configuration).trackLikePatch(setLikeRequest, options).then((request) => request(this.axios, this.basePath));
+    public trackIdLikePatch(id: string, options?: AxiosRequestConfig) {
+        return TrackApiFp(this.configuration).trackIdLikePatch(id, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

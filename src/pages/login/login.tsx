@@ -19,7 +19,7 @@ const Login: React.FC<LoginProps> = () => {
     const [state, setState] = useState<State>({
         username: '',
         password: '',
-    })
+    });
 
     const valid = state.username && state.password;
     const handleLoginButtonClick = () => {
@@ -27,14 +27,14 @@ const Login: React.FC<LoginProps> = () => {
             username: state.username,
             password: state.password
         });
-    }
+    };
     const handleUserNameInputEvent = (event: any) => {
         const value = event.target.value;
         setState({
             ...state,
             username: value
         });
-    }
+    };
 
     const handlePasswardInputEvent = (event: any) => {
         const value = event.target.value;
@@ -42,7 +42,7 @@ const Login: React.FC<LoginProps> = () => {
             ...state,
             password: value
         });
-    }
+    };
     return (
         <IonPage>
             <IonHeader>

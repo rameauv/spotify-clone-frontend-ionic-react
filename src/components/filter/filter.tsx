@@ -20,7 +20,7 @@ const Filter: React.FC<ContainerProps> = ({tags = [], selectedTagId, onTagSelect
     };
     const handleCloseEvent = () => {
         onTagSelected(undefined);
-    }
+    };
     const tagProvider = (tag: Tag, selectedTag: string | undefined, handleTagSelection: (tagId: string) => void) => {
         return (
             <FilteringTag
@@ -29,20 +29,20 @@ const Filter: React.FC<ContainerProps> = ({tags = [], selectedTagId, onTagSelect
             >
                 {tag.value}
             </FilteringTag>
-        )
-    }
+        );
+    };
 
     const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tagId: string) => void) => {
         return tags.reduce<JSX.Element[]>((previousValue, currentValue) => {
             if (selectedTag !== undefined && currentValue.id !== selectedTag) {
-                return previousValue
+                return previousValue;
             }
             return [
                 ...previousValue,
                 tagProvider(currentValue, selectedTag, handleTagSelection)
-            ]
-        }, [])
-    }
+            ];
+        }, []);
+    };
     const closeButtonProvider = () => selectedTagId !== undefined ? (
         <IonIcon className={styles.closeButton} icon={closeOutline} onClick={() => handleCloseEvent()}/>
     ) : undefined;

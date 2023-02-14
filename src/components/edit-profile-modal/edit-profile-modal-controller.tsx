@@ -31,7 +31,7 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
             return;
         }
         setProfileTitle(e.target.value);
-    }
+    };
 
     const handleSaveButtonEvent = async () => {
         if (saveDisabled) {
@@ -47,7 +47,7 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
             return;
         }
         onClose();
-    }
+    };
 
     const handleCloseEvent = () => {
         if (!saveDisabled) {
@@ -59,7 +59,7 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
             return;
         }
         onClose();
-    }
+    };
 
     const handleDiscardModalClodeEvent = (result: { discard: boolean }) => {
         setShowAlert(false);
@@ -67,7 +67,7 @@ const EditProfileModalController: React.FC<EditProfileModalControllerProps> = ({
             setProfileTitle(oldProfileTitle);
             onClose();
         }
-    }
+    };
 
     return (
         <IonModal isOpen={isOpen} keepContentsMounted={false}>

@@ -10,7 +10,7 @@ export const useAuth = () => {
             const response = await publicAccountsApi.accountsLoginPost({
                 username: credentials.username,
                 password: credentials.password
-            })
+            });
             const token = response.data;
             if (!token?.accessToken) {
                 return;
@@ -22,4 +22,4 @@ export const useAuth = () => {
             await dispatch(performLogout());
         }
     };
-}
+};

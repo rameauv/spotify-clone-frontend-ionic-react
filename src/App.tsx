@@ -28,7 +28,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import './design-system/styles/style.scss'
+import './design-system/styles/style.scss';
 import React, {useEffect} from 'react';
 
 import styles from './App.module.scss';
@@ -46,12 +46,12 @@ setupIonicReact();
 
 const loadStatusBarModule = async () => {
     if (isPlatform('hybrid')) {
-        const {StatusBar, Style} = await import('@capacitor/status-bar')
+        const {StatusBar, Style} = await import('@capacitor/status-bar');
         await StatusBar.setStyle({
             style: Style.Dark
-        })
+        });
     }
-}
+};
 
 loadStatusBarModule();
 
@@ -59,17 +59,17 @@ const App: React.FC = () => {
     const status = useSelector(selectCurrentUserStatus);
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('use effect')
+        console.log('use effect');
         if (status === 'idle') {
             dispatch(fetechCurrentUser());
         }
-    }, [status, dispatch])
+    }, [status, dispatch]);
     const retry = () => {
         console.log('retry');
         dispatch(fetechCurrentUser());
     };
     if (status === 'loading') {
-        return (<p>loading...</p>)
+        return (<p>loading...</p>);
     }
     if (status === 'failed') {
         return (
@@ -82,7 +82,7 @@ const App: React.FC = () => {
                     </IonContent>
                 </IonPage>
             </IonApp>
-        )
+        );
     }
     return (
         <IonApp className={styles.container}>
@@ -107,7 +107,7 @@ const App: React.FC = () => {
                 </IonRouterOutlet>
             </IonReactRouter>
         </IonApp>
-    )
+    );
 };
 
 export default App;

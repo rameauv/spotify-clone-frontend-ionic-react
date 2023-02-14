@@ -12,7 +12,7 @@ const LoginSignin: React.FC<LoginSigninProps> = () => {
 
     const handleDiscardEvent = () => {
         router.push(`${match.url}login`);
-    }
+    };
     return (
         <IonPage>
             <IonContent

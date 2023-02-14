@@ -10,7 +10,7 @@ export interface SearchSliceState {
     results?: SearchResultDto;
 }
 
-const initialState: SearchSliceState = {}
+const initialState: SearchSliceState = {};
 
 
 export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }, {dispatch}) => {

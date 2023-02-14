@@ -19,7 +19,7 @@ interface Data {
 const result: Result = {
     title: 'Hope',
     description: 'Song - XXXTENTACION'
-}
+};
 
 const resultsDb: Result[] = [
     result,
@@ -40,13 +40,13 @@ const resultsDb: Result[] = [
 
 const computeStatus = (data: Data) => {
     if (data.results.length) {
-        return Status.RESULTS
+        return Status.RESULTS;
     }
     if (!data.input.length) {
         return Status.NO_INPUT;
     }
-    return Status.NO_RESULTS
-}
+    return Status.NO_RESULTS;
+};
 
 interface Result {
     title: string;
@@ -61,7 +61,7 @@ const resultsProvider = (data: Result[]) => {
                             artistName={item.description}></SearchSong>))}
         </div>
     );
-}
+};
 
 const noResultProvider = (input: string) => {
     return (
@@ -70,7 +70,7 @@ const noResultProvider = (input: string) => {
             <p className={styles.noResultContainer__inputText}>{`"${input}"`}</p>
             <p className={styles.noResultContainer__tip}>Try searching again using a diffrent spelling or keyword</p>
         </div>
-    )
+    );
 };
 
 const noInputProvider = () => {
@@ -79,7 +79,7 @@ const noInputProvider = () => {
             <p className={styles.noInputContainer__title}>Find your favorites</p>
             <p className={styles.noInputContainer__tip}>Search everything you've liked, followed, or created</p>
         </div>
-    )
+    );
 };
 
 const LibrarySearch: React.FC = () => {
