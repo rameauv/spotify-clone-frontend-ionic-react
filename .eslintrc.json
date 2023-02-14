@@ -24,7 +24,8 @@
       }
     ],
     "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-empty-interface": 0
+    "@typescript-eslint/no-empty-interface": 0,
+    "semi": "error"
   },
   "globals": {
     "React": true,

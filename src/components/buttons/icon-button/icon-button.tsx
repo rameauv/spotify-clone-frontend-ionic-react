@@ -24,6 +24,6 @@ const IconButton: React.FC<IconButtonProps> = ({onClick, icon, size}) => {
             onClick={onClick}
         />
     );
-}
+};
 
 export default IconButton;

@@ -1,6 +1,6 @@
 import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar, useIonRouter} from '@ionic/react';
 import styles from './artist.module.scss';
-import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons'
+import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import SearchSong from '../../components/thumbnails/search-song/search-song';
@@ -25,8 +25,8 @@ const sectionProvider = (title: string, content: any) => {
             <p className={styles.section__title}>Popular releases</p>
             {content}
         </div>
-    )
-}
+    );
+};
 
 const Artist: React.FC = () => {
     const [bgOpacity, setBgOpacity] = useState(0.3);
@@ -53,12 +53,12 @@ const Artist: React.FC = () => {
         const tempBgOpacity = ((scrollTop / 176) * 0.6) + 0.4;
         const tempTitleOpacity = (scrollTop - 206) / (276 - 206);
         const tempTitleBg = scrollTop >= 213 ? 'linear-gradient(180deg, var(--accentColor) var(--titleGradientStart), var(--app-color-backgroud-1) var(--titleGradientEnd))' : 'transparent';
-        const tempHeaderBg = scrollTop >= 206 ? 'linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos))' : 'transparent'
+        const tempHeaderBg = scrollTop >= 206 ? 'linear-gradient(180deg, var(--accentColor) 0px, var(--accentColor) var(--contentGradientStartPos), var(--app-color-backgroud-1) var(--contentGradientEndPos))' : 'transparent';
         setHeaderBg(tempHeaderBg);
         setHeaderTitleOpacity(tempTitleOpacity);
         setBgOpacity(tempBgOpacity);
-        setTitleBg(tempTitleBg)
-    }
+        setTitleBg(tempTitleBg);
+    };
 
     const handleFollowButtonEvent = () => {
         if (cachedLike) {

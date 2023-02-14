@@ -5,7 +5,7 @@ const enterAnimation = (baseEl: HTMLElement): Animation => {
     const backdropAnimation = createAnimation();
     const wrapperAnimation = createAnimation();
     const ionBackdrop = baseEl.shadowRoot?.querySelector('ion-backdrop');
-    const modalWrapper = baseEl.shadowRoot?.querySelector('.modal-wrapper')
+    const modalWrapper = baseEl.shadowRoot?.querySelector('.modal-wrapper');
 
     if (!ionBackdrop || !modalWrapper) {
         throw new ReferenceError('could not obtain the ionBackdrop or the modalWrapper');

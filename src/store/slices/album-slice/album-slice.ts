@@ -29,7 +29,7 @@ export const fetchAlbum = createAsyncThunk('album/fetch', async (arg: { id: stri
             artistThumbnailUrl: albumDto.artistThumbnailUrl,
             releaseDate: albumDto.releaseDate,
             likeId: albumDto.likeId ?? undefined
-        }
+        };
         if (mappedAlbum.likeId) {
             thunkAPI.dispatch(addLike({
                 id: mappedAlbum.likeId,
@@ -91,6 +91,6 @@ export const {
 export const getAlbumStatus = createSelector(
     [selectAlbumById, (state, albumId) => albumId],
     (album) => album?.status
-)
+);
 
 export default albumSlice.reducer;

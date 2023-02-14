@@ -25,6 +25,6 @@ const ModalHeader: React.FC<ModalHeaderProps> = ({onClose, children}) => {
             </div>
         </IonToolbar>
     );
-}
+};
 
 export default ModalHeader;

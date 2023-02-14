@@ -1,6 +1,6 @@
 import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './album.module.scss';
-import {ellipsisVerticalSharp, playCircle} from 'ionicons/icons'
+import {ellipsisVerticalSharp, playCircle} from 'ionicons/icons';
 import React, {useContext, useEffect} from 'react';
 import MoreMenuModal from '../../components/more-menu-modal/more-menu-modal';
 import {Link, useParams, useRouteMatch} from 'react-router-dom';

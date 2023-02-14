@@ -27,6 +27,6 @@ const HeaderWithLeftTitle: React.FC<HeaderWithLeftTitleProps> = ({title}) => {
             </div>
         </IonToolbar>
     );
-}
+};
 
 export default HeaderWithLeftTitle;

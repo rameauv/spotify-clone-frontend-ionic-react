@@ -5,7 +5,7 @@ import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi}
 const throwIfEnvVariableMissing = (envVariableName: string) => {
     const value = process.env[envVariableName];
     if (value == null || value.trim() === '') {
-        throw new Error(`please set the env variable ${envVariableName}`)
+        throw new Error(`please set the env variable ${envVariableName}`);
     }
     return value;
 };

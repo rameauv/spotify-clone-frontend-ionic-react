@@ -1,6 +1,6 @@
 import {IonContent, IonHeader, IonIcon, IonPage, useIonModal} from '@ionic/react';
 import styles from './song.module.scss';
-import {ellipsisVertical} from 'ionicons/icons'
+import {ellipsisVertical} from 'ionicons/icons';
 import {useEffect} from 'react';
 import MoreMenuModal from '../../components/more-menu-modal/more-menu-modal';
 import {useParams} from 'react-router-dom';

@@ -17,13 +17,13 @@ const DiscardModalController: React.FC<EditProfileModalControllerProps> = ({isOp
             return;
         }
         onClose({discard: true});
-    }
+    };
 
     const handleKeepEditingEvent = () => {
         if (onClose) {
             onClose({discard: false});
         }
-    }
+    };
 
     return (
         <IonModal

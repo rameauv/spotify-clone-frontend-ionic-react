@@ -22,7 +22,7 @@ export const fetchTrack = createAsyncThunk<Track, { id: string }>('track/fetch',
         artistName: track.artistName,
         thumbnailUrl: track.thumbnailUrl ?? undefined,
         likeId: track.likeId ?? undefined
-    }
+    };
     if (mappedTrack.likeId) {
         thunkAPI.dispatch(addLike({
             id: mappedTrack.likeId,
@@ -41,7 +41,7 @@ const trackSlice = createSlice({
     initialState,
     reducers: {
         initialize: (state, action) => {
-            console.log(action.payload)
+            console.log(action.payload);
         }
     },
     extraReducers: builder => {
@@ -82,6 +82,6 @@ export const {
 export const getTrackStatus = createSelector(
     [selectById, (state, trackId) => trackId],
     (track) => track?.status
-)
+);
 
 export default trackSlice.reducer;

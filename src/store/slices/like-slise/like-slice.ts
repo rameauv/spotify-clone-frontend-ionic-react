@@ -1,7 +1,7 @@
 import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from '@reduxjs/toolkit';
 import {albumkApi, artistApi, likeApi, trackApi} from '../../../tools/client';
 import {MyState} from '../../store';
-import {LikeDto, SetLikeRequest} from '../../../api';
+import {LikeDto} from '../../../api';
 import {AxiosError} from 'axios';
 import {performLogout} from '../../logout';
 
@@ -19,13 +19,11 @@ const likeAdapter = createEntityAdapter<CachedLike>({
 
 const initialState: LikeSlideState = likeAdapter.getInitialState({});
 
-const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<LikeDto>) => {
+const createAddLike = (request: (id: string) => Promise<LikeDto>) => {
     return createAsyncThunk<string, { id: string }>('like/add', async (arg, {dispatch}) => {
         const {id} = arg;
         try {
-            const res = await request({
-                associatedId: id
-            });
+            const res = await request(id);
             return res.id;
         } catch (e: unknown) {
             if (e instanceof AxiosError && e.response?.status === 401) {
@@ -36,14 +34,12 @@ const createAddLike = (request: (setLikeRequest: SetLikeRequest) => Promise<Like
     });
 };
 
-export const addTrackLikeThunk = createAddLike((setLikeRequest => trackApi.trackLikePatch(setLikeRequest).then(res => res.data)));
-export const addAlbumLikeThunk = createAddLike((setLikeRequest => albumkApi.albumLikePatch(setLikeRequest).then(res => res.data)));
-export const addArtistLikeThunk = createAddLike((setLikeRequest => artistApi.artistLikePatch(setLikeRequest).then(res => res.data)));
+export const addTrackLikeThunk = createAddLike(((id) => trackApi.trackIdLikePatch(id).then(res => res.data)));
+export const addAlbumLikeThunk = createAddLike(((id) => albumkApi.albumIdLikePatch(id).then(res => res.data)));
+export const addArtistLikeThunk = createAddLike(((id) => artistApi.artistIdLikePatch(id).then(res => res.data)));
 export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }, {dispatch}) => {
     try {
-        await likeApi.likeDeleteDelete({
-            id: arg.id
-        })
+        await likeApi.likeIdDeleteDelete(arg.id);
     } catch (e: unknown) {
         if (e instanceof AxiosError && e.response?.status === 401) {
             dispatch(performLogout());
