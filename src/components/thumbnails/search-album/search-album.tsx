@@ -35,4 +35,4 @@ export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageL
             </div>
         </div>
     );
-}
+};

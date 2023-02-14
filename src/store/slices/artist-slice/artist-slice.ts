@@ -25,7 +25,7 @@ export const fetchArtist = createAsyncThunk('artist/fetch', async (arg: { id: st
             name: artistDto.name,
             thumbnailUrl: artistDto.thumbnailUrl ?? undefined,
             likeId: artistDto.likeId ?? undefined
-        }
+        };
         if (artistDto.likeId) {
             thunkAPI.dispatch(addLike({
                 id: artistDto.likeId,
@@ -87,6 +87,6 @@ export const {
 export const getArtistStatus = createSelector(
     [selectArtistById, (state, artistId) => artistId],
     (artist) => artist?.status
-)
+);
 
 export default artistSlice.reducer;

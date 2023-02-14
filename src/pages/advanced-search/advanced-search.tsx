@@ -24,17 +24,17 @@ const tagProvider = (text: string, selectedTag: string | undefined, handleTagSel
         >
             {text}
         </FilteringTag>
-    )
-}
+    );
+};
 
 const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
     return tags.reduce<JSX.Element[]>((previousValue, currentValue) => {
         return [
             ...previousValue,
             tagProvider(currentValue, selectedTag, handleTagSelection)
-        ]
-    }, [])
-}
+        ];
+    }, []);
+};
 
 let searchThunkPromise: any;
 
@@ -77,13 +77,13 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             ...mappedTracks,
             ...mappedAlbums,
             ...mappedArtists
-        ]
+        ];
         _setResults(elements);
     }, [searchResult]);
 
     const searchResultRequest = useMemo(() => {
         return debounce(async (q: string) => {
-            searchThunkPromise?.abort()
+            searchThunkPromise?.abort();
 
             searchThunkPromise = dispatch(fetchSearchResults({q}));
             searchThunkPromise.unwrap()

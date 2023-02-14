@@ -30,4 +30,4 @@ export const SearchArtist: React.FC<SearchArtistProps> = ({id, name, imageLink})
             </div>
         </div>
     );
-}
+};

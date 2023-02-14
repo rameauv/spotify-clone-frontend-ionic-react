@@ -1,4 +1,4 @@
-import styles from './rectangular-outline-button.module.scss'
+import styles from './rectangular-outline-button.module.scss';
 import React, {MouseEventHandler} from 'react';
 
 interface RectangularOutlineButtonProps {
@@ -16,6 +16,6 @@ const RectangularOutlineButton: React.FC<RectangularOutlineButtonProps> = ({onCl
             <p>{title}</p>
         </div>
     );
-}
+};
 
 export default RectangularOutlineButton;
