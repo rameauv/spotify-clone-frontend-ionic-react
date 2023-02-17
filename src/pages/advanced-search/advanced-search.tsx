@@ -106,32 +106,43 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             searchState.complete?.();
             return;
         }
-        const mappedTracks = searchResult.songResult?.map(track => (<SearchSong
-            key={track.id}
-            id={track.id}
-            title={track.title ?? 'unknown'}
-            artistName={track.artistName}
-            imageLink={track.thumbnailUrl ?? undefined}
-        ></SearchSong>)) ?? [];
-        const mappedAlbums = searchResult.albumResult?.map(album => (<SearchAlbum
-            key={album.id}
-            id={album.id}
-            title={album.title ?? 'unknown'}
-            artistName={album.artistName}
-            imageLink={album.thumbnailUrl ?? undefined}
-            type="Album"
-        ></SearchAlbum>)) ?? [];
-        const mappedArtists = searchResult.artistResult?.map(artist => (<SearchArtist
-            key={artist.id}
-            id={artist.id}
-            name={artist.name ?? 'unknown'}
-            imageLink={artist.thumbnailUrl ?? undefined}
-        ></SearchArtist>)) ?? [];
+        const mappedTracks = searchResult.songResult?.map(track => ({
+            order: track.order,
+            element: <SearchSong
+                key={track.id}
+                id={track.id}
+                title={track.title ?? 'unknown'}
+                artistName={track.artistName}
+                imageLink={track.thumbnailUrl ?? undefined}
+            ></SearchSong>
+        })) ?? [];
+        const mappedAlbums = searchResult.albumResult?.map(album => ({
+            order: album.order,
+            element: <SearchAlbum
+                key={album.id}
+                id={album.id}
+                title={album.title ?? 'unknown'}
+                artistName={album.artistName}
+                imageLink={album.thumbnailUrl ?? undefined}
+                type="Album"
+            ></SearchAlbum>
+        })) ?? [];
+        const mappedArtists = searchResult.artistResult?.map(artist => ({
+            order: artist.order,
+            element: <SearchArtist
+                key={artist.id}
+                id={artist.id}
+                name={artist.name ?? 'unknown'}
+                imageLink={artist.thumbnailUrl ?? undefined}
+            ></SearchArtist>
+        })) ?? [];
         const elements = [
             ...mappedTracks,
             ...mappedAlbums,
             ...mappedArtists
-        ];
+        ].sort((a, b) => a.order - b.order)
+            .map(value => value.element);
+
         setResults(elements);
         searchState.complete?.();
     }, [searchResult]);
