@@ -184,6 +184,12 @@ export interface ArtistSearchResultDto {
     'thumbnailUrl': string;
     /**
      *
+     * @type {number}
+     * @memberof ArtistSearchResultDto
+     */
+    'order': number;
+    /**
+     *
      * @type {string}
      * @memberof ArtistSearchResultDto
      */
@@ -362,6 +368,12 @@ export interface ReleaseSearchResultDto {
     'thumbnailUrl': string;
     /**
      *
+     * @type {number}
+     * @memberof ReleaseSearchResultDto
+     */
+    'order': number;
+    /**
+     *
      * @type {string}
      * @memberof ReleaseSearchResultDto
      */
@@ -458,6 +470,12 @@ export interface SongSearchResultDto {
      * @memberof SongSearchResultDto
      */
     'thumbnailUrl': string;
+    /**
+     *
+     * @type {number}
+     * @memberof SongSearchResultDto
+     */
+    'order': number;
     /**
      *
      * @type {string}
