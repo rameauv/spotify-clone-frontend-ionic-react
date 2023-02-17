@@ -9,8 +9,14 @@ import SearchInput from '../../components/search-input/search-input';
 import {SearchAlbum} from '../../components/thumbnails/search-album/search-album';
 import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchSearchResults, getSearchResults} from '../../store/slices/search-feature/search-slice';
+import * as SearchSlice from '../../store/slices/search-feature/search-slice';
 import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
+
+enum SearchType {
+    SONGS,
+    ARTISTS,
+    ALBUMS
+}
 
 interface SearchState {
     q: string;
@@ -18,25 +24,30 @@ interface SearchState {
     offset: number;
     doesLoadMore: boolean;
     complete?: () => void;
+    searchType?: SearchType
 }
 
 interface AdvancedSearchProps {
 }
 
-const tags = ['Top', 'Podcasts & Shows', 'Songs', 'Artists', 'Profiles', 'Albums', 'Playlists', 'Genres & Moods'];
-const tagProvider = (text: string, selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
+const tags = [
+    {label: 'Songs', id: SearchType.SONGS},
+    {label: 'Artists', id: SearchType.ARTISTS},
+    {label: 'Albums', id: SearchType.ALBUMS}
+];
+const tagProvider = (tag: { label: string, id: SearchType }, selectedTagId: SearchType | undefined, handleTagSelection: (tagId: SearchType) => void) => {
     return (
         <FilteringTag
-            key={text}
-            onClick={() => handleTagSelection(text)}
-            activated={selectedTag === text}
+            key={tag.id}
+            onClick={() => handleTagSelection(tag.id)}
+            activated={selectedTagId === tag.id}
         >
-            {text}
+            {tag.label}
         </FilteringTag>
     );
 };
 
-const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
+const tagsProvider = (selectedTag: SearchType | undefined, handleTagSelection: (tagId: SearchType) => void) => {
     return tags.reduce<JSX.Element[]>((previousValue, currentValue) => {
         return [
             ...previousValue,
@@ -45,12 +56,38 @@ const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag:
     }, []);
 };
 
+function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultArgs {
+    function convertType(filter: SearchType | undefined): SearchSlice.SearchType | undefined {
+        if (filter === undefined) {
+            return undefined;
+        }
+        switch (filter) {
+            case SearchType.ALBUMS:
+                return SearchSlice.SearchType.ALBUMS;
+            case SearchType.SONGS:
+                return SearchSlice.SearchType.SONGS;
+            case SearchType.ARTISTS:
+                return SearchSlice.SearchType.ARTISTS;
+        }
+        console.error('could not map this filter:', filter);
+        return undefined;
+    }
+
+    return {
+        q: searchState.q,
+        limit: searchState.limit,
+        offset: searchState.offset,
+        doesLoadMore: searchState.doesLoadMore,
+        searchType: convertType(searchState.searchType)
+    };
+}
+
 let searchThunkPromise: any;
 
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
+    // const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
     const [searchState, setSearchState] = useState<SearchState>({
         limit: 10,
         offset: 0,
@@ -58,9 +95,9 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         doesLoadMore: true,
     });
     const [results, setResults] = useState<JSX.Element[]>([]);
-    const searchResult = useSelector(getSearchResults);
+    const searchResult = useSelector(SearchSlice.getSearchResults);
     useEffect(() => {
-        searchResultRequest(searchState);
+        searchResultRequest(searchStateToFetchSearchResultArgs(searchState));
     }, [searchState]);
     useEffect(() => {
         console.log('new search result');
@@ -76,7 +113,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             artistName={track.artistName}
             imageLink={track.thumbnailUrl ?? undefined}
         ></SearchSong>)) ?? [];
-        const mappedAlbums = searchResult.releaseResults?.map(album => (<SearchAlbum
+        const mappedAlbums = searchResult.albumResult?.map(album => (<SearchAlbum
             key={album.id}
             id={album.id}
             title={album.title ?? 'unknown'}
@@ -100,10 +137,16 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     }, [searchResult]);
 
     const searchResultRequest = useMemo(() => {
-        return debounce(async ({q, offset, limit, doesLoadMore}: SearchState) => {
+        return debounce(async ({q, offset, limit, doesLoadMore, searchType}: SearchState) => {
             searchThunkPromise?.abort();
 
-            searchThunkPromise = dispatch(fetchSearchResults({q, offset, limit, doesLoadMore}));
+            searchThunkPromise = dispatch(SearchSlice.fetchSearchResults({
+                q,
+                offset,
+                limit,
+                doesLoadMore,
+                searchType: searchType
+            }));
             searchThunkPromise.unwrap()
                 .catch((e: any) => {
                     console.log(e);
@@ -116,8 +159,16 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             trailing: true
         });
     }, [dispatch]);
-    const handleTagSelection = (value: string) => {
-        setSelectedTag(selectedTag === value ? undefined : value);
+    const handleTagSelection = (value: SearchType) => {
+        setSearchState((currentSearchState) => {
+            const {searchType: currentFilter} = currentSearchState;
+            const newFilter = currentFilter !== undefined && currentFilter === value ? undefined : value;
+            return {
+                ...currentSearchState,
+                searchType: newFilter,
+                doesLoadMore: false
+            };
+        });
     };
     const handleSearchQueryChangeEvent = (value: string) => {
         setSearchState({
@@ -148,7 +199,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
                         onBack={() => history.goBack()}
                     ></SearchInput>
                     <div className={styles.tags}>
-                        {tagsProvider(selectedTag, handleTagSelection)}
+                        {tagsProvider(searchState.searchType, handleTagSelection)}
                     </div>
                 </div>
                 <div className={styles.results}>
