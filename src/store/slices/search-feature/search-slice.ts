@@ -5,12 +5,6 @@ import {MyState} from '../../store';
 import {AxiosError} from 'axios';
 import {performLogout} from '../../logout';
 
-export interface FetchSearchResultArgs {
-    q: string;
-    limit: number;
-    offset: number;
-    doesLoadMore: boolean
-}
 
 export interface SearchSliceState {
     results?: SearchResultDto;
@@ -18,12 +12,13 @@ export interface SearchSliceState {
 
 const initialState: SearchSliceState = {};
 
-export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: FetchSearchResultArgs, {dispatch}) => {
+
+export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }, {dispatch}) => {
     if (!arg.q.trim()) {
         return undefined;
     }
     try {
-        const response = await searchApi.searchSearchGet(arg.q, arg.offset, arg.limit);
+        const response = await searchApi.searchSearchGet(arg.q);
         return response.data;
     } catch (e: unknown) {
         if (e instanceof AxiosError) {
@@ -41,7 +36,6 @@ export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', 
     }
 });
 
-const filterResults = <T extends { id: string }>(results: T[]) => Array.from(new Map(results.map(value => [value.id, value])).values());
 
 const searchSlice = createSlice({
     name: 'search',
@@ -49,23 +43,7 @@ const searchSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(fetchSearchResults.fulfilled, (state, action) => {
-            if (!action.meta.arg.doesLoadMore) {
-                state.results = action.payload;
-                return;
-            }
-            const pastResults = state.results;
-            const currentResults = action.payload;
-            if (!currentResults) {
-                return;
-            }
-            const artistResult = [...pastResults?.artistResult ?? [], ...currentResults.artistResult];
-            const releaseResults = [...pastResults?.releaseResults ?? [], ...currentResults.releaseResults];
-            const songResult = [...pastResults?.songResult ?? [], ...currentResults.songResult];
-            state.results = {
-                artistResult: filterResults(artistResult),
-                releaseResults: filterResults(releaseResults),
-                songResult: filterResults(songResult)
-            };
+            state.results = action.payload;
         });
     }
 });
