@@ -1,6 +1,6 @@
 import styles from './advanced-search.module.scss';
 import React, {useEffect, useMemo, useState} from 'react';
-import {IonContent, IonPage} from '@ionic/react';
+import {IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonPage} from '@ionic/react';
 import SearchSong from '../../components/thumbnails/search-song/search-song';
 import {useHistory} from 'react-router-dom';
 import FilteringTag from '../../components/filtering-tag/filtering-tag';
@@ -9,25 +9,45 @@ import SearchInput from '../../components/search-input/search-input';
 import {SearchAlbum} from '../../components/thumbnails/search-album/search-album';
 import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchSearchResults, getSearchResults} from '../../store/slices/search-feature/search-slice';
+import * as SearchSlice from '../../store/slices/search-feature/search-slice';
+import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
+
+enum SearchType {
+    SONGS,
+    ARTISTS,
+    ALBUMS
+}
+
+interface SearchState {
+    q: string;
+    limit: number;
+    offset: number;
+    doesLoadMore: boolean;
+    complete?: () => void;
+    searchType?: SearchType
+}
 
 interface AdvancedSearchProps {
 }
 
-const tags = ['Top', 'Podcasts & Shows', 'Songs', 'Artists', 'Profiles', 'Albums', 'Playlists', 'Genres & Moods'];
-const tagProvider = (text: string, selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
+const tags = [
+    {label: 'Songs', id: SearchType.SONGS},
+    {label: 'Artists', id: SearchType.ARTISTS},
+    {label: 'Albums', id: SearchType.ALBUMS}
+];
+const tagProvider = (tag: { label: string, id: SearchType }, selectedTagId: SearchType | undefined, handleTagSelection: (tagId: SearchType) => void) => {
     return (
         <FilteringTag
-            key={text}
-            onClick={() => handleTagSelection(text)}
-            activated={selectedTag === text}
+            key={tag.id}
+            onClick={() => handleTagSelection(tag.id)}
+            activated={selectedTagId === tag.id}
         >
-            {text}
+            {tag.label}
         </FilteringTag>
     );
 };
 
-const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag: string) => void) => {
+const tagsProvider = (selectedTag: SearchType | undefined, handleTagSelection: (tagId: SearchType) => void) => {
     return tags.reduce<JSX.Element[]>((previousValue, currentValue) => {
         return [
             ...previousValue,
@@ -36,56 +56,108 @@ const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag:
     }, []);
 };
 
+function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultArgs {
+    function convertType(filter: SearchType | undefined): SearchSlice.SearchType | undefined {
+        if (filter === undefined) {
+            return undefined;
+        }
+        switch (filter) {
+            case SearchType.ALBUMS:
+                return SearchSlice.SearchType.ALBUMS;
+            case SearchType.SONGS:
+                return SearchSlice.SearchType.SONGS;
+            case SearchType.ARTISTS:
+                return SearchSlice.SearchType.ARTISTS;
+        }
+        console.error('could not map this filter:', filter);
+        return undefined;
+    }
+
+    return {
+        q: searchState.q,
+        limit: searchState.limit,
+        offset: searchState.offset,
+        doesLoadMore: searchState.doesLoadMore,
+        searchType: convertType(searchState.searchType)
+    };
+}
+
 let searchThunkPromise: any;
 
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
-    const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
-    const [searchQuery, _setSearchQuery] = useState<string>('');
-    const [results, _setResults] = useState<JSX.Element[]>([]);
-    const searchResult = useSelector(getSearchResults);
+    // const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
+    const [searchState, setSearchState] = useState<SearchState>({
+        limit: 10,
+        offset: 0,
+        q: '',
+        doesLoadMore: true,
+    });
+    const [results, setResults] = useState<JSX.Element[]>([]);
+    const searchResult = useSelector(SearchSlice.getSearchResults);
     useEffect(() => {
-        searchResultRequest(searchQuery);
-    }, [searchQuery]);
+        searchResultRequest(searchStateToFetchSearchResultArgs(searchState));
+    }, [searchState]);
     useEffect(() => {
+        console.log('new search result');
         if (!searchResult) {
-            _setResults([]);
+            setResults([]);
+            searchState.complete?.();
             return;
         }
-        const mappedTracks = searchResult.songResult?.map(track => (<SearchSong
-            key={track.id}
-            id={track.id}
-            title={track.title ?? 'unknown'}
-            artistName={track.artistName}
-            imageLink={track.thumbnailUrl ?? undefined}
-        ></SearchSong>)) ?? [];
-        const mappedAlbums = searchResult.releaseResults?.map(album => (<SearchAlbum
-            key={album.id}
-            id={album.id}
-            title={album.title ?? 'unknown'}
-            artistName={album.artistName}
-            imageLink={album.thumbnailUrl ?? undefined}
-            type="Album"
-        ></SearchAlbum>)) ?? [];
-        const mappedArtists = searchResult.artistResult?.map(artist => (<SearchArtist
-            key={artist.id}
-            id={artist.id}
-            name={artist.name ?? 'unknown'}
-            imageLink={artist.thumbnailUrl ?? undefined}
-        ></SearchArtist>)) ?? [];
+        const mappedTracks = searchResult.songResult?.map(track => ({
+            order: track.order,
+            element: <SearchSong
+                key={track.id}
+                id={track.id}
+                title={track.title ?? 'unknown'}
+                artistName={track.artistName}
+                imageLink={track.thumbnailUrl ?? undefined}
+            ></SearchSong>
+        })) ?? [];
+        const mappedAlbums = searchResult.albumResult?.map(album => ({
+            order: album.order,
+            element: <SearchAlbum
+                key={album.id}
+                id={album.id}
+                title={album.title ?? 'unknown'}
+                artistName={album.artistName}
+                imageLink={album.thumbnailUrl ?? undefined}
+                type="Album"
+            ></SearchAlbum>
+        })) ?? [];
+        const mappedArtists = searchResult.artistResult?.map(artist => ({
+            order: artist.order,
+            element: <SearchArtist
+                key={artist.id}
+                id={artist.id}
+                name={artist.name ?? 'unknown'}
+                imageLink={artist.thumbnailUrl ?? undefined}
+            ></SearchArtist>
+        })) ?? [];
         const elements = [
             ...mappedTracks,
             ...mappedAlbums,
             ...mappedArtists
-        ];
-        _setResults(elements);
+        ].sort((a, b) => a.order - b.order)
+            .map(value => value.element);
+
+        setResults(elements);
+        searchState.complete?.();
     }, [searchResult]);
 
     const searchResultRequest = useMemo(() => {
-        return debounce(async (q: string) => {
+        return debounce(async ({q, offset, limit, doesLoadMore, searchType}: SearchState) => {
             searchThunkPromise?.abort();
 
-            searchThunkPromise = dispatch(fetchSearchResults({q}));
+            searchThunkPromise = dispatch(SearchSlice.fetchSearchResults({
+                q,
+                offset,
+                limit,
+                doesLoadMore,
+                searchType: searchType
+            }));
             searchThunkPromise.unwrap()
                 .catch((e: any) => {
                     console.log(e);
@@ -98,12 +170,34 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             trailing: true
         });
     }, [dispatch]);
-    const history = useHistory();
-    const handleTagSelection = (value: string) => {
-        setSelectedTag(selectedTag === value ? undefined : value);
+    const handleTagSelection = (value: SearchType) => {
+        setSearchState((currentSearchState) => {
+            const {searchType: currentFilter} = currentSearchState;
+            const newFilter = currentFilter !== undefined && currentFilter === value ? undefined : value;
+            return {
+                ...currentSearchState,
+                searchType: newFilter,
+                doesLoadMore: false
+            };
+        });
     };
     const handleSearchQueryChangeEvent = (value: string) => {
-        _setSearchQuery(value);
+        setSearchState({
+            ...searchState,
+            offset: 0,
+            q: value,
+            doesLoadMore: false
+        });
+    };
+
+    const handleLoadMoreEvent = (event: IonInfiniteScrollCustomEvent<any>) => {
+        console.log('load more');
+        setSearchState({
+            ...searchState,
+            offset: searchState.offset + searchState.limit,
+            doesLoadMore: true,
+            complete: () => event.target.complete()
+        });
     };
 
     return (
@@ -111,17 +205,20 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             <IonContent>
                 <div className={styles.header}>
                     <SearchInput
-                        value={searchQuery}
+                        value={searchState.q}
                         onChange={handleSearchQueryChangeEvent}
                         onBack={() => history.goBack()}
                     ></SearchInput>
                     <div className={styles.tags}>
-                        {tagsProvider(selectedTag, handleTagSelection)}
+                        {tagsProvider(searchState.searchType, handleTagSelection)}
                     </div>
                 </div>
                 <div className={styles.results}>
                     {results}
                 </div>
+                <IonInfiniteScroll onIonInfinite={(event) => handleLoadMoreEvent(event)}>
+                    <IonInfiniteScrollContent></IonInfiniteScrollContent>
+                </IonInfiniteScroll>
             </IonContent>
         </IonPage>
     );

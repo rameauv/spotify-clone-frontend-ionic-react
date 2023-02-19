@@ -5,6 +5,19 @@ import {MyState} from '../../store';
 import {AxiosError} from 'axios';
 import {performLogout} from '../../logout';
 
+export enum SearchType {
+    SONGS,
+    ARTISTS,
+    ALBUMS
+}
+
+export interface FetchSearchResultArgs {
+    q: string;
+    limit: number;
+    offset: number;
+    doesLoadMore: boolean;
+    searchType?: SearchType
+}
 
 export interface SearchSliceState {
     results?: SearchResultDto;
@@ -12,13 +25,39 @@ export interface SearchSliceState {
 
 const initialState: SearchSliceState = {};
 
+function searchFilterToSearchTypesQueryParams(args: FetchSearchResultArgs) {
+    function converType(searchType: SearchType | undefined) {
+        if (searchType === undefined) {
+            return undefined;
+        }
+        switch (searchType) {
+            case SearchType.ARTISTS:
+                return 'artist';
+            case SearchType.ALBUMS:
+                return 'album';
+            case SearchType.SONGS:
+                return 'track';
+        }
+        console.error('could not convert this filter:', searchType);
+        return undefined;
+    }
 
-export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: { q: string }, {dispatch}) => {
+    return {
+        q: args.q,
+        limit: args.limit === 0 ? undefined : args.limit,
+        offset: args.offset === 0 ? undefined : args.offset,
+        types: converType(args.searchType)
+    };
+}
+
+export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: FetchSearchResultArgs, {dispatch}) => {
+    console.log(arg.searchType);
     if (!arg.q.trim()) {
         return undefined;
     }
     try {
-        const response = await searchApi.searchSearchGet(arg.q);
+        const queryParams = searchFilterToSearchTypesQueryParams(arg);
+        const response = await searchApi.searchSearchGet(queryParams.q, queryParams.offset, queryParams.limit, queryParams.types);
         return response.data;
     } catch (e: unknown) {
         if (e instanceof AxiosError) {
@@ -36,6 +75,7 @@ export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', 
     }
 });
 
+const filterResults = <T extends { id: string }>(results: T[]) => Array.from(new Map(results.map(value => [value.id, value])).values());
 
 const searchSlice = createSlice({
     name: 'search',
@@ -43,7 +83,23 @@ const searchSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(fetchSearchResults.fulfilled, (state, action) => {
-            state.results = action.payload;
+            if (!action.meta.arg.doesLoadMore) {
+                state.results = action.payload;
+                return;
+            }
+            const pastResults = state.results;
+            const currentResults = action.payload;
+            if (!currentResults) {
+                return;
+            }
+            const artistResult = [...pastResults?.artistResult ?? [], ...currentResults.artistResult];
+            const albumResult = [...pastResults?.albumResult ?? [], ...currentResults.albumResult];
+            const songResult = [...pastResults?.songResult ?? [], ...currentResults.songResult];
+            state.results = {
+                artistResult: filterResults(artistResult),
+                albumResult: filterResults(albumResult),
+                songResult: filterResults(songResult)
+            };
         });
     }
 });
