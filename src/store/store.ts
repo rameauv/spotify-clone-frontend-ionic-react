@@ -21,7 +21,7 @@ const combinedReducer = combineReducers({
     albums: albumSlice,
     artists: artistSlice,
     likes: likeSlice,
-    search: searchSlice
+    search: searchSlice,
 });
 
 const rootReducer: (state: any, action: any) => MyState = (state: any, action: any) => {

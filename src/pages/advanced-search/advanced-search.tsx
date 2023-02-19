@@ -113,7 +113,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
                 id={track.id}
                 title={track.title ?? 'unknown'}
                 artistName={track.artistName}
-                imageLink={track.thumbnailUrl ?? undefined}
+                thumbnailUrl={track.thumbnailUrl ?? undefined}
             ></SearchSong>
         })) ?? [];
         const mappedAlbums = searchResult.albumResult?.map(album => ({

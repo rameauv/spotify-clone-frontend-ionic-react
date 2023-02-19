@@ -39,6 +39,7 @@ interface Paths {
     track: (tab: string) => string;
     album: (tab: string) => string;
     artist: (tab: string) => string;
+    likedSongs: (tab: string) => string;
     settings: (tab: string) => string;
     ['settings-profileSettings']: (tab: string) => string;
     ['serach-advanceSearch']: (tab: string) => string;
@@ -49,6 +50,7 @@ export const PathsContext = React.createContext<Paths>({
     track: () => '',
     album: () => '',
     artist: () => '',
+    likedSongs: () => '',
     settings: () => '',
     'settings-profileSettings': () => '',
     'serach-advanceSearch': () => ''
@@ -60,6 +62,7 @@ const createPaths = (basePath: string) => {
         track: (tab: string) => `${basePath}/${tab}/song`,
         album: (tab: string) => `${basePath}/${tab}/album`,
         artist: (tab: string) => `${basePath}/${tab}/artist`,
+        likedSongs: (tab: string) => `${basePath}/${tab}/liked-songs`,
         settings: (tab: string) => `${basePath}/${tab}/settings`,
         'settings-profileSettings': (tab: string) => `${basePath}/${tab}/settings/profile-settings`,
         'serach-advanceSearch': (tab: string) => `${basePath}/${tab}/advanced`
@@ -122,6 +125,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                             {/*Shared*/}
                             <Route path={`${props.match.url}/:tab(library)/search`} component={LibrarySearch}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
+                            <Route path={`${props.match.url}/:tab/liked-songs`} component={Song}/>
                             <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
                             <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
                             <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>

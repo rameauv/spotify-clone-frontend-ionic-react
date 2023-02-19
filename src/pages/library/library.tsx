@@ -10,6 +10,8 @@ import {RouteComponentProps} from 'react-router';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
 import {useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
+import SearchLikedSongsPlaylist
+    from '../../components/thumbnails/search-liked-songs-playlist/search-liked-songs-playlist';
 
 interface LibraryProps extends RouteComponentProps {
 }
@@ -67,6 +69,7 @@ const Library: React.FC<LibraryProps> = (props) => {
                     <LibrarySortButton selectedId={selectedSort} onSelected={(id) => setSelectedSort(id)}/>
                 </div>
                 <div className={styles.results}>
+                    <SearchLikedSongsPlaylist songsCount={3}/>
                     <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
                     <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
                     <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
