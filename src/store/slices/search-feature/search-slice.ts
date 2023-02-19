@@ -5,18 +5,11 @@ import {MyState} from '../../store';
 import {AxiosError} from 'axios';
 import {performLogout} from '../../logout';
 
-export enum SearchType {
-    SONGS,
-    ARTISTS,
-    ALBUMS
-}
-
 export interface FetchSearchResultArgs {
     q: string;
     limit: number;
     offset: number;
-    doesLoadMore: boolean;
-    searchType?: SearchType
+    doesLoadMore: boolean
 }
 
 export interface SearchSliceState {
@@ -25,39 +18,12 @@ export interface SearchSliceState {
 
 const initialState: SearchSliceState = {};
 
-function searchFilterToSearchTypesQueryParams(args: FetchSearchResultArgs) {
-    function converType(searchType: SearchType | undefined) {
-        if (searchType === undefined) {
-            return undefined;
-        }
-        switch (searchType) {
-            case SearchType.ARTISTS:
-                return 'artist';
-            case SearchType.ALBUMS:
-                return 'album';
-            case SearchType.SONGS:
-                return 'track';
-        }
-        console.error('could not convert this filter:', searchType);
-        return undefined;
-    }
-
-    return {
-        q: args.q,
-        limit: args.limit === 0 ? undefined : args.limit,
-        offset: args.offset === 0 ? undefined : args.offset,
-        types: converType(args.searchType)
-    };
-}
-
 export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: FetchSearchResultArgs, {dispatch}) => {
-    console.log(arg.searchType);
     if (!arg.q.trim()) {
         return undefined;
     }
     try {
-        const queryParams = searchFilterToSearchTypesQueryParams(arg);
-        const response = await searchApi.searchSearchGet(queryParams.q, queryParams.offset, queryParams.limit, queryParams.types);
+        const response = await searchApi.searchSearchGet(arg.q, arg.offset, arg.limit);
         return response.data;
     } catch (e: unknown) {
         if (e instanceof AxiosError) {
@@ -93,11 +59,11 @@ const searchSlice = createSlice({
                 return;
             }
             const artistResult = [...pastResults?.artistResult ?? [], ...currentResults.artistResult];
-            const albumResult = [...pastResults?.albumResult ?? [], ...currentResults.albumResult];
+            const releaseResults = [...pastResults?.releaseResults ?? [], ...currentResults.releaseResults];
             const songResult = [...pastResults?.songResult ?? [], ...currentResults.songResult];
             state.results = {
                 artistResult: filterResults(artistResult),
-                albumResult: filterResults(albumResult),
+                releaseResults: filterResults(releaseResults),
                 songResult: filterResults(songResult)
             };
         });

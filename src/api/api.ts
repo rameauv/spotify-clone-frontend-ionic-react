@@ -385,7 +385,7 @@ export interface SearchResultDto {
      * @type {Array<ReleaseSearchResultDto>}
      * @memberof SearchResultDto
      */
-    'albumResult': Array<ReleaseSearchResultDto>;
+    'releaseResults': Array<ReleaseSearchResultDto>;
     /**
      *
      * @type {Array<SongSearchResultDto>}
@@ -518,7 +518,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          *
-         * @summary Logs in a user
          * @param {LoginCredentialsDto} [loginCredentialsDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -555,7 +554,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          *
-         * @summary Logs out the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -588,7 +586,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          *
-         * @summary Refreshes the access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -621,7 +618,6 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          *
-         * @summary Registers a new user
          * @param {CreateUserDto} [createUserDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -668,7 +664,6 @@ export const AccountsApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Logs in a user
          * @param {LoginCredentialsDto} [loginCredentialsDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -679,7 +674,6 @@ export const AccountsApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Logs out the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -689,7 +683,6 @@ export const AccountsApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Refreshes the access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -699,7 +692,6 @@ export const AccountsApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Registers a new user
          * @param {CreateUserDto} [createUserDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -720,7 +712,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          *
-         * @summary Logs in a user
          * @param {LoginCredentialsDto} [loginCredentialsDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -730,7 +721,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          *
-         * @summary Logs out the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -739,7 +729,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          *
-         * @summary Refreshes the access token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -748,7 +737,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          *
-         * @summary Registers a new user
          * @param {CreateUserDto} [createUserDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -768,7 +756,6 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
 export class AccountsApi extends BaseAPI {
     /**
      *
-     * @summary Logs in a user
      * @param {LoginCredentialsDto} [loginCredentialsDto]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -780,7 +767,6 @@ export class AccountsApi extends BaseAPI {
 
     /**
      *
-     * @summary Logs out the current user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountsApi
@@ -791,7 +777,6 @@ export class AccountsApi extends BaseAPI {
 
     /**
      *
-     * @summary Refreshes the access token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountsApi
@@ -802,7 +787,6 @@ export class AccountsApi extends BaseAPI {
 
     /**
      *
-     * @summary Registers a new user
      * @param {CreateUserDto} [createUserDto]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -822,7 +806,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          *
-         * @summary Get the album by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -859,7 +842,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          *
-         * @summary Set the like status for the album
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -896,7 +878,6 @@ export const AlbumApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          *
-         * @summary Get the associated tracks of an album
          * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
@@ -953,7 +934,6 @@ export const AlbumApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Get the album by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -964,7 +944,6 @@ export const AlbumApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Set the like status for the album
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -975,7 +954,6 @@ export const AlbumApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Get the associated tracks of an album
          * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
@@ -998,7 +976,6 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          *
-         * @summary Get the album by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1008,7 +985,6 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          *
-         * @summary Set the like status for the album
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1018,7 +994,6 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          *
-         * @summary Get the associated tracks of an album
          * @param {string} id
          * @param {number} [limit]
          * @param {number} [offset]
@@ -1040,7 +1015,6 @@ export const AlbumApiFactory = function (configuration?: Configuration, basePath
 export class AlbumApi extends BaseAPI {
     /**
      *
-     * @summary Get the album by its id
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1052,7 +1026,6 @@ export class AlbumApi extends BaseAPI {
 
     /**
      *
-     * @summary Set the like status for the album
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1064,7 +1037,6 @@ export class AlbumApi extends BaseAPI {
 
     /**
      *
-     * @summary Get the associated tracks of an album
      * @param {string} id
      * @param {number} [limit]
      * @param {number} [offset]
@@ -1086,7 +1058,6 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
     return {
         /**
          *
-         * @summary Get the artist by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1123,7 +1094,6 @@ export const ArtistApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          *
-         * @summary Set a like for the artist
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1170,7 +1140,6 @@ export const ArtistApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Get the artist by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1181,7 +1150,6 @@ export const ArtistApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Set a like for the artist
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1202,7 +1170,6 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
     return {
         /**
          *
-         * @summary Get the artist by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1212,7 +1179,6 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          *
-         * @summary Set a like for the artist
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1232,7 +1198,6 @@ export const ArtistApiFactory = function (configuration?: Configuration, basePat
 export class ArtistApi extends BaseAPI {
     /**
      *
-     * @summary Get the artist by its id
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1244,7 +1209,6 @@ export class ArtistApi extends BaseAPI {
 
     /**
      *
-     * @summary Set a like for the artist
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1264,7 +1228,6 @@ export const LikeApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          *
-         * @summary Delete a like of the current user by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1311,7 +1274,6 @@ export const LikeApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Delete a like of the current user by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1332,7 +1294,6 @@ export const LikeApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          *
-         * @summary Delete a like of the current user by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1352,7 +1313,6 @@ export const LikeApiFactory = function (configuration?: Configuration, basePath?
 export class LikeApi extends BaseAPI {
     /**
      *
-     * @summary Delete a like of the current user by its id
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1375,11 +1335,10 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
-         * @param {string} [types] A comma-separated list of item types to search across. Search results include hits from all the specified item types. For example: \&quot;album,track\&quot; returns both albums and tracks\&quot;.  Valid values: artist, album, track  If omitted search for every categories
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet: async (q: string, offset?: number, limit?: number, types?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchSearchGet: async (q: string, offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'q' is not null or undefined
             assertParamExists('searchSearchGet', 'q', q)
             const localVarPath = `/Search/Search`;
@@ -1410,10 +1369,6 @@ export const SearchApiAxiosParamCreator = function (configuration?: Configuratio
                 localVarQueryParameter['limit'] = limit;
             }
 
-            if (types !== undefined) {
-                localVarQueryParameter['types'] = types;
-            }
-
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
@@ -1439,12 +1394,11 @@ export const SearchApiFp = function (configuration?: Configuration) {
          * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
-         * @param {string} [types] A comma-separated list of item types to search across. Search results include hits from all the specified item types. For example: \&quot;album,track\&quot; returns both albums and tracks\&quot;.  Valid values: artist, album, track  If omitted search for every categories
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchSearchGet(q: string, offset?: number, limit?: number, types?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, types, options);
+        async searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchSearchGet(q, offset, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1462,12 +1416,11 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {string} q
          * @param {number} [offset]
          * @param {number} [limit]
-         * @param {string} [types] A comma-separated list of item types to search across. Search results include hits from all the specified item types. For example: \&quot;album,track\&quot; returns both albums and tracks\&quot;.  Valid values: artist, album, track  If omitted search for every categories
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchSearchGet(q: string, offset?: number, limit?: number, types?: string, options?: any): AxiosPromise<SearchResultDto> {
-            return localVarFp.searchSearchGet(q, offset, limit, types, options).then((request) => request(axios, basePath));
+        searchSearchGet(q: string, offset?: number, limit?: number, options?: any): AxiosPromise<SearchResultDto> {
+            return localVarFp.searchSearchGet(q, offset, limit, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1484,13 +1437,12 @@ export class SearchApi extends BaseAPI {
      * @param {string} q
      * @param {number} [offset]
      * @param {number} [limit]
-     * @param {string} [types] A comma-separated list of item types to search across. Search results include hits from all the specified item types. For example: \&quot;album,track\&quot; returns both albums and tracks\&quot;.  Valid values: artist, album, track  If omitted search for every categories
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SearchApi
      */
-    public searchSearchGet(q: string, offset?: number, limit?: number, types?: string, options?: AxiosRequestConfig) {
-        return SearchApiFp(this.configuration).searchSearchGet(q, offset, limit, types, options).then((request) => request(this.axios, this.basePath));
+    public searchSearchGet(q: string, offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return SearchApiFp(this.configuration).searchSearchGet(q, offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1503,7 +1455,6 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          *
-         * @summary Get the track by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1540,7 +1491,6 @@ export const TrackApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          *
-         * @summary Set a like for the track
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1587,7 +1537,6 @@ export const TrackApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Get the track by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1598,7 +1547,6 @@ export const TrackApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Set a like for the track
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1619,7 +1567,6 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          *
-         * @summary Get the track by its id
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1629,7 +1576,6 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          *
-         * @summary Set a like for the track
          * @param {string} id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1649,7 +1595,6 @@ export const TrackApiFactory = function (configuration?: Configuration, basePath
 export class TrackApi extends BaseAPI {
     /**
      *
-     * @summary Get the track by its id
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1661,7 +1606,6 @@ export class TrackApi extends BaseAPI {
 
     /**
      *
-     * @summary Set a like for the track
      * @param {string} id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1681,7 +1625,6 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
     return {
         /**
          *
-         * @summary Get the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1714,7 +1657,6 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          *
-         * @summary Set the current user\'s profile name
          * @param {SetNameRequestDto} [setNameRequestDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1761,7 +1703,6 @@ export const UserApiFp = function (configuration?: Configuration) {
     return {
         /**
          *
-         * @summary Get the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1771,7 +1712,6 @@ export const UserApiFp = function (configuration?: Configuration) {
         },
         /**
          *
-         * @summary Set the current user\'s profile name
          * @param {SetNameRequestDto} [setNameRequestDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1792,7 +1732,6 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
     return {
         /**
          *
-         * @summary Get the current user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1801,7 +1740,6 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          *
-         * @summary Set the current user\'s profile name
          * @param {SetNameRequestDto} [setNameRequestDto]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1821,7 +1759,6 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
 export class UserApi extends BaseAPI {
     /**
      *
-     * @summary Get the current user
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UserApi
@@ -1832,7 +1769,6 @@ export class UserApi extends BaseAPI {
 
     /**
      *
-     * @summary Set the current user\'s profile name
      * @param {SetNameRequestDto} [setNameRequestDto]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
