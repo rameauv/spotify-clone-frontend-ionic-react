@@ -4,7 +4,8 @@ import trackSlice, {TrackSliceState} from './slices/track-slice/track-slice';
 import albumSlice, {AlbumSliceState} from './slices/album-slice/album-slice';
 import artistSlice, {ArtistSliceState} from './slices/artist-slice/artist-slice';
 import likeSlice, {LikeSlideState} from './slices/like-slise/like-slice';
-import searchSlice, {SearchSliceState} from './slices/search-feature/search-slice';
+import searchSlice, {SearchSliceState} from './slices/search-slice/search-slice';
+import likedSongsSlice, {LikedSongsState} from './slices/liked-songs-slice/liked-songs-slice';
 
 export interface MyState {
     search: SearchSliceState,
@@ -13,6 +14,7 @@ export interface MyState {
     artists: ArtistSliceState;
     tracks: TrackSliceState;
     likes: LikeSlideState;
+    likedSongs: LikedSongsState;
 }
 
 const combinedReducer = combineReducers({
@@ -22,6 +24,7 @@ const combinedReducer = combineReducers({
     artists: artistSlice,
     likes: likeSlice,
     search: searchSlice,
+    likedSongs: likedSongsSlice,
 });
 
 const rootReducer: (state: any, action: any) => MyState = (state: any, action: any) => {

@@ -16,6 +16,7 @@
   position: fixed;
   left: 0;
   right: 0;
+  z-index: 1;
 }
 
 .header {
@@ -83,4 +84,10 @@
   display: flex;
   z-index: 2;
   justify-content: end;
+  margin-bottom: 0.5rem;
+}
+
+.item {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }

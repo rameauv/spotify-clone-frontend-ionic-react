@@ -1,9 +1,12 @@
 import {IonContent, IonIcon, IonPage} from '@ionic/react';
 import styles from './liked-songs.module.scss';
 import {arrowBackOutline} from 'ionicons/icons';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
+import PlaylistSong from '../../components/items/playlist-song/playlist-song';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchLikedSongs, selectLikedSongs} from '../../store/slices/liked-songs-slice/liked-songs-slice';
 
 function limitOpacity(min: number, max: number, value: number) {
     if (value < min) {
@@ -22,6 +25,15 @@ const LikedSongs: React.FC = () => {
     const [titleOpacity, setTitleOpacity] = useState(0);
     const title = 'Liked songs';
     const songCount = 3;
+    const likedSongs = useSelector(selectLikedSongs);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const res = dispatch(fetchLikedSongs({doesLoadMore: false}));
+        return () => {
+            res.abort();
+        };
+    }, []);
 
     function handleScrollEvent(e: any) {
         const scrollTop = e.detail.scrollTop;
@@ -39,28 +51,13 @@ const LikedSongs: React.FC = () => {
                 '--accentColor': accentColor
             }}
         >
-            {/*<IonHeader>*/}
-            {/*    <IonToolbar className={styles.ionToolbar}>*/}
-            {/*        <div className={styles.headerBg}>*/}
-            {/*            <div className={styles.headerBgGradiant}/>*/}
-            {/*        </div>*/}
-            {/*        <div className={styles.header}>*/}
-            {/*            <IonIcon*/}
-            {/*                className={styles.header__backButton}*/}
-            {/*                icon={arrowBackOutline}*/}
-            {/*                onClick={() => history.goBack()}*/}
-            {/*            />*/}
-            {/*            <p className={styles.header__title}>{title}</p>*/}
-            {/*        </div>*/}
-            {/*    </IonToolbar>*/}
-            {/*</IonHeader>*/}
             <IonContent
                 className={styles.ionContent}
                 forceOverscroll={false}
                 scrollEvents
                 onIonScroll={(e) => handleScrollEvent(e)}
             >
-                <div>
+                <div className={styles.headerContainer}>
                     <div className={styles.headerBg}>
                         <div className={styles.headerBgGradiant}/>
                     </div>
@@ -79,6 +76,20 @@ const LikedSongs: React.FC = () => {
                     <div className={styles.playbuttonContainer}>
                         <BigPlayButton/>
                     </div>
+                    <ul>
+                        {
+                            likedSongs.map(likedSong => (
+                                <li className={styles.item}>
+                                    <PlaylistSong
+                                        id={likedSong.id}
+                                        title={likedSong.title}
+                                        artist={likedSong.artist}
+                                        isLiked={true}
+                                    />
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </div>
             </IonContent>
         </IonPage>

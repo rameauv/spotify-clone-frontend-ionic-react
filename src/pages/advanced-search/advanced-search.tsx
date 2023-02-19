@@ -9,7 +9,7 @@ import SearchInput from '../../components/search-input/search-input';
 import {SearchAlbum} from '../../components/items/search-album/search-album';
 import {SearchArtist} from '../../components/items/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
-import * as SearchSlice from '../../store/slices/search-feature/search-slice';
+import * as SearchSlice from '../../store/slices/search-slice/search-slice';
 import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
 
 enum SearchType {
@@ -56,7 +56,7 @@ const tagsProvider = (selectedTag: SearchType | undefined, handleTagSelection: (
     }, []);
 };
 
-function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultArgs {
+function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultOptions {
     function convertType(filter: SearchType | undefined): SearchSlice.SearchType | undefined {
         if (filter === undefined) {
             return undefined;

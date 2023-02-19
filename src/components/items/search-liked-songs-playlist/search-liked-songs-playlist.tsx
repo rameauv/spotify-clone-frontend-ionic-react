@@ -1,6 +1,6 @@
 import SearchPlaylistBase from '../search-playlist-base/search-playlist-base';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-import {PathsContext, TabRouteParams} from '../../../pages/private-pages-router/private-pages-router';
+import {useHistory} from 'react-router-dom';
+import {PathsContext} from '../../../pages/private-pages-router/private-pages-router';
 import {useContext} from 'react';
 import * as defaultThumbnails from '../../../assets/defaultThumbnails';
 
@@ -9,8 +9,7 @@ interface SearchLikedSongsPlaylistProps {
 }
 
 const SearchLikedSongsPlaylist: React.FC<SearchLikedSongsPlaylistProps> = ({songsCount}) => {
-    const tab = useRouteMatch<TabRouteParams>().params.tab;
-    const path = useContext(PathsContext).likedSongs(tab);
+    const path = useContext(PathsContext).likedSongs();
     const history = useHistory();
     const subtitle = `${songsCount} songs`;
     const thumbnailUrl = defaultThumbnails.default.searchLikedSongsPlaylist;

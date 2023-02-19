@@ -76,7 +76,8 @@ const trackSlice = createSlice({
 });
 
 export const {
-    selectById
+    selectById,
+    selectIds
 } = trackAdapter.getSelectors<MyState>(state => state.tracks);
 
 export const getTrackStatus = createSelector(

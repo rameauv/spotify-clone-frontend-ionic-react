@@ -77,6 +77,7 @@ const likeSlice = createSlice({
 
 export const {
     selectById: selectLikeByAssociatedId,
+    selectAll: selectAllLikes
 } = likeAdapter.getSelectors<MyState>(state => state.likes);
 
 

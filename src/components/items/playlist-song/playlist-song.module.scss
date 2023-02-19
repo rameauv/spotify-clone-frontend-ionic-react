@@ -1,0 +1,50 @@
+@import "src/design-system/styles/variables";
+
+
+.container {
+  display: flex;
+  background-color: var(--app-color-gray-3);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  align-items: center;
+
+  &:active {
+    transform: scale(0.99);
+    transition: transform 100ms;
+  }
+}
+
+.thumbnail {
+  width: 64px;
+  height: 64px;
+}
+
+.centerContainer {
+  flex: 1;
+
+  overflow: hidden;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.title {
+  @include font-p1;
+  margin-bottom: 0.5rem;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist {
+  @include font-p2;
+  color: var(--app-color-text-secondary);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heartButton {
+  margin-right: 1rem;
+}
