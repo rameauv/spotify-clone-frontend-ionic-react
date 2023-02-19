@@ -1,6 +1,6 @@
 import styles from './advanced-search.module.scss';
 import React, {useEffect, useMemo, useState} from 'react';
-import {IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonPage} from '@ionic/react';
+import {IonContent, IonPage} from '@ionic/react';
 import SearchSong from '../../components/thumbnails/search-song/search-song';
 import {useHistory} from 'react-router-dom';
 import FilteringTag from '../../components/filtering-tag/filtering-tag';
@@ -10,15 +10,6 @@ import {SearchAlbum} from '../../components/thumbnails/search-album/search-album
 import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchSearchResults, getSearchResults} from '../../store/slices/search-feature/search-slice';
-import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
-
-interface SearchState {
-    q: string;
-    limit: number;
-    offset: number;
-    doesLoadMore: boolean;
-    complete?: () => void;
-}
 
 interface AdvancedSearchProps {
 }
@@ -48,25 +39,17 @@ const tagsProvider = (selectedTag: string | undefined, handleTagSelection: (tag:
 let searchThunkPromise: any;
 
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
-    const history = useHistory();
     const dispatch = useDispatch();
     const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
-    const [searchState, setSearchState] = useState<SearchState>({
-        limit: 10,
-        offset: 0,
-        q: '',
-        doesLoadMore: true,
-    });
-    const [results, setResults] = useState<JSX.Element[]>([]);
+    const [searchQuery, _setSearchQuery] = useState<string>('');
+    const [results, _setResults] = useState<JSX.Element[]>([]);
     const searchResult = useSelector(getSearchResults);
     useEffect(() => {
-        searchResultRequest(searchState);
-    }, [searchState]);
+        searchResultRequest(searchQuery);
+    }, [searchQuery]);
     useEffect(() => {
-        console.log('new search result');
         if (!searchResult) {
-            setResults([]);
-            searchState.complete?.();
+            _setResults([]);
             return;
         }
         const mappedTracks = searchResult.songResult?.map(track => (<SearchSong
@@ -95,15 +78,14 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             ...mappedAlbums,
             ...mappedArtists
         ];
-        setResults(elements);
-        searchState.complete?.();
+        _setResults(elements);
     }, [searchResult]);
 
     const searchResultRequest = useMemo(() => {
-        return debounce(async ({q, offset, limit, doesLoadMore}: SearchState) => {
+        return debounce(async (q: string) => {
             searchThunkPromise?.abort();
 
-            searchThunkPromise = dispatch(fetchSearchResults({q, offset, limit, doesLoadMore}));
+            searchThunkPromise = dispatch(fetchSearchResults({q}));
             searchThunkPromise.unwrap()
                 .catch((e: any) => {
                     console.log(e);
@@ -116,26 +98,12 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             trailing: true
         });
     }, [dispatch]);
+    const history = useHistory();
     const handleTagSelection = (value: string) => {
         setSelectedTag(selectedTag === value ? undefined : value);
     };
     const handleSearchQueryChangeEvent = (value: string) => {
-        setSearchState({
-            ...searchState,
-            offset: 0,
-            q: value,
-            doesLoadMore: false
-        });
-    };
-
-    const handleLoadMoreEvent = (event: IonInfiniteScrollCustomEvent<any>) => {
-        console.log('load more');
-        setSearchState({
-            ...searchState,
-            offset: searchState.offset + searchState.limit,
-            doesLoadMore: true,
-            complete: () => event.target.complete()
-        });
+        _setSearchQuery(value);
     };
 
     return (
@@ -143,7 +111,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             <IonContent>
                 <div className={styles.header}>
                     <SearchInput
-                        value={searchState.q}
+                        value={searchQuery}
                         onChange={handleSearchQueryChangeEvent}
                         onBack={() => history.goBack()}
                     ></SearchInput>
@@ -154,9 +122,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
                 <div className={styles.results}>
                     {results}
                 </div>
-                <IonInfiniteScroll onIonInfinite={(event) => handleLoadMoreEvent(event)}>
-                    <IonInfiniteScrollContent></IonInfiniteScrollContent>
-                </IonInfiniteScroll>
             </IonContent>
         </IonPage>
     );
