@@ -146,6 +146,11 @@ $spaces: (
   @include font-h1;
 }
 
+h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
 p {
   margin-block-start: 0;
   margin-block-end: 0;

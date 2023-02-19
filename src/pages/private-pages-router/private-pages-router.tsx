@@ -16,6 +16,7 @@ import Library from '../library/library';
 import Settings from '../settings/settings';
 import LibrarySearch from '../library-search/library-search';
 import MiniPlayer from '../../components/mini-player/mini-player';
+import LikedSongs from '../liked-songs/liked-songs';
 
 const loadKeyboardModule = async () => {
     if (isPlatform('hybrid')) {
@@ -125,7 +126,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                             {/*Shared*/}
                             <Route path={`${props.match.url}/:tab(library)/search`} component={LibrarySearch}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>
-                            <Route path={`${props.match.url}/:tab/liked-songs`} component={Song}/>
+                            <Route path={`${props.match.url}/:tab/liked-songs`} component={LikedSongs}/>
                             <Route path={`${props.match.url}/:tab/album/:id`} component={Album}/>
                             <Route path={`${props.match.url}/:tab/artist/:id`} component={Artist}/>
                             <Route exact path={`${props.match.url}/:tab/settings`} component={Settings}/>

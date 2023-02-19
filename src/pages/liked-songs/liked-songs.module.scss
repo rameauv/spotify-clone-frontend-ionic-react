@@ -57,66 +57,20 @@
 
 .content {
   height: 2000px;
+  --accentColor: #2b42a8;
   background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
   padding-top: calc(3.75rem + var(--ion-safe-area-top));
   padding-left: var(--page-side-padding);
   padding-right: var(--page-side-padding);
 }
 
-.profileInfos {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-
-  .profileSettingsButton__profileIcon {
-    flex-shrink: 0;
-    margin-right: 1rem;
-    background: brown;
-    width: 6rem;
-    height: 6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 100%;
-  }
-
-  .profileSettingsButton__centerSlot {
-    min-width: 0;
-    margin-right: 1rem;
-  }
-
-  .profileSettingsButton__profileTitle {
-    @include font-h1;
-    @include font-bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0.5rem;
-  }
-
-  .profileSettingsButton__follow {
-    @include font-p2;
-    @include font-bold;
-  }
-
-  .profileSettingsButton__followLabel {
-    color: var(--app-color-text-secondary);
-  }
-}
-
-.buttonsContainer {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.playlistsLabel {
+.title {
+  @include font-h1;
   @include font-bold;
-  @include font-p1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.playlistsList > li {
-  margin-bottom: 1rem;
+.songCountSubtitle {
+  @include font-p2;
+  --color: var(--app-color-text-secondary);
 }
