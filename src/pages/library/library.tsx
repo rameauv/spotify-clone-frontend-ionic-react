@@ -2,7 +2,7 @@ import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library.module.scss';
 import Filter, {Tag} from '../../components/filter/filter';
 import React, {useState} from 'react';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 import LibrarySortButton from '../../components/library-sort-button/library-sort-button';
 import {addOutline, searchOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
@@ -10,8 +10,7 @@ import {RouteComponentProps} from 'react-router';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
 import {useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
-import SearchLikedSongsPlaylist
-    from '../../components/thumbnails/search-liked-songs-playlist/search-liked-songs-playlist';
+import SearchLikedSongsPlaylist from '../../components/items/search-liked-songs-playlist/search-liked-songs-playlist';
 
 interface LibraryProps extends RouteComponentProps {
 }

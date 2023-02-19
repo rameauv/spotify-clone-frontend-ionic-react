@@ -3,7 +3,7 @@ import styles from './artist.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 import {useDispatch, useSelector} from 'react-redux';
 import {MyState} from '../../store/store';
 import {CachedArtist} from '../../store/slices/artist-slice/models/cachedArtist';

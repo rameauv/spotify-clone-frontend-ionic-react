@@ -1,8 +1,9 @@
-import {IonContent, IonHeader, IonIcon, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonIcon, IonPage} from '@ionic/react';
 import styles from './liked-songs.module.scss';
 import {arrowBackOutline} from 'ionicons/icons';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
 
 function limitOpacity(min: number, max: number, value: number) {
     if (value < min) {
@@ -38,8 +39,28 @@ const LikedSongs: React.FC = () => {
                 '--accentColor': accentColor
             }}
         >
-            <IonHeader>
-                <IonToolbar className={styles.ionToolbar}>
+            {/*<IonHeader>*/}
+            {/*    <IonToolbar className={styles.ionToolbar}>*/}
+            {/*        <div className={styles.headerBg}>*/}
+            {/*            <div className={styles.headerBgGradiant}/>*/}
+            {/*        </div>*/}
+            {/*        <div className={styles.header}>*/}
+            {/*            <IonIcon*/}
+            {/*                className={styles.header__backButton}*/}
+            {/*                icon={arrowBackOutline}*/}
+            {/*                onClick={() => history.goBack()}*/}
+            {/*            />*/}
+            {/*            <p className={styles.header__title}>{title}</p>*/}
+            {/*        </div>*/}
+            {/*    </IonToolbar>*/}
+            {/*</IonHeader>*/}
+            <IonContent
+                className={styles.ionContent}
+                forceOverscroll={false}
+                scrollEvents
+                onIonScroll={(e) => handleScrollEvent(e)}
+            >
+                <div>
                     <div className={styles.headerBg}>
                         <div className={styles.headerBgGradiant}/>
                     </div>
@@ -51,18 +72,13 @@ const LikedSongs: React.FC = () => {
                         />
                         <p className={styles.header__title}>{title}</p>
                     </div>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent
-                className={styles.ionContent}
-                forceOverscroll={false}
-                fullscreen
-                scrollEvents
-                onIonScroll={(e) => handleScrollEvent(e)}
-            >
+                </div>
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.songCountSubtitle}>{songCount} songs</p>
+                    <div className={styles.playbuttonContainer}>
+                        <BigPlayButton/>
+                    </div>
                 </div>
             </IonContent>
         </IonPage>

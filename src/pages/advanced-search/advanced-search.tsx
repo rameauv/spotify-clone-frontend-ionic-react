@@ -1,13 +1,13 @@
 import styles from './advanced-search.module.scss';
 import React, {useEffect, useMemo, useState} from 'react';
 import {IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonPage} from '@ionic/react';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 import {useHistory} from 'react-router-dom';
 import FilteringTag from '../../components/filtering-tag/filtering-tag';
 import {debounce} from 'lodash';
 import SearchInput from '../../components/search-input/search-input';
-import {SearchAlbum} from '../../components/thumbnails/search-album/search-album';
-import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
+import {SearchAlbum} from '../../components/items/search-album/search-album';
+import {SearchArtist} from '../../components/items/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
 import * as SearchSlice from '../../store/slices/search-feature/search-slice';
 import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
