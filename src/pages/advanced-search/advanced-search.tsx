@@ -123,7 +123,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
                 id={album.id}
                 title={album.title ?? 'unknown'}
                 artistName={album.artistName}
-                imageLink={album.thumbnailUrl ?? undefined}
+                thumbnailUrl={album.thumbnailUrl ?? undefined}
                 type="Album"
             ></SearchAlbum>
         })) ?? [];
@@ -133,7 +133,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
                 key={artist.id}
                 id={artist.id}
                 name={artist.name ?? 'unknown'}
-                imageLink={artist.thumbnailUrl ?? undefined}
+                thumbnailUrl={artist.thumbnailUrl ?? undefined}
             ></SearchArtist>
         })) ?? [];
         const elements = [

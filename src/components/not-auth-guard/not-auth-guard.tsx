@@ -1,6 +1,6 @@
 import {useSelector} from 'react-redux';
-import {selectCurrentUser, selectCurrentUserStatus} from '../../store/slices/current-user/current-user-slice';
 import {createAnimation, useIonRouter, useIonViewWillEnter} from '@ionic/react';
+import {selectAppStatus} from '../../store/slices/app-slice/app-slice';
 
 interface NotAuthGuardProps {
     children: any,
@@ -26,12 +26,11 @@ const animationBuilder = (baseEl: any, opts: any) => {
 
 
 const NotAuthGuard: React.FC<NotAuthGuardProps> = ({children}) => {
-    const currentUser = useSelector(selectCurrentUser);
-    const status = useSelector(selectCurrentUserStatus);
+    const status = useSelector(selectAppStatus);
     const router = useIonRouter();
 
     useIonViewWillEnter(() => {
-        if (currentUser !== undefined) {
+        if (status === 'succeeded') {
             router.push('/home', 'root', 'replace', undefined, animationBuilder);
         }
     });

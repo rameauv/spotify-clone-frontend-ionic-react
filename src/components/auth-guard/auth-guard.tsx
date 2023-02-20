@@ -1,19 +1,18 @@
 import {useSelector} from 'react-redux';
-import {selectCurrentUser, selectCurrentUserStatus} from '../../store/slices/current-user/current-user-slice';
 import {Redirect} from 'react-router-dom';
+import {selectAppStatus} from '../../store/slices/app-slice/app-slice';
 
 export interface AuthGuardProps {
     children: JSX.Element;
 }
 
 const AuthGuard: React.FC<AuthGuardProps> = ({children}) => {
-    const currentUser = useSelector(selectCurrentUser);
-    const status = useSelector(selectCurrentUserStatus);
+    const status = useSelector(selectAppStatus);
 
     if (status === 'loading') {
         return (<>loading...</>);
     }
-    if (!currentUser) {
+    if (status !== 'succeeded') {
         return (
             <Redirect to="/"/>
         );

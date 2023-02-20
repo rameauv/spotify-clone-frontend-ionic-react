@@ -1,8 +1,7 @@
 import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library.module.scss';
 import Filter, {Tag} from '../../components/filter/filter';
-import React, {useState} from 'react';
-import SearchSong from '../../components/items/search-song/search-song';
+import React, {useMemo, useState} from 'react';
 import LibrarySortButton from '../../components/library-sort-button/library-sort-button';
 import {addOutline, searchOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
@@ -11,8 +10,39 @@ import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/i
 import {useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
 import SearchLikedSongsPlaylist from '../../components/items/search-liked-songs-playlist/search-liked-songs-playlist';
+import {
+    LibraryItemsResults,
+    selectItemsResults,
+    selectLikedSongsCount
+} from '../../store/slices/library-slice/library-slice';
+import {SearchAlbum} from '../../components/items/search-album/search-album';
+import {SearchArtist} from '../../components/items/search-artist/search-artist';
 
 interface LibraryProps extends RouteComponentProps {
+}
+
+function useItemResults(results: LibraryItemsResults | undefined): JSX.Element[] {
+    console.log('useItemResults');
+    return useMemo(() => {
+        console.log('useItemResults memo');
+        if (results === undefined) {
+            return [];
+        }
+        const albumSortableElements = results.albums.map(album => ({
+            updatedAt: album.updatedAt,
+            element: (<SearchAlbum key={album.id} id={album.id} title={album.title} artistName={album.artistName}
+                                   type={album.type}/>)
+        }));
+        const artistSortableElements = results.artists.map(artist => ({
+            updatedAt: artist.updatedAt,
+            element: (<SearchArtist key={artist.id} id={artist.id} name={artist.name}/>)
+        }));
+        return [
+            ...albumSortableElements,
+            ...artistSortableElements
+        ].sort((a, b) => a.updatedAt - b.updatedAt)
+            .map(item => item.element);
+    }, [results]);
 }
 
 const Library: React.FC<LibraryProps> = (props) => {
@@ -30,12 +60,19 @@ const Library: React.FC<LibraryProps> = (props) => {
     const [selectedSort, setSelectedSort] = useState<string | undefined>('most-recent');
     const [selectedTagId, setSelectedTagId] = useState<string | undefined>();
     const history = useHistory();
-    const _handleSearchButtonEvent = () => {
+    const likedSongsCount = useSelector(selectLikedSongsCount);
+    const results = useSelector(selectItemsResults);
+    const items = useItemResults(results);
+    console.log(results);
+
+    function _handleSearchButtonEvent() {
         history.push(`${props.match.url}/search`);
-    };
-    const _handleSettingsButtonEvent = () => {
+    }
+
+    function _handleSettingsButtonEvent() {
         history.push(`${props.match.url}/settings`);
-    };
+    }
+
     return (
         <IonPage>
             <IonHeader>
@@ -68,19 +105,8 @@ const Library: React.FC<LibraryProps> = (props) => {
                     <LibrarySortButton selectedId={selectedSort} onSelected={(id) => setSelectedSort(id)}/>
                 </div>
                 <div className={styles.results}>
-                    <SearchLikedSongsPlaylist songsCount={3}/>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
-                    <SearchSong id="5W3cjX2J3tjhG8zb6u0qHn" title="Hope" artistName="Song - XXXTENTACION"></SearchSong>
+                    <SearchLikedSongsPlaylist songsCount={likedSongsCount}/>
+                    {items}
                 </div>
             </IonContent>
         </IonPage>

@@ -6,7 +6,7 @@ import {useHistory} from 'react-router-dom';
 import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
 import PlaylistSong from '../../components/items/playlist-song/playlist-song';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchLikedSongs, selectLikedSongs} from '../../store/slices/liked-songs-slice/liked-songs-slice';
+import {fetchLikedSongs, selectLikedSongs, selectLikedSongsCount} from '../../store/slices/library-slice/library-slice';
 
 function limitOpacity(min: number, max: number, value: number) {
     if (value < min) {
@@ -24,7 +24,7 @@ const LikedSongs: React.FC = () => {
     const [bgOpacity, setBgOpacity] = useState(0);
     const [titleOpacity, setTitleOpacity] = useState(0);
     const title = 'Liked songs';
-    const songCount = 3;
+    const songCount = useSelector(selectLikedSongsCount);
     const likedSongs = useSelector(selectLikedSongs);
     const dispatch = useDispatch();
 

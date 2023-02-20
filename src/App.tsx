@@ -16,7 +16,7 @@ import '@ionic/react/css/core.css';
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
-
+// import '@ionic/react/css/typography.css';
 /* Optional CSS utils that can be commented out */
 import '@ionic/react/css/padding.css';
 import '@ionic/react/css/float-elements.css';
@@ -37,9 +37,9 @@ import LoginSignin from './pages/login-signin/login-signin';
 import Login from './pages/login/login';
 import AuthGuard from './components/auth-guard/auth-guard';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetechCurrentUser, selectCurrentUserStatus} from './store/slices/current-user/current-user-slice';
 import TextButton from './components/buttons/text-button/text-button';
 import NotAuthGuard from './components/not-auth-guard/not-auth-guard';
+import {fetchInitialAppData, selectAppStatus} from './store/slices/app-slice/app-slice';
 
 setupIonicReact();
 
@@ -55,17 +55,17 @@ const loadStatusBarModule = async () => {
 loadStatusBarModule();
 
 const App: React.FC = () => {
-    const status = useSelector(selectCurrentUserStatus);
+    const status = useSelector(selectAppStatus);
     const dispatch = useDispatch();
     useEffect(() => {
         console.log('use effect');
         if (status === 'idle') {
-            dispatch(fetechCurrentUser());
+            dispatch(fetchInitialAppData());
         }
     }, [status, dispatch]);
     const retry = () => {
         console.log('retry');
-        dispatch(fetechCurrentUser());
+        dispatch(fetchInitialAppData());
     };
     if (status === 'loading') {
         return (<p>loading...</p>);

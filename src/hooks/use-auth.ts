@@ -1,7 +1,7 @@
 import {publicAccountsApi} from '../tools/client';
 import {useDispatch} from 'react-redux';
-import {fetechCurrentUser} from '../store/slices/current-user/current-user-slice';
 import {performLogout} from '../store/logout';
+import {fetchInitialAppData} from '../store/slices/app-slice/app-slice';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const useAuth = () => {
                 return;
             }
             localStorage.setItem('jwt', token.accessToken);
-            await dispatch(fetechCurrentUser());
+            await dispatch(fetchInitialAppData());
         },
         logout: async () => {
             await dispatch(performLogout());
