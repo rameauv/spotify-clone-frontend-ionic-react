@@ -28,7 +28,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import './design-system/styles/style.scss';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import styles from './App.module.scss';
 import {IonReactRouter} from '@ionic/react-router';
@@ -40,6 +40,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import TextButton from './components/buttons/text-button/text-button';
 import NotAuthGuard from './components/not-auth-guard/not-auth-guard';
 import {fetchInitialAppData, selectAppStatus} from './store/slices/app-slice/app-slice';
+import animationBuilder from './animations/pages';
 
 setupIonicReact();
 
@@ -57,17 +58,22 @@ loadStatusBarModule();
 const App: React.FC = () => {
     const status = useSelector(selectAppStatus);
     const dispatch = useDispatch();
+    const [smoothLoading, setSmoothLoading] = useState(false);
     useEffect(() => {
         console.log('use effect');
         if (status === 'idle') {
             dispatch(fetchInitialAppData());
+        }
+        if (status === 'loading') {
+            setSmoothLoading(true);
+            setTimeout(() => setSmoothLoading(false), 500);
         }
     }, [status, dispatch]);
     const retry = () => {
         console.log('retry');
         dispatch(fetchInitialAppData());
     };
-    if (status === 'loading') {
+    if (status === 'loading' || smoothLoading) {
         return (<p>loading...</p>);
     }
     if (status === 'failed') {
@@ -86,7 +92,7 @@ const App: React.FC = () => {
     return (
         <IonApp className={styles.container}>
             <IonReactRouter>
-                <IonRouterOutlet>
+                <IonRouterOutlet animation={animationBuilder}>
                     <Route exact path="/">
                         <NotAuthGuard>
                             <LoginSignin/>

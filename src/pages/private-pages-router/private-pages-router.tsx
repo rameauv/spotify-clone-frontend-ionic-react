@@ -17,6 +17,7 @@ import Settings from '../settings/settings';
 import LibrarySearch from '../library-search/library-search';
 import MiniPlayer from '../../components/mini-player/mini-player';
 import LikedSongs from '../liked-songs/liked-songs';
+import animationBuilder from '../../animations/pages';
 
 const loadKeyboardModule = async () => {
     if (isPlatform('hybrid')) {
@@ -108,7 +109,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                     <div className={styles.chin}></div>
 
                     <IonTabs>
-                        <IonRouterOutlet>
+                        <IonRouterOutlet animation={animationBuilder}>
                             <Route exact path={`${props.match.url}`}>
                                 <Redirect to={paths.feed}/>
                             </Route>
