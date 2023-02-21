@@ -1,15 +1,16 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {MyState} from '../../store';
 
 export interface LikeBase {
     id: string;
     updatedAt: number;
+    thumbnailUrl?: string;
+    likeId: string;
 }
 
-export interface SongLike {
-    id: string;
+export interface TrackLike extends LikeBase {
     title: string;
-    artist: string
+    artist: string;
     thumbnailUrl?: string;
 }
 
@@ -23,11 +24,13 @@ export interface ArtistLike extends LikeBase {
     name: string
 }
 
-export interface LibraryItemsResults {
+export interface LibraryItems {
     albums: AlbumLike[];
     artists: ArtistLike[];
-    offset: number;
-    limit: number;
+    lastRequestOptions?: {
+        limit: number;
+        offset: number;
+    }
 }
 
 export interface fetchLikedSongsOptions {
@@ -35,15 +38,18 @@ export interface fetchLikedSongsOptions {
 }
 
 export interface LibraryState {
-    loadedlikedSongs: SongLike[];
+    loadedlikedSongs: TrackLike[];
     likedSongsCount: number;
-    itemsResults?: LibraryItemsResults;
+    itemsResults: LibraryItems;
 }
 
 const initialState: LibraryState = {
     loadedlikedSongs: [],
     likedSongsCount: 0,
-    itemsResults: undefined,
+    itemsResults: {
+        albums: [],
+        artists: []
+    },
 };
 
 export const fetchLikedSongs = createAsyncThunk('library/fetchLikedSongs', async (arg: fetchLikedSongsOptions, thunkAPI) => {
@@ -52,43 +58,51 @@ export const fetchLikedSongs = createAsyncThunk('library/fetchLikedSongs', async
             id: '',
             title: 'Aerodynamic',
             artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
         },
         {
             id: '',
             title: 'Aerodynamic',
             artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
         },
         {
             id: '',
             title: 'Aerodynamic',
             artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
         },
         {
             id: '',
             title: 'Aerodynamic',
             artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
         },
     ];
 });
 
 export const fetchLibrary = createAsyncThunk('library/fetch', (arg, thunkAPI) => {
-    const itemsResults: LibraryItemsResults = {
-        offset: 0,
-        limit: 10,
+    const itemsResults: LibraryItems = {
         albums: [
             {
                 id: '2noRn2Aes5aoNVsU6iWThc',
                 title: 'Discovery',
                 artistName: 'Daft Punk',
                 type: 'Album',
-                updatedAt: new Date().getTime()
+                updatedAt: new Date().getTime(),
+                likeId: ''
             }
         ],
         artists: [
             {
                 id: '4tZwfgrHOc3mvqYlEYSvVi',
                 name: 'Daft Punk',
-                updatedAt: new Date().getTime()
+                updatedAt: new Date().getTime(),
+                likeId: ''
             }
         ]
     };
@@ -98,10 +112,38 @@ export const fetchLibrary = createAsyncThunk('library/fetch', (arg, thunkAPI) =>
     };
 });
 
-const librarySliceSlice = createSlice({
+function addItemOrderByAddedRecently<T extends LikeBase>(item: T, list: T[]) {
+    const newListWithoutItem = list
+        .filter(itemItteration => itemItteration.id !== item.id);
+    return [item, ...newListWithoutItem];
+}
+
+const librarySlice = createSlice({
     name: 'likedSongSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        addArtistLike: (state, action: PayloadAction<ArtistLike>) => {
+            const newList = addItemOrderByAddedRecently(action.payload, state.itemsResults?.artists ?? []);
+            state.itemsResults.artists = newList;
+        },
+        addAlbumLike: (state, action: PayloadAction<AlbumLike>) => {
+            const newList = addItemOrderByAddedRecently(action.payload, state.itemsResults?.albums ?? []);
+            state.itemsResults.albums = newList;
+        },
+        addTrackLike: (state, action: PayloadAction<TrackLike>) => {
+            const newList = addItemOrderByAddedRecently(action.payload, state.loadedlikedSongs);
+            state.loadedlikedSongs = newList;
+        },
+        deleteArtistLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
+            state.itemsResults.artists = state.itemsResults.artists.filter(item => item.likeId !== payload.likeId);
+        },
+        deleteAlbumLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
+            state.itemsResults.albums = state.itemsResults.albums.filter(item => item.likeId !== payload.likeId);
+        },
+        deleteTrackLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
+            state.loadedlikedSongs = state.loadedlikedSongs.filter(item => item.likeId !== payload.likeId);
+        }
+    },
     extraReducers: builder => {
         builder.addCase(fetchLikedSongs.fulfilled, (state, action) => {
             if (!action.meta.arg.doesLoadMore) {
@@ -124,4 +166,13 @@ export const selectLikedSongs = (state: MyState) => state.library.loadedlikedSon
 export const selectItemsResults = (state: MyState) => state.library.itemsResults;
 export const selectLikedSongsCount = (state: MyState) => state.library.likedSongsCount;
 
-export default librarySliceSlice.reducer;
+export const {
+    addArtistLike,
+    addAlbumLike,
+    addTrackLike,
+    deleteArtistLike,
+    deleteAlbumLike,
+    deleteTrackLike
+} = librarySlice.actions;
+
+export default librarySlice.reducer;

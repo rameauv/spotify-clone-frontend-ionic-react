@@ -18,6 +18,7 @@ import BigPlayButton from '../../components/buttons/big-play-button/big-play-but
 import FollowButton from '../../components/buttons/follow-button/follow-button';
 import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
+import useSetLike from '../../hooks/use- set-like';
 
 const sectionProvider = (title: string, content: any) => {
     return (
@@ -36,6 +37,7 @@ const Artist: React.FC = () => {
     const router = useIonRouter();
     const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
+    const {artistSetLike} = useSetLike();
     const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const artist = cachedArtist?.artist;
@@ -63,7 +65,13 @@ const Artist: React.FC = () => {
     const handleFollowButtonEvent = () => {
         if (cachedLike) {
             dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
-        } else {
+        } else if (artist) {
+            artistSetLike({
+                id: artist.id,
+                name: artist.name,
+                updatedAt: new Date().getTime(),
+                thumbnailUrl: artist.thumbnailUrl
+            });
             dispatch<any>(addArtistLikeThunk({id}));
         }
     };

@@ -40,7 +40,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import TextButton from './components/buttons/text-button/text-button';
 import NotAuthGuard from './components/not-auth-guard/not-auth-guard';
 import {fetchInitialAppData, selectAppStatus} from './store/slices/app-slice/app-slice';
-import animationBuilder from './animations/pages';
 
 setupIonicReact();
 
@@ -92,7 +91,7 @@ const App: React.FC = () => {
     return (
         <IonApp className={styles.container}>
             <IonReactRouter>
-                <IonRouterOutlet animation={animationBuilder}>
+                <IonRouterOutlet>
                     <Route exact path="/">
                         <NotAuthGuard>
                             <LoginSignin/>

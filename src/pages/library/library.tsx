@@ -10,37 +10,40 @@ import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/i
 import {useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
 import SearchLikedSongsPlaylist from '../../components/items/search-liked-songs-playlist/search-liked-songs-playlist';
-import {
-    LibraryItemsResults,
-    selectItemsResults,
-    selectLikedSongsCount
-} from '../../store/slices/library-slice/library-slice';
+import {LibraryItems, selectItemsResults, selectLikedSongsCount} from '../../store/slices/library-slice/library-slice';
 import {SearchAlbum} from '../../components/items/search-album/search-album';
 import {SearchArtist} from '../../components/items/search-artist/search-artist';
 
 interface LibraryProps extends RouteComponentProps {
 }
 
-function useItemResults(results: LibraryItemsResults | undefined): JSX.Element[] {
-    console.log('useItemResults');
+function useItemResults(results: LibraryItems | undefined): JSX.Element[] {
     return useMemo(() => {
-        console.log('useItemResults memo');
         if (results === undefined) {
             return [];
         }
         const albumSortableElements = results.albums.map(album => ({
             updatedAt: album.updatedAt,
-            element: (<SearchAlbum key={album.id} id={album.id} title={album.title} artistName={album.artistName}
-                                   type={album.type}/>)
+            element: (
+                <SearchAlbum
+                    key={album.id}
+                    id={album.id}
+                    title={album.title}
+                    artistName={album.artistName}
+                    type={album.type}
+                    thumbnailUrl={album.thumbnailUrl}
+                />)
         }));
         const artistSortableElements = results.artists.map(artist => ({
             updatedAt: artist.updatedAt,
-            element: (<SearchArtist key={artist.id} id={artist.id} name={artist.name}/>)
+            element: (
+                <SearchArtist key={artist.id} id={artist.id} name={artist.name} thumbnailUrl={artist.thumbnailUrl}/>
+            )
         }));
         return [
             ...albumSortableElements,
             ...artistSortableElements
-        ].sort((a, b) => a.updatedAt - b.updatedAt)
+        ].sort((a, b) => b.updatedAt - a.updatedAt)
             .map(item => item.element);
     }, [results]);
 }
@@ -63,7 +66,6 @@ const Library: React.FC<LibraryProps> = (props) => {
     const likedSongsCount = useSelector(selectLikedSongsCount);
     const results = useSelector(selectItemsResults);
     const items = useItemResults(results);
-    console.log(results);
 
     function _handleSearchButtonEvent() {
         history.push(`${props.match.url}/search`);
