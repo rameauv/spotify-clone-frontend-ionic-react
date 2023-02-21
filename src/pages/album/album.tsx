@@ -9,15 +9,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {MyState} from '../../store/store';
 import {fetchAlbum, selectAlbumById} from '../../store/slices/album-slice/album-slice';
 import {CachedAlbum} from '../../store/slices/album-slice/models/cachedAlbum';
-import {
-    addAlbumLikeThunk,
-    CachedLike,
-    deleteLikeThunk,
-    selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
+import {CachedLike, selectLikeByAssociatedId} from '../../store/slices/like-slise/like-slice';
 import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
 import HeartButton from '../../components/buttons/heart-button/heart-button';
-import useSetLike from '../../hooks/use- set-like';
+import {addAlbumLikeThunk, deleteAlbumLikeThunk} from '../../store/like/like-thunks';
 
 const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/d/dc/Orelsan_-_Civilisation.png';
 const artistImage = 'https://i0.wp.com/standvibes.com/wp-content/uploads/2022/10/da5745a80a2d85bdf37ec6cf4c44a06c.1000x1000x1.jpg?w=662&ssl=1';
@@ -27,7 +22,6 @@ const Album: React.FC = () => {
     const tab = useRouteMatch<TabRouteParams>().params.tab;
     const artistPath = useContext(PathsContext).artist(tab);
     const dispatch = useDispatch();
-    const {albumSetLike} = useSetLike();
     const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const album = cachedTrack?.album;
@@ -51,17 +45,15 @@ const Album: React.FC = () => {
     });
     const handleLikeButtonEvent = () => {
         if (cachedLike) {
-            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
+            dispatch<any>(deleteAlbumLikeThunk({id: cachedLike.id, associatedId: id}));
         } else if (album) {
-            dispatch<any>(addAlbumLikeThunk({id}));
-            albumSetLike({
+            dispatch<any>(addAlbumLikeThunk({
                 id: album.id,
-                title: album.title,
-                thumbnailUrl: album.thumbnailUrl,
                 type: album.albumType,
+                title: album.title,
                 artistName: album.artistName,
-                updatedAt: new Date().getTime()
-            });
+                thumbnailUrl: album.thumbnailUrl,
+            }));
         }
     };
     const content = !album ?
@@ -162,3 +154,4 @@ const Album: React.FC = () => {
 };
 
 export default Album;
+

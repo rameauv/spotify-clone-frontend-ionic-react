@@ -1,5 +1,13 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {MyState} from '../../store';
+import {
+    addAlbumLikeThunk,
+    addArtistLikeThunk,
+    addTrackLikeThunk,
+    deleteAlbumLikeThunk,
+    deleteArtistLikeThunk,
+    deleteTrackLikeThunk
+} from '../../like/like-thunks';
 
 export interface LikeBase {
     id: string;
@@ -158,6 +166,51 @@ const librarySlice = createSlice({
         builder.addCase(fetchLibrary.fulfilled, (state, action) => {
             state.likedSongsCount = action.payload.likedSongsCount;
             state.itemsResults = action.payload.itemsResults;
+        });
+        builder.addCase(addTrackLikeThunk.fulfilled, (state, {payload, meta}) => {
+            const item: TrackLike = {
+                id: payload.item.id,
+                artist: payload.item.artist,
+                title: payload.item.title,
+                thumbnailUrl: payload.item.thumbnailUrl,
+                updatedAt: payload.updatedAt,
+                likeId: payload.likeId
+            };
+            const newList = addItemOrderByAddedRecently(item, state.loadedlikedSongs);
+            state.loadedlikedSongs = newList;
+        });
+        builder.addCase(addAlbumLikeThunk.fulfilled, (state, {payload, meta}) => {
+            const item: AlbumLike = {
+                id: payload.item.id,
+                artistName: payload.item.artistName,
+                title: payload.item.title,
+                thumbnailUrl: payload.item.thumbnailUrl,
+                type: payload.item.type,
+                updatedAt: payload.updatedAt,
+                likeId: payload.likeId
+            };
+            const newList = addItemOrderByAddedRecently(item, state.itemsResults.albums);
+            state.itemsResults.albums = newList;
+        });
+        builder.addCase(addArtistLikeThunk.fulfilled, (state, {payload}) => {
+            const item: ArtistLike = {
+                id: payload.item.id,
+                name: payload.item.name,
+                thumbnailUrl: payload.item.thumbnailUrl,
+                updatedAt: payload.updatedAt,
+                likeId: payload.likeId
+            };
+            const newList = addItemOrderByAddedRecently(item, state.itemsResults.artists);
+            state.itemsResults.artists = newList;
+        });
+        builder.addCase(deleteTrackLikeThunk.fulfilled, (state, {payload}) => {
+            state.loadedlikedSongs = state.loadedlikedSongs.filter(item => item.likeId !== payload.id);
+        });
+        builder.addCase(deleteAlbumLikeThunk.fulfilled, (state, {payload}) => {
+            state.itemsResults.albums = state.itemsResults.albums.filter(item => item.likeId !== payload.id);
+        });
+        builder.addCase(deleteArtistLikeThunk.fulfilled, (state, {payload}) => {
+            state.itemsResults.artists = state.itemsResults.artists.filter(item => item.likeId !== payload.id);
         });
     }
 });

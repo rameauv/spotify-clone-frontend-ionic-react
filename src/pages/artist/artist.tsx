@@ -8,17 +8,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {MyState} from '../../store/store';
 import {CachedArtist} from '../../store/slices/artist-slice/models/cachedArtist';
 import {fetchArtist, selectArtistById} from '../../store/slices/artist-slice/artist-slice';
-import {
-    addArtistLikeThunk,
-    CachedLike,
-    deleteLikeThunk,
-    selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
+import {CachedLike, selectLikeByAssociatedId} from '../../store/slices/like-slise/like-slice';
 import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
 import FollowButton from '../../components/buttons/follow-button/follow-button';
 import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
-import useSetLike from '../../hooks/use- set-like';
+import {addArtistLikeThunk, deleteArtistLikeThunk} from '../../store/like/like-thunks';
 
 const sectionProvider = (title: string, content: any) => {
     return (
@@ -37,7 +32,6 @@ const Artist: React.FC = () => {
     const router = useIonRouter();
     const {id} = useParams<{ id: string }>();
     const dispatch = useDispatch();
-    const {artistSetLike} = useSetLike();
     const cachedArtist = useSelector<MyState, CachedArtist | undefined>(state => selectArtistById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
     const artist = cachedArtist?.artist;
@@ -64,15 +58,13 @@ const Artist: React.FC = () => {
 
     const handleFollowButtonEvent = () => {
         if (cachedLike) {
-            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
+            dispatch(deleteArtistLikeThunk({id: cachedLike.id, associatedId: id}));
         } else if (artist) {
-            artistSetLike({
+            dispatch(addArtistLikeThunk({
                 id: artist.id,
                 name: artist.name,
-                updatedAt: new Date().getTime(),
                 thumbnailUrl: artist.thumbnailUrl
-            });
-            dispatch<any>(addArtistLikeThunk({id}));
+            }));
         }
     };
     const content = !artist ?
