@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {MyState} from '../../store';
 import {
     addAlbumLikeThunk,
@@ -60,8 +60,43 @@ const initialState: LibraryState = {
     },
 };
 
-export const fetchLikedSongs = createAsyncThunk('library/fetchLikedSongs', async (arg: fetchLikedSongsOptions, thunkAPI) => {
+export const fetchLikedSongs = createAsyncThunk('library/fetchLikedSongs', async (options: fetchLikedSongsOptions, thunkAPI) => {
     return [
+        {
+            id: '',
+            title: 'Aerodynamic',
+            artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
+        },
+        {
+            id: '',
+            title: 'Aerodynamic',
+            artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
+        },
+        {
+            id: '',
+            title: 'Aerodynamic',
+            artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
+        },
+        {
+            id: '',
+            title: 'Aerodynamic',
+            artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
+        },
+        {
+            id: '',
+            title: 'Aerodynamic',
+            artist: 'Daft punk',
+            likeId: '',
+            updatedAt: new Date().getTime()
+        },
         {
             id: '',
             title: 'Aerodynamic',
@@ -129,29 +164,7 @@ function addItemOrderByAddedRecently<T extends LikeBase>(item: T, list: T[]) {
 const librarySlice = createSlice({
     name: 'likedSongSlice',
     initialState,
-    reducers: {
-        addArtistLike: (state, action: PayloadAction<ArtistLike>) => {
-            const newList = addItemOrderByAddedRecently(action.payload, state.itemsResults?.artists ?? []);
-            state.itemsResults.artists = newList;
-        },
-        addAlbumLike: (state, action: PayloadAction<AlbumLike>) => {
-            const newList = addItemOrderByAddedRecently(action.payload, state.itemsResults?.albums ?? []);
-            state.itemsResults.albums = newList;
-        },
-        addTrackLike: (state, action: PayloadAction<TrackLike>) => {
-            const newList = addItemOrderByAddedRecently(action.payload, state.loadedlikedSongs);
-            state.loadedlikedSongs = newList;
-        },
-        deleteArtistLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
-            state.itemsResults.artists = state.itemsResults.artists.filter(item => item.likeId !== payload.likeId);
-        },
-        deleteAlbumLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
-            state.itemsResults.albums = state.itemsResults.albums.filter(item => item.likeId !== payload.likeId);
-        },
-        deleteTrackLike: (state, {payload}: PayloadAction<{ likeId: string }>) => {
-            state.loadedlikedSongs = state.loadedlikedSongs.filter(item => item.likeId !== payload.likeId);
-        }
-    },
+    reducers: {},
     extraReducers: builder => {
         builder.addCase(fetchLikedSongs.fulfilled, (state, action) => {
             if (!action.meta.arg.doesLoadMore) {
@@ -167,7 +180,7 @@ const librarySlice = createSlice({
             state.likedSongsCount = action.payload.likedSongsCount;
             state.itemsResults = action.payload.itemsResults;
         });
-        builder.addCase(addTrackLikeThunk.fulfilled, (state, {payload, meta}) => {
+        builder.addCase(addTrackLikeThunk.fulfilled, (state, {payload}) => {
             const item: TrackLike = {
                 id: payload.item.id,
                 artist: payload.item.artist,
@@ -179,7 +192,7 @@ const librarySlice = createSlice({
             const newList = addItemOrderByAddedRecently(item, state.loadedlikedSongs);
             state.loadedlikedSongs = newList;
         });
-        builder.addCase(addAlbumLikeThunk.fulfilled, (state, {payload, meta}) => {
+        builder.addCase(addAlbumLikeThunk.fulfilled, (state, {payload}) => {
             const item: AlbumLike = {
                 id: payload.item.id,
                 artistName: payload.item.artistName,
@@ -218,14 +231,5 @@ const librarySlice = createSlice({
 export const selectLikedSongs = (state: MyState) => state.library.loadedlikedSongs;
 export const selectItemsResults = (state: MyState) => state.library.itemsResults;
 export const selectLikedSongsCount = (state: MyState) => state.library.likedSongsCount;
-
-export const {
-    addArtistLike,
-    addAlbumLike,
-    addTrackLike,
-    deleteArtistLike,
-    deleteAlbumLike,
-    deleteTrackLike
-} = librarySlice.actions;
 
 export default librarySlice.reducer;

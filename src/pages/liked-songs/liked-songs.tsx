@@ -1,4 +1,4 @@
-import {IonContent, IonIcon, IonPage} from '@ionic/react';
+import {IonContent, IonIcon, IonInfiniteScroll, IonInfiniteScrollContent, IonPage} from '@ionic/react';
 import styles from './liked-songs.module.scss';
 import {arrowBackOutline} from 'ionicons/icons';
 import React, {useEffect, useState} from 'react';
@@ -8,6 +8,7 @@ import PlaylistSong from '../../components/items/playlist-song/playlist-song';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchLikedSongs, selectLikedSongs, selectLikedSongsCount} from '../../store/slices/library-slice/library-slice';
 import {deleteTrackLikeThunk} from '../../store/like/like-thunks';
+import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
 
 function limitOpacity(min: number, max: number, value: number) {
     if (value < min) {
@@ -48,6 +49,11 @@ const LikedSongs: React.FC = () => {
         dispatch(deleteTrackLikeThunk({id: likeId, associatedId: associatedId}));
     }
 
+    async function handleOnInfiniteEvent(event: IonInfiniteScrollCustomEvent<void>) {
+        await dispatch(fetchLikedSongs({doesLoadMore: true})).unwrap();
+        event.target.complete();
+    }
+
     return (
         <IonPage
             style={{
@@ -78,7 +84,7 @@ const LikedSongs: React.FC = () => {
                 <div className={styles.content}>
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.songCountSubtitle}>{songCount} songs</p>
-                    <div className={styles.playbuttonContainer}>
+                    <div className={styles.playbutton}>
                         <BigPlayButton/>
                     </div>
                     <ul>
@@ -98,6 +104,9 @@ const LikedSongs: React.FC = () => {
                         }
                     </ul>
                 </div>
+                <IonInfiniteScroll onIonInfinite={(event) => handleOnInfiniteEvent(event)}>
+                    <IonInfiniteScrollContent></IonInfiniteScrollContent>
+                </IonInfiniteScroll>
             </IonContent>
         </IonPage>
     );

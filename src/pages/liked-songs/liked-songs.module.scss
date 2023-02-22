@@ -59,7 +59,8 @@
 }
 
 .content {
-  height: 2000px;
+  display: flex;
+  flex-direction: column;
   --accentColor: #2b42a8;
   background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
   padding-top: calc(3.75rem + var(--ion-safe-area-top));
@@ -79,11 +80,16 @@
 }
 
 .playbuttonContainer {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 0.5rem;
+}
+
+.playbutton {
+  align-self: flex-end;
+  z-index: 2;
   position: sticky;
   top: calc(14px + var(--ion-safe-area-top));
-  display: flex;
-  z-index: 2;
-  justify-content: end;
   margin-bottom: 0.5rem;
 }
 
