@@ -1,4 +1,4 @@
-import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
+import {IonContent, IonHeader, IonInfiniteScroll, IonInfiniteScrollContent, IonPage, IonToolbar} from '@ionic/react';
 import styles from './library.module.scss';
 import Filter, {Tag} from '../../components/filter/filter';
 import React, {useMemo, useState} from 'react';
@@ -7,12 +7,18 @@ import {addOutline, searchOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
 import SearchLikedSongsPlaylist from '../../components/items/search-liked-songs-playlist/search-liked-songs-playlist';
-import {LibraryItems, selectItemsResults, selectLikedSongsCount} from '../../store/slices/library-slice/library-slice';
+import {
+    fetchLibrary,
+    LibraryItems,
+    selectItemsResults,
+    selectLikedSongsCount
+} from '../../store/slices/library-slice/library-slice';
 import {SearchAlbum} from '../../components/items/search-album/search-album';
 import {SearchArtist} from '../../components/items/search-artist/search-artist';
+import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
 
 interface LibraryProps extends RouteComponentProps {
 }
@@ -49,6 +55,7 @@ function useItemResults(results: LibraryItems | undefined): JSX.Element[] {
 }
 
 const Library: React.FC<LibraryProps> = (props) => {
+    const dispatch = useDispatch();
     const profileTitle = useSelector(selectCurrentUser)?.name ?? '';
     const tags: Tag[] = [
         {
@@ -65,14 +72,21 @@ const Library: React.FC<LibraryProps> = (props) => {
     const history = useHistory();
     const likedSongsCount = useSelector(selectLikedSongsCount);
     const results = useSelector(selectItemsResults);
+    console.log(results);
     const items = useItemResults(results);
 
-    function _handleSearchButtonEvent() {
+    function handleSearchButtonEvent() {
         history.push(`${props.match.url}/search`);
     }
 
-    function _handleSettingsButtonEvent() {
+    function handleSettingsButtonEvent() {
         history.push(`${props.match.url}/settings`);
+    }
+
+    async function handleOnInfiniteScroll(event: IonInfiniteScrollCustomEvent<any>) {
+        console.log(event);
+        await dispatch(fetchLibrary({doesLoadMore: true})).unwrap();
+        event.target.complete();
     }
 
     return (
@@ -81,14 +95,14 @@ const Library: React.FC<LibraryProps> = (props) => {
                 <IonToolbar>
                     <div className={styles.header}>
                         <div className={styles.profileIcon}
-                             onClick={() => _handleSettingsButtonEvent()}><p>{profileTitle[0]}</p>
+                             onClick={() => handleSettingsButtonEvent()}><p>{profileTitle[0]}</p>
                         </div>
                         <p className="app-mr-auto app-font-h2 app-font-bold">Your library</p>
                         <div className={styles.headerButtons}>
                             <IconButton
                                 icon={searchOutline}
                                 size={IconButtonSize.MD}
-                                onClick={() => _handleSearchButtonEvent()}
+                                onClick={() => handleSearchButtonEvent()}
                             ></IconButton>
                             <IconButton
                                 icon={addOutline}
@@ -110,6 +124,9 @@ const Library: React.FC<LibraryProps> = (props) => {
                     <SearchLikedSongsPlaylist songsCount={likedSongsCount}/>
                     {items}
                 </div>
+                <IonInfiniteScroll onIonInfinite={(event) => handleOnInfiniteScroll(event)}>
+                    <IonInfiniteScrollContent></IonInfiniteScrollContent>
+                </IonInfiniteScroll>
             </IonContent>
         </IonPage>
     );

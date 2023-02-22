@@ -10,7 +10,7 @@ export interface AppSliceState {
 export const fetchInitialAppData = createAsyncThunk('app/fetchInitialAppData', async (arg, {dispatch}) => {
     await Promise.all([
         dispatch(fetechCurrentUser()).unwrap,
-        dispatch(fetchLibrary()).unwrap
+        dispatch(fetchLibrary({doesLoadMore: false})).unwrap
     ]);
 });
 

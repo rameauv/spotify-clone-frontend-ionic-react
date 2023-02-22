@@ -191,7 +191,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     };
 
     const handleLoadMoreEvent = (event: IonInfiniteScrollCustomEvent<any>) => {
-        console.log('load more');
         setSearchState({
             ...searchState,
             offset: searchState.offset + searchState.limit,
