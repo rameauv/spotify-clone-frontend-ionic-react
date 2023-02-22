@@ -7,6 +7,7 @@ import BigPlayButton from '../../components/buttons/big-play-button/big-play-but
 import PlaylistSong from '../../components/items/playlist-song/playlist-song';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchLikedSongs, selectLikedSongs, selectLikedSongsCount} from '../../store/slices/library-slice/library-slice';
+import {deleteTrackLikeThunk} from '../../store/like/like-thunks';
 
 function limitOpacity(min: number, max: number, value: number) {
     if (value < min) {
@@ -41,6 +42,10 @@ const LikedSongs: React.FC = () => {
         const tempTitleOpacity = (((scrollTop - 16) / 80));
         setBgOpacity(limitOpacity(0, 1, tempBgOpacity));
         setTitleOpacity(limitOpacity(0, 1, tempTitleOpacity));
+    }
+
+    function handleLikeButtonClick(likeId: string, associatedId: string) {
+        dispatch(deleteTrackLikeThunk({id: likeId, associatedId: associatedId}));
     }
 
     return (
@@ -84,7 +89,9 @@ const LikedSongs: React.FC = () => {
                                         id={likedSong.id}
                                         title={likedSong.title}
                                         artist={likedSong.artist}
+                                        thumbnailUrl={likedSong.thumbnailUrl}
                                         isLiked={true}
+                                        onLikeButtonClick={() => handleLikeButtonClick(likedSong.likeId, likedSong.id)}
                                     />
                                 </li>
                             ))
