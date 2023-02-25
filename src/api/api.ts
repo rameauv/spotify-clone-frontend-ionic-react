@@ -193,6 +193,12 @@ export interface ArtistSearchResultDto {
      * @type {string}
      * @memberof ArtistSearchResultDto
      */
+    'updateAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof ArtistSearchResultDto
+     */
     'name': string;
 }
 
@@ -303,6 +309,96 @@ export interface ErrorsDto {
 /**
  *
  * @export
+ * @interface FindLikedTracksResultDto
+ */
+export interface FindLikedTracksResultDto {
+    /**
+     *
+     * @type {Array<SimpleTrackLibraryItemDto>}
+     * @memberof FindLikedTracksResultDto
+     */
+    'items': Array<SimpleTrackLibraryItemDto>;
+    /**
+     *
+     * @type {number}
+     * @memberof FindLikedTracksResultDto
+     */
+    'limit': number;
+    /**
+     *
+     * @type {number}
+     * @memberof FindLikedTracksResultDto
+     */
+    'offset': number;
+    /**
+     *
+     * @type {number}
+     * @memberof FindLikedTracksResultDto
+     */
+    'total': number;
+}
+
+/**
+ *
+ * @export
+ * @interface LibraryDto
+ */
+export interface LibraryDto {
+    /**
+     *
+     * @type {number}
+     * @memberof LibraryDto
+     */
+    'likedTracksCount': number;
+    /**
+     *
+     * @type {LibraryItemsDto}
+     * @memberof LibraryDto
+     */
+    'items': LibraryItemsDto;
+}
+
+/**
+ *
+ * @export
+ * @interface LibraryItemsDto
+ */
+export interface LibraryItemsDto {
+    /**
+     *
+     * @type {Array<SimpleAlbumDtoLibraryItemDto>}
+     * @memberof LibraryItemsDto
+     */
+    'albums': Array<SimpleAlbumDtoLibraryItemDto>;
+    /**
+     *
+     * @type {Array<SimpleArtistDtoLibraryItemDto>}
+     * @memberof LibraryItemsDto
+     */
+    'artists': Array<SimpleArtistDtoLibraryItemDto>;
+    /**
+     *
+     * @type {number}
+     * @memberof LibraryItemsDto
+     */
+    'total': number;
+    /**
+     *
+     * @type {number}
+     * @memberof LibraryItemsDto
+     */
+    'offset': number;
+    /**
+     *
+     * @type {number}
+     * @memberof LibraryItemsDto
+     */
+    'limit': number;
+}
+
+/**
+ *
+ * @export
  * @interface LikeDto
  */
 export interface LikeDto {
@@ -377,6 +473,12 @@ export interface ReleaseSearchResultDto {
      * @type {string}
      * @memberof ReleaseSearchResultDto
      */
+    'updateAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof ReleaseSearchResultDto
+     */
     'title': string;
     /**
      *
@@ -429,6 +531,172 @@ export interface SetNameRequestDto {
 /**
  *
  * @export
+ * @interface SimpleAlbumDto
+ */
+export interface SimpleAlbumDto {
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'id': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'thumbnailUrl': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'updateAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'title': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'artistName': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDto
+     */
+    'albumType': string;
+}
+
+/**
+ *
+ * @export
+ * @interface SimpleAlbumDtoLibraryItemDto
+ */
+export interface SimpleAlbumDtoLibraryItemDto {
+    /**
+     *
+     * @type {SimpleAlbumDto}
+     * @memberof SimpleAlbumDtoLibraryItemDto
+     */
+    'item': SimpleAlbumDto;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDtoLibraryItemDto
+     */
+    'likeCreatedAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleAlbumDtoLibraryItemDto
+     */
+    'likeId': string;
+}
+
+/**
+ *
+ * @export
+ * @interface SimpleArtistDto
+ */
+export interface SimpleArtistDto {
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDto
+     */
+    'id': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDto
+     */
+    'thumbnailUrl': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDto
+     */
+    'updateAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDto
+     */
+    'name': string;
+}
+
+/**
+ *
+ * @export
+ * @interface SimpleArtistDtoLibraryItemDto
+ */
+export interface SimpleArtistDtoLibraryItemDto {
+    /**
+     *
+     * @type {SimpleArtistDto}
+     * @memberof SimpleArtistDtoLibraryItemDto
+     */
+    'item': SimpleArtistDto;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDtoLibraryItemDto
+     */
+    'likeCreatedAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleArtistDtoLibraryItemDto
+     */
+    'likeId': string;
+}
+
+/**
+ *
+ * @export
+ * @interface SimpleTrack
+ */
+export interface SimpleTrack {
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrack
+     */
+    'id': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrack
+     */
+    'thumbnailUrl': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrack
+     */
+    'updateAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrack
+     */
+    'title': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrack
+     */
+    'artistName': string;
+}
+
+/**
+ *
+ * @export
  * @interface SimpleTrackDto
  */
 export interface SimpleTrackDto {
@@ -455,6 +723,32 @@ export interface SimpleTrackDto {
 /**
  *
  * @export
+ * @interface SimpleTrackLibraryItemDto
+ */
+export interface SimpleTrackLibraryItemDto {
+    /**
+     *
+     * @type {SimpleTrack}
+     * @memberof SimpleTrackLibraryItemDto
+     */
+    'item': SimpleTrack;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrackLibraryItemDto
+     */
+    'likeCreatedAt': string;
+    /**
+     *
+     * @type {string}
+     * @memberof SimpleTrackLibraryItemDto
+     */
+    'likeId': string;
+}
+
+/**
+ *
+ * @export
  * @interface SongSearchResultDto
  */
 export interface SongSearchResultDto {
@@ -476,6 +770,12 @@ export interface SongSearchResultDto {
      * @memberof SongSearchResultDto
      */
     'order': number;
+    /**
+     *
+     * @type {string}
+     * @memberof SongSearchResultDto
+     */
+    'updateAt': string;
     /**
      *
      * @type {string}
@@ -1270,6 +1570,261 @@ export class ArtistApi extends BaseAPI {
      */
     public artistIdLikePatch(id: string, options?: AxiosRequestConfig) {
         return ArtistApiFp(this.configuration).artistIdLikePatch(id, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LibraryApi - axios parameter creator
+ * @export
+ */
+export const LibraryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         *
+         * @summary Get the current user\'s library
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryCurrentUserLibraryGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Library/CurrentUserLibrary`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @summary Find the current user\'s library\'s items
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryFindLibraryItemsGet: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Library/FindLibraryItems`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         *
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryFindLikedTracksGet: async (offset?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Library/FindLikedTracks`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = {method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWT required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (offset !== undefined) {
+                localVarQueryParameter['offset'] = offset;
+            }
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LibraryApi - functional programming interface
+ * @export
+ */
+export const LibraryApiFp = function (configuration?: Configuration) {
+    const localVarAxiosParamCreator = LibraryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         *
+         * @summary Get the current user\'s library
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async libraryCurrentUserLibraryGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LibraryDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.libraryCurrentUserLibraryGet(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @summary Find the current user\'s library\'s items
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async libraryFindLibraryItemsGet(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LibraryItemsDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.libraryFindLibraryItemsGet(offset, limit, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         *
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async libraryFindLikedTracksGet(offset?: number, limit?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindLikedTracksResultDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.libraryFindLikedTracksGet(offset, limit, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LibraryApi - factory interface
+ * @export
+ */
+export const LibraryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LibraryApiFp(configuration)
+    return {
+        /**
+         *
+         * @summary Get the current user\'s library
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryCurrentUserLibraryGet(options?: any): AxiosPromise<LibraryDto> {
+            return localVarFp.libraryCurrentUserLibraryGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @summary Find the current user\'s library\'s items
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryFindLibraryItemsGet(offset?: number, limit?: number, options?: any): AxiosPromise<LibraryItemsDto> {
+            return localVarFp.libraryFindLibraryItemsGet(offset, limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         *
+         * @param {number} [offset]
+         * @param {number} [limit]
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        libraryFindLikedTracksGet(offset?: number, limit?: number, options?: any): AxiosPromise<FindLikedTracksResultDto> {
+            return localVarFp.libraryFindLikedTracksGet(offset, limit, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LibraryApi - object-oriented interface
+ * @export
+ * @class LibraryApi
+ * @extends {BaseAPI}
+ */
+export class LibraryApi extends BaseAPI {
+    /**
+     *
+     * @summary Get the current user\'s library
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LibraryApi
+     */
+    public libraryCurrentUserLibraryGet(options?: AxiosRequestConfig) {
+        return LibraryApiFp(this.configuration).libraryCurrentUserLibraryGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @summary Find the current user\'s library\'s items
+     * @param {number} [offset]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LibraryApi
+     */
+    public libraryFindLibraryItemsGet(offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return LibraryApiFp(this.configuration).libraryFindLibraryItemsGet(offset, limit, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     *
+     * @param {number} [offset]
+     * @param {number} [limit]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LibraryApi
+     */
+    public libraryFindLikedTracksGet(offset?: number, limit?: number, options?: AxiosRequestConfig) {
+        return LibraryApiFp(this.configuration).libraryFindLikedTracksGet(offset, limit, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

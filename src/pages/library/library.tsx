@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectCurrentUser} from '../../store/slices/current-user/current-user-slice';
 import SearchLikedSongsPlaylist from '../../components/items/search-liked-songs-playlist/search-liked-songs-playlist';
 import {
-    fetchLibrary,
+    fetchLibraryItems,
     LibraryItems,
     selectItemsResults,
     selectLikedSongsCount
@@ -29,7 +29,7 @@ function useItemResults(results: LibraryItems | undefined): JSX.Element[] {
             return [];
         }
         const albumSortableElements = results.albums.map(album => ({
-            updatedAt: album.updatedAt,
+            updatedAt: album.likeCreatedAt,
             element: (
                 <SearchAlbum
                     key={album.id}
@@ -41,7 +41,7 @@ function useItemResults(results: LibraryItems | undefined): JSX.Element[] {
                 />)
         }));
         const artistSortableElements = results.artists.map(artist => ({
-            updatedAt: artist.updatedAt,
+            updatedAt: artist.likeCreatedAt,
             element: (
                 <SearchArtist key={artist.id} id={artist.id} name={artist.name} thumbnailUrl={artist.thumbnailUrl}/>
             )
@@ -85,7 +85,7 @@ const Library: React.FC<LibraryProps> = (props) => {
 
     async function handleOnInfiniteScroll(event: IonInfiniteScrollCustomEvent<any>) {
         console.log(event);
-        await dispatch(fetchLibrary({doesLoadMore: true})).unwrap();
+        await dispatch(fetchLibraryItems({doesLoadMore: true})).unwrap();
         event.target.complete();
     }
 
