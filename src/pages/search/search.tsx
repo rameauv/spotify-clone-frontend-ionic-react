@@ -22,7 +22,10 @@ const Search: React.FC<SearchProps> = ({match}) => {
                 <div className={styles.header}>
                     <p className="app-mr-auto app-font-h2 app-font-bold">Search</p>
                 </div>
-                <div className={styles.searchButton}>
+                <div
+                    className={styles.searchButton}
+                    data-cy="search-button"
+                >
                     <IonRouterLink routerLink={advancedSearchPath}>
                         <SearchButton></SearchButton>
                     </IonRouterLink>

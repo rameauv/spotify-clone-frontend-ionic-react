@@ -49,7 +49,10 @@ const Song: React.FC = () => {
     const content = !track ?
         undefined :
         (<>
-            <div className={styles.imageContainer}>
+            <div
+                className={styles.imageContainer}
+                data-cy="loaded-content"
+            >
                 <img
                     className={styles.image}
                     src={track.thumbnailUrl ?? defaultImage}
@@ -61,7 +64,10 @@ const Song: React.FC = () => {
                 <p className={styles.artist}>{track.artistName}</p>
                 <p className={styles.type}>Song</p>
                 <div className={styles.buttons}>
-                    <div className={styles.heartButton}>
+                    <div
+                        className={styles.heartButton}
+                        data-cy="heart-button"
+                    >
                         <HeartButton
                             isActivated={!!cachedLike}
                             onClick={() => handleLikeButtonEvent()}

@@ -90,7 +90,10 @@ const LikedSongs: React.FC = () => {
                     <ul>
                         {
                             likedSongs.map(likedSong => (
-                                <li className={styles.item}>
+                                <li
+                                    data-cy="item"
+                                    className={styles.item}
+                                >
                                     <PlaylistSong
                                         id={likedSong.id}
                                         title={likedSong.title}

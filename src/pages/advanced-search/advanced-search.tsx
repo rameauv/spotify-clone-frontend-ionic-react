@@ -108,33 +108,33 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         }
         const mappedTracks = searchResult.songResult?.map(track => ({
             order: track.order,
-            element: <SearchSong
+            element: <li data-cy="track-item"><SearchSong
                 key={track.id}
                 id={track.id}
                 title={track.title ?? 'unknown'}
                 artistName={track.artistName}
                 thumbnailUrl={track.thumbnailUrl ?? undefined}
-            ></SearchSong>
+            ></SearchSong></li>
         })) ?? [];
         const mappedAlbums = searchResult.albumResult?.map(album => ({
             order: album.order,
-            element: <SearchAlbum
+            element: <li data-cy="album-item"><SearchAlbum
                 key={album.id}
                 id={album.id}
                 title={album.title ?? 'unknown'}
                 artistName={album.artistName}
                 thumbnailUrl={album.thumbnailUrl ?? undefined}
                 type="Album"
-            ></SearchAlbum>
+            ></SearchAlbum></li>
         })) ?? [];
         const mappedArtists = searchResult.artistResult?.map(artist => ({
             order: artist.order,
-            element: <SearchArtist
+            element: <li data-cy="artist-item"><SearchArtist
                 key={artist.id}
                 id={artist.id}
                 name={artist.name ?? 'unknown'}
                 thumbnailUrl={artist.thumbnailUrl ?? undefined}
-            ></SearchArtist>
+            ></SearchArtist></li>
         })) ?? [];
         const elements = [
             ...mappedTracks,
@@ -203,18 +203,23 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         <IonPage>
             <IonContent>
                 <div className={styles.header}>
-                    <SearchInput
-                        value={searchState.q}
-                        onChange={handleSearchQueryChangeEvent}
-                        onBack={() => history.goBack()}
-                    ></SearchInput>
+                    <div data-cy="search-input">
+                        <SearchInput
+                            value={searchState.q}
+                            onChange={handleSearchQueryChangeEvent}
+                            onBack={() => history.goBack()}
+                        ></SearchInput>
+                    </div>
                     <div className={styles.tags}>
                         {tagsProvider(searchState.searchType, handleTagSelection)}
                     </div>
                 </div>
-                <div className={styles.results}>
+                <ul
+                    className={styles.results}
+                    data-cy="result-items"
+                >
                     {results}
-                </div>
+                </ul>
                 <IonInfiniteScroll onIonInfinite={(event) => handleLoadMoreEvent(event)}>
                     <IonInfiniteScrollContent></IonInfiniteScrollContent>
                 </IonInfiniteScroll>

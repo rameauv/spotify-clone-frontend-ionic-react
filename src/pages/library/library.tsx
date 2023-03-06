@@ -120,8 +120,13 @@ const Library: React.FC<LibraryProps> = (props) => {
                 <div className={styles.filterContainer}>
                     <LibrarySortButton selectedId={selectedSort} onSelected={(id) => setSelectedSort(id)}/>
                 </div>
-                <div className={styles.results}>
-                    <SearchLikedSongsPlaylist songsCount={likedSongsCount}/>
+                <div
+                    className={styles.results}
+                    data-cy="library-items"
+                >
+                    <div data-cy="liked-tracks-library-item">
+                        <SearchLikedSongsPlaylist songsCount={likedSongsCount}/>
+                    </div>
                     {items}
                 </div>
                 <IonInfiniteScroll onIonInfinite={(event) => handleOnInfiniteScroll(event)}>

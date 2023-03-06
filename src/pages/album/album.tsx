@@ -65,7 +65,10 @@ const Album: React.FC = () => {
                     src={album.thumbnailUrl ?? defaultImage}
                 />
             </div>
-            <div className={styles.container}>
+            <div
+                data-cy="loaded-content"
+                className={styles.container}
+            >
                 <h1 className={styles.title}>{album.title}</h1>
                 <Link
                     className={styles.artistContainer}
@@ -80,7 +83,9 @@ const Album: React.FC = () => {
                 </Link>
                 <p className={styles.type}>{album.albumType} . {album.releaseDate}</p>
                 <div className={styles.buttons}>
-                    <div className={styles.heartButton}>
+                    <div
+                        className={styles.heartButton}
+                        data-cy="heart-button">
                         <HeartButton
                             isActivated={!!cachedLike}
                             onClick={() => handleLikeButtonEvent()}

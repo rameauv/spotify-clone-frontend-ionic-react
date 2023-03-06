@@ -85,6 +85,7 @@ const Artist: React.FC = () => {
         </>) :
         (<>
             <IonContent
+                data-cy="loaded-content"
                 className={styles.ionContent}
                 style={{
                     '--backgroundOpacity': bgOpacity,
@@ -111,7 +112,10 @@ const Artist: React.FC = () => {
                     <div className={styles.solidContainer}>
                         <p className={styles.viewers}>{artist.monthlyListeners} monthly viewers</p>
                         <div className={styles.buttons}>
-                            <div className={styles.addToPlaylistButtonContainer}>
+                            <div
+                                className={styles.addToPlaylistButtonContainer}
+                                data-cy="follow-button"
+                            >
                                 <FollowButton
                                     isFollowing={!!cachedLike}
                                     onClick={() => handleFollowButtonEvent()}
