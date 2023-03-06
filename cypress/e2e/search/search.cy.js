@@ -50,6 +50,7 @@ describe('search', {
     cy.get('[data-cy=search-button]').click();
     cy.get('[data-cy=search-input]').type('daft');
     cy.get('[data-cy=back-button]').click();
+
     cy.get('[data-cy=search-button]').click();
     cy.get('[data-cy=result-items]').children().should('not.exist');
   });

@@ -10,6 +10,7 @@ import {SearchAlbum} from '../../components/items/search-album/search-album';
 import {SearchArtist} from '../../components/items/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
 import * as SearchSlice from '../../store/slices/search-slice/search-slice';
+import {reset} from '../../store/slices/search-slice/search-slice';
 import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
 
 enum SearchType {
@@ -87,7 +88,6 @@ let searchThunkPromise: any;
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    // const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
     const [searchState, setSearchState] = useState<SearchState>({
         limit: 10,
         offset: 0,
@@ -100,7 +100,12 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         searchResultRequest(searchStateToFetchSearchResultArgs(searchState));
     }, [searchState]);
     useEffect(() => {
-        console.log('new search result');
+        return () => {
+            searchThunkPromise?.abort();
+            dispatch(reset());
+        };
+    }, []);
+    useEffect(() => {
         if (!searchResult) {
             setResults([]);
             searchState.complete?.();
@@ -108,33 +113,43 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         }
         const mappedTracks = searchResult.songResult?.map(track => ({
             order: track.order,
-            element: <li data-cy="track-item"><SearchSong
-                key={track.id}
-                id={track.id}
-                title={track.title ?? 'unknown'}
-                artistName={track.artistName}
-                thumbnailUrl={track.thumbnailUrl ?? undefined}
-            ></SearchSong></li>
+            element: (
+                <li data-cy="track-item">
+                    <SearchSong
+                        key={track.id}
+                        id={track.id}
+                        title={track.title ?? 'unknown'}
+                        artistName={track.artistName}
+                        thumbnailUrl={track.thumbnailUrl ?? undefined}
+                    ></SearchSong>
+                </li>
+            )
         })) ?? [];
         const mappedAlbums = searchResult.albumResult?.map(album => ({
             order: album.order,
-            element: <li data-cy="album-item"><SearchAlbum
-                key={album.id}
-                id={album.id}
-                title={album.title ?? 'unknown'}
-                artistName={album.artistName}
-                thumbnailUrl={album.thumbnailUrl ?? undefined}
-                type="Album"
-            ></SearchAlbum></li>
+            element: (
+                <li data-cy="album-item">
+                    <SearchAlbum
+                        key={album.id}
+                        id={album.id}
+                        title={album.title ?? 'unknown'}
+                        artistName={album.artistName}
+                        thumbnailUrl={album.thumbnailUrl ?? undefined}
+                        type="Album"
+                    ></SearchAlbum>
+                </li>
+            )
         })) ?? [];
         const mappedArtists = searchResult.artistResult?.map(artist => ({
             order: artist.order,
-            element: <li data-cy="artist-item"><SearchArtist
-                key={artist.id}
-                id={artist.id}
-                name={artist.name ?? 'unknown'}
-                thumbnailUrl={artist.thumbnailUrl ?? undefined}
-            ></SearchArtist></li>
+            element: (<li data-cy="artist-item">
+                <SearchArtist
+                    key={artist.id}
+                    id={artist.id}
+                    name={artist.name ?? 'unknown'}
+                    thumbnailUrl={artist.thumbnailUrl ?? undefined}
+                ></SearchArtist>
+            </li>)
         })) ?? [];
         const elements = [
             ...mappedTracks,
@@ -160,7 +175,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             }));
             searchThunkPromise.unwrap()
                 .catch((e: any) => {
-                    console.log(e);
                     if (e?.name !== 'AbortError') {
                         throw e;
                     }

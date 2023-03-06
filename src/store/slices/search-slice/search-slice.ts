@@ -80,7 +80,11 @@ const filterResults = <T extends { id: string }>(results: T[]) => Array.from(new
 const searchSlice = createSlice({
     name: 'search',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        reset: state => {
+            state = initialState;
+        }
+    },
     extraReducers: builder => {
         builder.addCase(fetchSearchResults.fulfilled, (state, action) => {
             if (!action.meta.arg.doesLoadMore) {
@@ -107,4 +111,5 @@ const searchSlice = createSlice({
 const selectSelf = (state: MyState) => state;
 export const getSearchResults = createSelector(selectSelf, (state) => state.search.results);
 
+export const {reset} = searchSlice.actions;
 export default searchSlice.reducer;
