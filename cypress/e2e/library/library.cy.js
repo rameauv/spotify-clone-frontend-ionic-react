@@ -39,15 +39,16 @@ describe('library', {
     cy.visit(`${baseUrl}/home/feed/song/${trackId}`);
     cy.get('[data-cy=loaded-content]').should('be.visible');
     cy.get('[data-cy=heart-button]').click();
+    cy.get('[data-cy=heart-button] .activated');
     cy.get('#tab-button-library').click();
     cy.get('[data-cy=liked-tracks-library-item]').click();
-    cy.get('[data-cy=item]').should('have.length', 1);
+    cy.get('[data-cy=items]').children().should('have.length', 1);
 
     cy.visit(`${baseUrl}/home/feed/song/${trackId}`);
     cy.get('[data-cy=loaded-content]').should('be.visible');
     cy.get('[data-cy=heart-button]').click();
     cy.get('#tab-button-library').click();
     cy.get('[data-cy=liked-tracks-library-item]').click();
-    cy.get('[data-cy=item]').should('have.length', 0);
+    cy.get('[data-cy=items]').children().should('have.length', 0);
   });
 });

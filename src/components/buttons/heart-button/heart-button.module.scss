@@ -3,6 +3,6 @@
   height: 1.5rem;
 }
 
-.activated {
+.button:global(.activated) {
   color: var(--app-color-green-1);
 }

@@ -87,11 +87,10 @@ const LikedSongs: React.FC = () => {
                     <div className={styles.playbutton}>
                         <BigPlayButton/>
                     </div>
-                    <ul>
+                    <ul data-cy="items">
                         {
                             likedSongs.map(likedSong => (
                                 <li
-                                    data-cy="item"
                                     className={styles.item}
                                 >
                                     <PlaylistSong
