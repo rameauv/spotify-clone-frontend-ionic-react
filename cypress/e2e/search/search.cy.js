@@ -49,9 +49,10 @@ describe('search', {
     cy.get('#tab-button-search').click();
     cy.get('[data-cy=search-button]').click();
     cy.get('[data-cy=search-input]').type('daft');
+    cy.get('[data-cy=result-items]').children().should('have.length.gt', 0);
     cy.get('[data-cy=back-button]').click();
 
     cy.get('[data-cy=search-button]').click();
-    cy.get('[data-cy=result-items]').children().should('not.exist');
+    cy.get('[data-cy=result-items]').children().should('have.length', 0);
   });
 });

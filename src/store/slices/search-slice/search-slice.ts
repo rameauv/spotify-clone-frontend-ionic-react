@@ -82,7 +82,7 @@ const searchSlice = createSlice({
     initialState: initialState,
     reducers: {
         reset: state => {
-            state = initialState;
+            return initialState;
         }
     },
     extraReducers: builder => {
