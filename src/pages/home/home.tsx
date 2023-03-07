@@ -1,8 +1,8 @@
 import {IonContent, IonHeader, IonPage, IonToolbar} from '@ionic/react';
 import styles from './home.module.scss';
-import SmallAlbum from '../../components/thumbnails/small-album/small-album';
-import Playlist from '../../components/thumbnails/playlist/playlist';
-import Album from '../../components/thumbnails/album/album';
+import SmallAlbum from '../../components/items/small-album/small-album';
+import Playlist from '../../components/items/playlist/playlist';
+import Album from '../../components/items/album/album';
 import {notificationsOutline, settingsOutline, timerOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router';

@@ -1,24 +1,11 @@
 @import "variables";
-//
-//html,
-//body {
-//  height: 100%;
-//  width: 100%;
-//  overflow: auto;
-//}
-//
-//body {
-//  overflow: hidden;
-//}
-
-ion-content {
-  &::part(scroll) {
-    overscroll-behavior: none;
-  }
-}
 
 .ios body {
   --ion-background-color: #121212;
+}
+
+html {
+  font-family: var(--ion-font-family);
 }
 
 body {
@@ -39,6 +26,12 @@ a:hover {
 
 a:active {
   text-decoration: none;
+}
+
+ion-content {
+  &::part(scroll) {
+    overscroll-behavior: none;
+  }
 }
 
 // Spaces
@@ -144,6 +137,11 @@ $spaces: (
 
 .app-font-h1 {
   @include font-h1;
+}
+
+h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 p {

@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {userApi} from '../../../tools/client';
 import {MyState} from '../../store';
 import {AxiosError} from 'axios';
+import {performLogout} from '../../logout';
 
 
 export interface CurrentUser {
@@ -23,13 +24,13 @@ const initialState: CurrentUserSliiceState = {
     error: undefined
 };
 
-export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async () => {
+export const fetechCurrentUser = createAsyncThunk('currentUser/featch', async (arg, {dispatch}) => {
     try {
         const response = await userApi.userCurrentUserGet();
         return response.data;
     } catch (e: unknown) {
         if (e instanceof AxiosError && e.response?.status === 401) {
-            return undefined;
+            dispatch(performLogout());
         }
         throw e;
     }

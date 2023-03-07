@@ -13,7 +13,7 @@ const HeartButton: React.FC<HeartButtonProps> = ({isActivated, onClick}) => {
     if (isActivated) {
         return (
             <IonIcon
-                className={`${styles.button} ${styles.activated}`}
+                className={`${styles.button} activated`}
                 icon={heart}
                 onClick={onClick}/>
         );

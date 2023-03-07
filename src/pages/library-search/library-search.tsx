@@ -3,7 +3,7 @@ import styles from './library-search.module.scss';
 import React, {useState} from 'react';
 import {chevronBackOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 
 enum Status {
     NO_INPUT,

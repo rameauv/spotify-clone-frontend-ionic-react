@@ -7,7 +7,7 @@ describe('settings', {
   beforeEach(() => {
     cy.task('initializeDb').then(res => credentials = res);
     cy.visit('http://localhost:3000');
-  })
+  });
 
   it('should navigate to the settings page from the library tab and chagen the profile name to nameChanged', () => {
     const change = 'Changed';
@@ -21,6 +21,6 @@ describe('settings', {
     cy.get('.edit-profile-modal_profileTitleInput__vJVXc').type(change);
     cy.get('.text-button_button__MBibQ').click();
     cy.get('.profile-settings_profileSettingsButton__profileTitle__ax36u')
-        .should('have.text', changedName)
+        .should('have.text', changedName);
   });
 });

@@ -16,6 +16,7 @@ import Library from '../library/library';
 import Settings from '../settings/settings';
 import LibrarySearch from '../library-search/library-search';
 import MiniPlayer from '../../components/mini-player/mini-player';
+import LikedSongs from '../liked-songs/liked-songs';
 
 const loadKeyboardModule = async () => {
     if (isPlatform('hybrid')) {
@@ -39,6 +40,7 @@ interface Paths {
     track: (tab: string) => string;
     album: (tab: string) => string;
     artist: (tab: string) => string;
+    likedSongs: () => string;
     settings: (tab: string) => string;
     ['settings-profileSettings']: (tab: string) => string;
     ['serach-advanceSearch']: (tab: string) => string;
@@ -49,6 +51,7 @@ export const PathsContext = React.createContext<Paths>({
     track: () => '',
     album: () => '',
     artist: () => '',
+    likedSongs: () => '',
     settings: () => '',
     'settings-profileSettings': () => '',
     'serach-advanceSearch': () => ''
@@ -60,6 +63,7 @@ const createPaths = (basePath: string) => {
         track: (tab: string) => `${basePath}/${tab}/song`,
         album: (tab: string) => `${basePath}/${tab}/album`,
         artist: (tab: string) => `${basePath}/${tab}/artist`,
+        likedSongs: () => `${basePath}/library/liked-songs`,
         settings: (tab: string) => `${basePath}/${tab}/settings`,
         'settings-profileSettings': (tab: string) => `${basePath}/${tab}/settings/profile-settings`,
         'serach-advanceSearch': (tab: string) => `${basePath}/${tab}/advanced`
@@ -119,6 +123,7 @@ const PrivatePagesRouter: React.FC<PrivatePagesRouterProps> = (props) => {
                             />
                             {/*Library*/}
                             <Route exact path={`${props.match.url}/:tab(library)`} component={Library}/>
+                            <Route path={`${props.match.url}/:tab(library)/liked-songs`} component={LikedSongs}/>
                             {/*Shared*/}
                             <Route path={`${props.match.url}/:tab(library)/search`} component={LibrarySearch}/>
                             <Route path={`${props.match.url}/:tab/song/:id`} component={Song}/>

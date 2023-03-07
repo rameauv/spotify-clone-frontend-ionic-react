@@ -1,24 +1,25 @@
-import {defineConfig} from "cypress";
-import {Client} from "pg";
-import axios from "axios";
-import {AccountsApi} from "./src/api";
-import {config} from "dotenv";
+import {defineConfig} from 'cypress';
+import {Client} from 'pg';
+import axios from 'axios';
+import {AccountsApi} from './src/api';
+import {config} from 'dotenv';
 
 config();
 
 const throwIfEnvVariableMissing = (envVariableName: string) => {
     const value = process.env[envVariableName];
     if (value == null || value.trim() === '') {
-        throw new Error(`please set the env variable ${envVariableName}`)
+        throw new Error(`please set the env variable ${envVariableName}`);
     }
     return value;
 };
 
 export default defineConfig({
     e2e: {
+        defaultCommandTimeout: 10000,
         setupNodeEvents(on, config) {
             // implement node event listeners here
-            on("task", {
+            on('task', {
                 async initializeDb() {
                     const connectionString = throwIfEnvVariableMissing('E2E_DB_CONNECTION-STRING');
                     const userName = throwIfEnvVariableMissing('E2E_API_USER_USERNAME');

@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {arrowBackOutline} from 'ionicons/icons';
 import {useHistory} from 'react-router-dom';
 import {RouteComponentProps} from 'react-router';
-import SmallPlaylistWithfollow from '../../components/thumbnails/small-playlist-with-follow/small-playlist-withfollow';
+import SmallPlaylistWithfollow from '../../components/items/small-playlist-with-follow/small-playlist-withfollow';
 import EditProfileModalController from '../../components/edit-profile-modal/edit-profile-modal-controller';
 import {useSelector} from 'react-redux';
 import {MyState} from '../../store/store';

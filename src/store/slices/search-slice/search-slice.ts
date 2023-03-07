@@ -11,7 +11,7 @@ export enum SearchType {
     ALBUMS
 }
 
-export interface FetchSearchResultArgs {
+export interface FetchSearchResultOptions {
     q: string;
     limit: number;
     offset: number;
@@ -25,7 +25,7 @@ export interface SearchSliceState {
 
 const initialState: SearchSliceState = {};
 
-function searchFilterToSearchTypesQueryParams(args: FetchSearchResultArgs) {
+function searchFilterToSearchTypesQueryParams(args: FetchSearchResultOptions) {
     function converType(searchType: SearchType | undefined) {
         if (searchType === undefined) {
             return undefined;
@@ -50,7 +50,7 @@ function searchFilterToSearchTypesQueryParams(args: FetchSearchResultArgs) {
     };
 }
 
-export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: FetchSearchResultArgs, {dispatch}) => {
+export const fetchSearchResults = createAsyncThunk('search/fetchSearchResults', async (arg: FetchSearchResultOptions, {dispatch}) => {
     console.log(arg.searchType);
     if (!arg.q.trim()) {
         return undefined;
@@ -80,7 +80,11 @@ const filterResults = <T extends { id: string }>(results: T[]) => Array.from(new
 const searchSlice = createSlice({
     name: 'search',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        reset: state => {
+            return initialState;
+        }
+    },
     extraReducers: builder => {
         builder.addCase(fetchSearchResults.fulfilled, (state, action) => {
             if (!action.meta.arg.doesLoadMore) {
@@ -107,4 +111,5 @@ const searchSlice = createSlice({
 const selectSelf = (state: MyState) => state;
 export const getSearchResults = createSelector(selectSelf, (state) => state.search.results);
 
+export const {reset} = searchSlice.actions;
 export default searchSlice.reducer;

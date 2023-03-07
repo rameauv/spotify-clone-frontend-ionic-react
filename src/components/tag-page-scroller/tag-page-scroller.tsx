@@ -1,5 +1,5 @@
 import styles from './tag-page-scroller.module.scss';
-import Album from '../thumbnails/album/album';
+import Album from '../items/album/album';
 
 export interface ContainerProps {
 }

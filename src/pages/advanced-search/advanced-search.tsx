@@ -1,15 +1,16 @@
 import styles from './advanced-search.module.scss';
 import React, {useEffect, useMemo, useState} from 'react';
 import {IonContent, IonInfiniteScroll, IonInfiniteScrollContent, IonPage} from '@ionic/react';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 import {useHistory} from 'react-router-dom';
 import FilteringTag from '../../components/filtering-tag/filtering-tag';
 import {debounce} from 'lodash';
 import SearchInput from '../../components/search-input/search-input';
-import {SearchAlbum} from '../../components/thumbnails/search-album/search-album';
-import {SearchArtist} from '../../components/thumbnails/search-artist/search-artist';
+import {SearchAlbum} from '../../components/items/search-album/search-album';
+import {SearchArtist} from '../../components/items/search-artist/search-artist';
 import {useDispatch, useSelector} from 'react-redux';
-import * as SearchSlice from '../../store/slices/search-feature/search-slice';
+import * as SearchSlice from '../../store/slices/search-slice/search-slice';
+import {reset} from '../../store/slices/search-slice/search-slice';
 import {IonInfiniteScrollCustomEvent} from '@ionic/core/dist/types/components';
 
 enum SearchType {
@@ -56,7 +57,7 @@ const tagsProvider = (selectedTag: SearchType | undefined, handleTagSelection: (
     }, []);
 };
 
-function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultArgs {
+function searchStateToFetchSearchResultArgs(searchState: SearchState): SearchSlice.FetchSearchResultOptions {
     function convertType(filter: SearchType | undefined): SearchSlice.SearchType | undefined {
         if (filter === undefined) {
             return undefined;
@@ -87,7 +88,6 @@ let searchThunkPromise: any;
 const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     const history = useHistory();
     const dispatch = useDispatch();
-    // const [selectedTag, setSelectedTag] = useState<undefined | string>(undefined);
     const [searchState, setSearchState] = useState<SearchState>({
         limit: 10,
         offset: 0,
@@ -100,7 +100,12 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         searchResultRequest(searchStateToFetchSearchResultArgs(searchState));
     }, [searchState]);
     useEffect(() => {
-        console.log('new search result');
+        return () => {
+            searchThunkPromise?.abort();
+            dispatch(reset());
+        };
+    }, []);
+    useEffect(() => {
         if (!searchResult) {
             setResults([]);
             searchState.complete?.();
@@ -108,33 +113,43 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         }
         const mappedTracks = searchResult.songResult?.map(track => ({
             order: track.order,
-            element: <SearchSong
-                key={track.id}
-                id={track.id}
-                title={track.title ?? 'unknown'}
-                artistName={track.artistName}
-                imageLink={track.thumbnailUrl ?? undefined}
-            ></SearchSong>
+            element: (
+                <li data-cy="track-item">
+                    <SearchSong
+                        key={track.id}
+                        id={track.id}
+                        title={track.title ?? 'unknown'}
+                        artistName={track.artistName}
+                        thumbnailUrl={track.thumbnailUrl ?? undefined}
+                    ></SearchSong>
+                </li>
+            )
         })) ?? [];
         const mappedAlbums = searchResult.albumResult?.map(album => ({
             order: album.order,
-            element: <SearchAlbum
-                key={album.id}
-                id={album.id}
-                title={album.title ?? 'unknown'}
-                artistName={album.artistName}
-                imageLink={album.thumbnailUrl ?? undefined}
-                type="Album"
-            ></SearchAlbum>
+            element: (
+                <li data-cy="album-item">
+                    <SearchAlbum
+                        key={album.id}
+                        id={album.id}
+                        title={album.title ?? 'unknown'}
+                        artistName={album.artistName}
+                        thumbnailUrl={album.thumbnailUrl ?? undefined}
+                        type="Album"
+                    ></SearchAlbum>
+                </li>
+            )
         })) ?? [];
         const mappedArtists = searchResult.artistResult?.map(artist => ({
             order: artist.order,
-            element: <SearchArtist
-                key={artist.id}
-                id={artist.id}
-                name={artist.name ?? 'unknown'}
-                imageLink={artist.thumbnailUrl ?? undefined}
-            ></SearchArtist>
+            element: (<li data-cy="artist-item">
+                <SearchArtist
+                    key={artist.id}
+                    id={artist.id}
+                    name={artist.name ?? 'unknown'}
+                    thumbnailUrl={artist.thumbnailUrl ?? undefined}
+                ></SearchArtist>
+            </li>)
         })) ?? [];
         const elements = [
             ...mappedTracks,
@@ -160,7 +175,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
             }));
             searchThunkPromise.unwrap()
                 .catch((e: any) => {
-                    console.log(e);
                     if (e?.name !== 'AbortError') {
                         throw e;
                     }
@@ -191,7 +205,6 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
     };
 
     const handleLoadMoreEvent = (event: IonInfiniteScrollCustomEvent<any>) => {
-        console.log('load more');
         setSearchState({
             ...searchState,
             offset: searchState.offset + searchState.limit,
@@ -204,18 +217,23 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = () => {
         <IonPage>
             <IonContent>
                 <div className={styles.header}>
-                    <SearchInput
-                        value={searchState.q}
-                        onChange={handleSearchQueryChangeEvent}
-                        onBack={() => history.goBack()}
-                    ></SearchInput>
+                    <div data-cy="search-input">
+                        <SearchInput
+                            value={searchState.q}
+                            onChange={handleSearchQueryChangeEvent}
+                            onBack={() => history.goBack()}
+                        ></SearchInput>
+                    </div>
                     <div className={styles.tags}>
                         {tagsProvider(searchState.searchType, handleTagSelection)}
                     </div>
                 </div>
-                <div className={styles.results}>
+                <ul
+                    className={styles.results}
+                    data-cy="result-items"
+                >
                     {results}
-                </div>
+                </ul>
                 <IonInfiniteScroll onIonInfinite={(event) => handleLoadMoreEvent(event)}>
                     <IonInfiniteScrollContent></IonInfiniteScrollContent>
                 </IonInfiniteScroll>

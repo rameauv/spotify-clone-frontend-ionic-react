@@ -1,9 +1,9 @@
-import {createAsyncThunk, createEntityAdapter, createSlice, EntityState, PayloadAction} from '@reduxjs/toolkit';
-import {albumkApi, artistApi, likeApi, trackApi} from '../../../tools/client';
+import {createEntityAdapter, createSlice, EntityState, PayloadAction} from '@reduxjs/toolkit';
 import {MyState} from '../../store';
-import {LikeDto} from '../../../api';
-import {AxiosError} from 'axios';
-import {performLogout} from '../../logout';
+import {likeAddedActionCreator} from '../../like/like-added-action-creator';
+import {LikeAddedAction as LikeAddedAction1} from '../../like/like-added-action';
+import {likeDeletedActionCreator} from '../../like/like-deleted-action-creator';
+import {LikeDeletedAction} from '../../like/like-deleted-action';
 
 export interface CachedLike {
     id: string;
@@ -19,35 +19,6 @@ const likeAdapter = createEntityAdapter<CachedLike>({
 
 const initialState: LikeSlideState = likeAdapter.getInitialState({});
 
-const createAddLike = (request: (id: string) => Promise<LikeDto>) => {
-    return createAsyncThunk<string, { id: string }>('like/add', async (arg, {dispatch}) => {
-        const {id} = arg;
-        try {
-            const res = await request(id);
-            return res.id;
-        } catch (e: unknown) {
-            if (e instanceof AxiosError && e.response?.status === 401) {
-                dispatch(performLogout());
-            }
-            throw e;
-        }
-    });
-};
-
-export const addTrackLikeThunk = createAddLike(((id) => trackApi.trackIdLikePatch(id).then(res => res.data)));
-export const addAlbumLikeThunk = createAddLike(((id) => albumkApi.albumIdLikePatch(id).then(res => res.data)));
-export const addArtistLikeThunk = createAddLike(((id) => artistApi.artistIdLikePatch(id).then(res => res.data)));
-export const deleteLikeThunk = createAsyncThunk('like/delete', async (arg: { id: string, associatedId: string }, {dispatch}) => {
-    try {
-        await likeApi.likeIdDeleteDelete(arg.id);
-    } catch (e: unknown) {
-        if (e instanceof AxiosError && e.response?.status === 401) {
-            dispatch(performLogout());
-        }
-        throw e;
-    }
-});
-
 const likeSlice = createSlice({
     name: 'like',
     initialState,
@@ -60,23 +31,24 @@ const likeSlice = createSlice({
         },
         deleteLike: (state, action: PayloadAction<{ associatedId: string }>) => {
             likeAdapter.removeOne(state, action.payload.associatedId);
-        }
+        },
     },
     extraReducers: builder => {
-        builder.addCase(addTrackLikeThunk.fulfilled, (state, action) => {
+        builder.addCase(likeAddedActionCreator.actionType, (state, action: LikeAddedAction1) => {
             likeAdapter.setOne(state, {
-                id: action.payload,
-                associatedId: action.meta.arg.id
+                id: action.payload.id,
+                associatedId: action.payload.associatedId
             });
         });
-        builder.addCase(deleteLikeThunk.fulfilled, (state, action) => {
-            likeAdapter.removeOne(state, action.meta.arg.associatedId);
+        builder.addCase(likeDeletedActionCreator.actionType, (state, action: LikeDeletedAction) => {
+            likeAdapter.removeOne(state, action.payload.associatedId);
         });
     }
 });
 
 export const {
     selectById: selectLikeByAssociatedId,
+    selectAll: selectAllLikes
 } = likeAdapter.getSelectors<MyState>(state => state.likes);
 
 

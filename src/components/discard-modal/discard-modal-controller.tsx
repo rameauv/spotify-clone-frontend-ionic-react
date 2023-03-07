@@ -3,8 +3,8 @@ import {IonModal} from '@ionic/react';
 import styles from './discard-modal.module.scss';
 import TextButton from '../buttons/text-button/text-button';
 import RegularButton from '../buttons/regular-button/regular-button';
-import enterAnimation from '../../animations/enter-animation';
-import leaveAnimation from '../../animations/leave-animation';
+import enterAnimation from '../../animations/modals/enter-animation';
+import leaveAnimation from '../../animations/modals/leave-animation';
 
 interface EditProfileModalControllerProps {
     isOpen?: boolean;

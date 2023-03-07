@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import {AccountsApi, AlbumApi, ArtistApi, LikeApi, SearchApi, TrackApi, UserApi} from '../api';
+import {AccountsApi, AlbumApi, ArtistApi, LibraryApi, LikeApi, SearchApi, TrackApi, UserApi} from '../api';
 
 const throwIfEnvVariableMissing = (envVariableName: string) => {
     const value = process.env[envVariableName];
@@ -83,6 +83,12 @@ const likeApi = new LikeApi(
     client
 );
 
+const libraryApi = new LibraryApi(
+    undefined,
+    basePath,
+    client
+);
+
 export {
     accountsApi,
     searchApi,
@@ -91,7 +97,8 @@ export {
     trackApi,
     albumkApi,
     artistApi,
-    likeApi
+    likeApi,
+    libraryApi
 };
 
 async function refreshToken() {

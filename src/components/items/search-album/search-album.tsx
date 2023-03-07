@@ -2,22 +2,23 @@ import styles from './search-album.module.scss';
 import {useContext} from 'react';
 import {PathsContext, TabRouteParams} from '../../../pages/private-pages-router/private-pages-router';
 import {useHistory, useRouteMatch} from 'react-router-dom';
+import defaultThumbnails from '../../../assets/defaultThumbnails';
 
 export interface SearchAlbumProps {
     id: string;
-    imageLink?: string;
+    thumbnailUrl?: string;
     title: string;
     artistName: string;
     type: string;
 }
 
-const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
-
-export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageLink, artistName}) => {
+export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, thumbnailUrl, artistName}) => {
     const tab = useRouteMatch<TabRouteParams>().params.tab;
     const path = useContext(PathsContext).album(tab);
     const history = useHistory();
     const fullpath = `${path}/${id}`;
+    const defaultThumbnailurl = defaultThumbnails.musicNote;
+    const processedThumbnailUrl = thumbnailUrl ?? defaultThumbnailurl;
 
     return (
         <div
@@ -26,7 +27,7 @@ export const SearchAlbum: React.FC<SearchAlbumProps> = ({id, title, type, imageL
         >
             <img
                 className={styles.image}
-                src={imageLink ?? defaultImage}
+                src={processedThumbnailUrl}
                 alt="album's thumbnail"
             />
             <div className={styles.textContainer}>

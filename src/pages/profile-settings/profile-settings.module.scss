@@ -57,7 +57,6 @@
 
 .content {
   height: 2000px;
-  --accentColor: brown;
   background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
   padding-top: calc(3.75rem + var(--ion-safe-area-top));
   padding-left: var(--page-side-padding);

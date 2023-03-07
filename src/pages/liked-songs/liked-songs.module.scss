@@ -1,0 +1,99 @@
+@import "src/design-system/styles/variables";
+
+.headerBg {
+  background: var(--app-color-backgroud-1);
+  opacity: var(--backgroundOpacity) !important; // important to override ionic's annimation
+}
+
+.headerBgGradiant {
+  height: calc(var(--header-height) + var(--ion-safe-area-top));
+  opacity: 0.8;
+  background: linear-gradient(180deg, var(--accentColor) var(--ion-safe-area-top), var(--app-color-backgroud-1) calc(90px + var(--ion-safe-area-top)));
+}
+
+.headerContainer {
+  top: var(--ion-safe-area-top);
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.header {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 1;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-items: center;
+  min-width: 0;
+
+  .header__backButton {
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    flex-shrink: 0;
+  }
+
+  .header__backButton:active {
+    transform: scale(0.95);
+    transition: transform 100ms;
+    color: var(--app-color-text-secondary);
+  }
+
+  .header__title {
+    @include font-p1;
+    @include font-bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: var(--titleOpacity);
+  }
+}
+
+.ionContent {
+  --padding-top: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  --accentColor: #2b42a8;
+  background: linear-gradient(180deg, var(--accentColor) 0px, var(--app-color-backgroud-1) 220px);
+  padding-top: calc(3.75rem + var(--ion-safe-area-top));
+  padding-left: var(--page-side-padding);
+  padding-right: var(--page-side-padding);
+}
+
+.title {
+  @include font-h1;
+  @include font-bold;
+  margin-bottom: 0.5rem;
+}
+
+.songCountSubtitle {
+  @include font-p2;
+  --color: var(--app-color-text-secondary);
+}
+
+.playbuttonContainer {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 0.5rem;
+}
+
+.playbutton {
+  align-self: flex-end;
+  z-index: 2;
+  position: sticky;
+  top: calc(14px + var(--ion-safe-area-top));
+  margin-bottom: 0.5rem;
+}
+
+.item {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}

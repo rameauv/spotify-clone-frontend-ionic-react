@@ -7,7 +7,7 @@ describe('auth process', {
   beforeEach(() => {
     cy.task('initializeDb').then(res => credentials = res);
     cy.visit('http://localhost:3000');
-  })
+  });
 
   it('should login and logout', () => {
     cy.login({userName: credentials.userName, password: credentials.password});

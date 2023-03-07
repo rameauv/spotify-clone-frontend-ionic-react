@@ -5,10 +5,10 @@ const config: CapacitorConfig = {
     appName: 'myApp',
     webDir: 'build',
     bundledWebRuntime: false,
-    server: {
-        url: 'http://localhost:3000',
-        cleartext: true
-    }
+    // server: {
+    // url: 'http://localhost:3000',
+    // cleartext: true
+    // }
 };
 
 export default config;

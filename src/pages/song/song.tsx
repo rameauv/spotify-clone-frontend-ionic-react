@@ -8,16 +8,12 @@ import {fetchTrack, selectById} from '../../store/slices/track-slice/track-slice
 import {useDispatch, useSelector} from 'react-redux';
 import {MyState} from '../../store/store';
 import {CachedTrack} from '../../store/slices/track-slice/models/cachedTrack';
-import {
-    addTrackLikeThunk,
-    CachedLike,
-    deleteLikeThunk,
-    selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
+import {CachedLike, selectLikeByAssociatedId} from '../../store/slices/like-slise/like-slice';
 import HeaderWithCenteredTitle from '../../components/headers/header-with-centered-title/header-with-centered-title';
 import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
 import HeartButton from '../../components/buttons/heart-button/heart-button';
 import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
+import {addTrackLikeThunk, deleteTrackLikeThunk} from '../../store/like/like-thunks';
 
 const defaultImage = 'https://i1.sndcdn.com/artworks-000896291524-ebqgho-t500x500.jpg';
 
@@ -40,15 +36,23 @@ const Song: React.FC = () => {
     }, [id, dispatch]);
     const handleLikeButtonEvent = () => {
         if (cachedLike) {
-            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
-        } else {
-            dispatch<any>(addTrackLikeThunk({id}));
+            dispatch(deleteTrackLikeThunk({id: cachedLike.id, associatedId: id}));
+        } else if (track) {
+            dispatch(addTrackLikeThunk({
+                id: track.id,
+                title: track.title,
+                artist: track.artistName,
+                thumbnailUrl: track.thumbnailUrl
+            }));
         }
     };
     const content = !track ?
         undefined :
         (<>
-            <div className={styles.imageContainer}>
+            <div
+                className={styles.imageContainer}
+                data-cy="loaded-content"
+            >
                 <img
                     className={styles.image}
                     src={track.thumbnailUrl ?? defaultImage}
@@ -60,7 +64,10 @@ const Song: React.FC = () => {
                 <p className={styles.artist}>{track.artistName}</p>
                 <p className={styles.type}>Song</p>
                 <div className={styles.buttons}>
-                    <div className={styles.heartButton}>
+                    <div
+                        className={styles.heartButton}
+                        data-cy="heart-button"
+                    >
                         <HeartButton
                             isActivated={!!cachedLike}
                             onClick={() => handleLikeButtonEvent()}
@@ -69,7 +76,6 @@ const Song: React.FC = () => {
                     <IonIcon
                         className={styles.moreMenuButton}
                         icon={ellipsisVertical}
-                        onClick={() => present()}
                     ></IonIcon>
                     <div className={styles.playbutton}>
                         <BigPlayButton/>

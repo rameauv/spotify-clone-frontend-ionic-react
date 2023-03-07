@@ -3,21 +3,17 @@ import styles from './artist.module.scss';
 import {arrowBackOutline, ellipsisVerticalSharp} from 'ionicons/icons';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import SearchSong from '../../components/thumbnails/search-song/search-song';
+import SearchSong from '../../components/items/search-song/search-song';
 import {useDispatch, useSelector} from 'react-redux';
 import {MyState} from '../../store/store';
 import {CachedArtist} from '../../store/slices/artist-slice/models/cachedArtist';
 import {fetchArtist, selectArtistById} from '../../store/slices/artist-slice/artist-slice';
-import {
-    addArtistLikeThunk,
-    CachedLike,
-    deleteLikeThunk,
-    selectLikeByAssociatedId
-} from '../../store/slices/like-slise/like-slice';
+import {CachedLike, selectLikeByAssociatedId} from '../../store/slices/like-slise/like-slice';
 import BigPlayButton from '../../components/buttons/big-play-button/big-play-button';
 import FollowButton from '../../components/buttons/follow-button/follow-button';
 import RoundOutlineButton from '../../components/buttons/round-outline-button/round-outline-button';
 import IconButton, {IconButtonSize} from '../../components/buttons/icon-button/icon-button';
+import {addArtistLikeThunk, deleteArtistLikeThunk} from '../../store/like/like-thunks';
 
 const sectionProvider = (title: string, content: any) => {
     return (
@@ -62,9 +58,13 @@ const Artist: React.FC = () => {
 
     const handleFollowButtonEvent = () => {
         if (cachedLike) {
-            dispatch<any>(deleteLikeThunk({id: cachedLike.id, associatedId: id}));
-        } else {
-            dispatch<any>(addArtistLikeThunk({id}));
+            dispatch(deleteArtistLikeThunk({id: cachedLike.id, associatedId: id}));
+        } else if (artist) {
+            dispatch(addArtistLikeThunk({
+                id: artist.id,
+                name: artist.name,
+                thumbnailUrl: artist.thumbnailUrl
+            }));
         }
     };
     const content = !artist ?
@@ -85,6 +85,7 @@ const Artist: React.FC = () => {
         </>) :
         (<>
             <IonContent
+                data-cy="loaded-content"
                 className={styles.ionContent}
                 style={{
                     '--backgroundOpacity': bgOpacity,
@@ -111,7 +112,10 @@ const Artist: React.FC = () => {
                     <div className={styles.solidContainer}>
                         <p className={styles.viewers}>{artist.monthlyListeners} monthly viewers</p>
                         <div className={styles.buttons}>
-                            <div className={styles.addToPlaylistButtonContainer}>
+                            <div
+                                className={styles.addToPlaylistButtonContainer}
+                                data-cy="follow-button"
+                            >
                                 <FollowButton
                                     isFollowing={!!cachedLike}
                                     onClick={() => handleFollowButtonEvent()}
