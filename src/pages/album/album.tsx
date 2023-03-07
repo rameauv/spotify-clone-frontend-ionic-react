@@ -22,9 +22,9 @@ const Album: React.FC = () => {
     const tab = useRouteMatch<TabRouteParams>().params.tab;
     const artistPath = useContext(PathsContext).artist(tab);
     const dispatch = useDispatch();
-    const cachedTrack = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
+    const cachedAlbum = useSelector<MyState, CachedAlbum | undefined>(state => selectAlbumById(state, id));
     const cachedLike = useSelector<MyState, CachedLike | undefined>(state => selectLikeByAssociatedId(state, id));
-    const album = cachedTrack?.album;
+    const album = cachedAlbum?.album;
     const fullArtistPath = `${artistPath}/${album?.artistId}`;
 
     useEffect(() => {
@@ -94,7 +94,6 @@ const Album: React.FC = () => {
                     <IonIcon
                         className={styles.moreMenuButton}
                         icon={ellipsisVerticalSharp}
-                        onClick={() => present()}
                     ></IonIcon>
                     <IonIcon className={styles.playbutton} icon={playCircle}></IonIcon>
                 </div>

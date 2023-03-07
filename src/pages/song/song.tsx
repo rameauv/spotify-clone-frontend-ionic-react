@@ -76,7 +76,6 @@ const Song: React.FC = () => {
                     <IonIcon
                         className={styles.moreMenuButton}
                         icon={ellipsisVertical}
-                        onClick={() => present()}
                     ></IonIcon>
                     <div className={styles.playbutton}>
                         <BigPlayButton/>
