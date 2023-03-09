@@ -40,6 +40,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import TextButton from './components/buttons/text-button/text-button';
 import NotAuthGuard from './components/not-auth-guard/not-auth-guard';
 import {fetchInitialAppData, selectAppStatus} from './store/slices/app-slice/app-slice';
+import {useDisableAndroidBackButton} from './hooks/use-disable-android-back-button';
+
 
 setupIonicReact();
 
@@ -58,6 +60,8 @@ const App: React.FC = () => {
     const status = useSelector(selectAppStatus);
     const dispatch = useDispatch();
     const [smoothLoading, setSmoothLoading] = useState(false);
+
+    useDisableAndroidBackButton(); // the android back button is causing routing problems, disable it for now
     useEffect(() => {
         console.log('use effect');
         if (status === 'idle') {
